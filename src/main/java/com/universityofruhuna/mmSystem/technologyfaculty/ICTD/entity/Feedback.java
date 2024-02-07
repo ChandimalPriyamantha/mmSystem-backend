@@ -21,7 +21,7 @@ public class Feedback {
     @Column(name = "feedback")
     private String feedback;
 
-    @Column(name = "date")
+    @Column(name = "date_time")
     private String date;
 
     @Column(name = "signature")
