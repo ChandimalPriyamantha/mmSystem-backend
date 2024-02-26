@@ -1,14 +1,14 @@
-spring:
-  datasource:
-    url: jdbc:sqlserver://fotserver.database.windows.net:1433;database=mmsystem;user=mmsystem@fotserver;password={nokialumia17997CHANDIMAL};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
-    username: mmsystem
-    password: nokialumia17997CHANDIMAL
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-      dialect : org.hibernate.dialect.SQLServer2012Dialect
-
-server:
-  port: 8080
+#spring:
+#  datasource:
+#    url: jdbc:sqlserver://fotserver.database.windows.net:1433;database=mmsystem;user=mmsystem@fotserver;password={nokialumia17997CHANDIMAL};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+#    username: mmsystem
+#    password: nokialumia17997CHANDIMAL
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
+#      dialect : org.hibernate.dialect.SQLServer2012Dialect
+#
+#server:
+#  port: 8080
 

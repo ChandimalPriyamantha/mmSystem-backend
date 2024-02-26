@@ -1,6 +1,6 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.config;
 
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.Feedback;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.examScore;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.http.HttpMethod;
@@ -20,10 +20,10 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
                 HttpMethod.DELETE,
                 HttpMethod.PUT};
 
-        config.exposeIdsFor(Feedback.class);
+        config.exposeIdsFor(examScore.class);
 
 
-        disableHttpMethods(Feedback.class, config, theUnsupportedActions);
+        disableHttpMethods(examScore.class, config, theUnsupportedActions);
 
 
         /* Configure CORS Mapping */
