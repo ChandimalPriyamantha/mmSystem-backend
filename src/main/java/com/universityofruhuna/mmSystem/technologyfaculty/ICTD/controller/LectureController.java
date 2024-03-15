@@ -1,0 +1,38 @@
+package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
+
+
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.ExamScore;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.requestmodel.AddScoreRequest;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.LectureScoreService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@CrossOrigin("http://localhost:3000")
+@RestController
+@RequestMapping("/api/lecture")
+public class LectureController {
+
+    private LectureScoreService lectureScoreService;
+
+    @Autowired
+    public LectureController(LectureScoreService lectureScoreService) {
+        this.lectureScoreService = lectureScoreService;
+    }
+
+    @PostMapping("/add/score")
+    public void addScore(@RequestBody AddScoreRequest addScoreRequest){
+        lectureScoreService.feedScores(addScoreRequest);
+    }
+
+    //testing
+
+    @GetMapping("/get/score")
+    public List<ExamScore> getScore()
+    {
+        return lectureScoreService.getScore();
+    }
+
+
+}
