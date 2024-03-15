@@ -1,10 +1,13 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
 
 
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.ExamScore;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.requestmodel.AddScoreRequest;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.LectureScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
@@ -23,5 +26,10 @@ public class LectureController {
         lectureScoreService.feedScores(addScoreRequest);
     }
 
+
+    @GetMapping("get/score")
+    public List<ExamScore> getAllScore(){
+        return lectureScoreService.getAllScore();
+    }
 
 }
