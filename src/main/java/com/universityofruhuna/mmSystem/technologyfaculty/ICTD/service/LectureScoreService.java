@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -38,4 +39,14 @@ public class LectureScoreService {
         return examScoreRepository.findAll();
     }
 
+
+    public void editScore( ExamScore examScore)
+    {
+        examScoreRepository.save(examScore);
+    }
+
+    public Optional<ExamScore> getScoreByID(int id)
+    {
+        return examScoreRepository.findById((long) id);
+    }
 }
