@@ -1,19 +1,21 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
 
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.StudentMarksDTO;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.StudentMarks;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.StudentMarksService;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.mapper.Mapper;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/api/studentMarks")
 @AllArgsConstructor
@@ -39,7 +41,8 @@ public class StudentMarksController
     @Autowired
     private StudentMarksService studentMarksService;
 
-
+    @Autowired
+    private ResponseDTO responseDTO;
 
     @GetMapping("/GetMarksByLS/{level},{semester}")
     public List<StudentMarksDTO> getStudentMarksByLevelSemester(@PathVariable String level, @PathVariable String semester)
@@ -48,6 +51,27 @@ public class StudentMarksController
     }
 
 
+    @PutMapping("EditMarksForm")
+    public ResponseEntity editMarksById(@RequestBody StudentMarksDTO studentMarksDTO){
+        String Response=studentMarksService.editMarks(studentMarksDTO);
+        if (Response.equals(VarList.RIP_SUCCESS)){
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setMessage("Successfully Updated!");
+            responseDTO.setContent(studentMarksDTO);
+
+            return new ResponseEntity(studentMarksDTO, HttpStatus.ACCEPTED);
+
+        }else {
+            responseDTO.setCode(VarList.RIP_ERROR);
+            responseDTO.setMessage("No Data Found for Update!");
+            responseDTO.setContent(studentMarksDTO);
+
+            return new ResponseEntity(studentMarksDTO, HttpStatus.NOT_FOUND);
+        }
+
+
+
+    }
 
 
 
