@@ -23,6 +23,7 @@ public class CourseService {
     public List<CourseDTO> findCoursesByDepartmentLevelSemester(String department_id,int level, int semester){
         List<Course> courseList= courseRepo.findCoursesByDepartmentLevelSemester(department_id,level,semester);
         return mp.map(courseList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
+
     }
 
     public List<CourseDTO> getAllCourses(){
