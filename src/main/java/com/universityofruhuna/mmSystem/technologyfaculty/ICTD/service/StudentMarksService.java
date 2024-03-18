@@ -46,4 +46,13 @@ public class StudentMarksService
         }
 
     }
+
+
+    public List<StudentMarksDTO> getMarksforCourseById(String id) {
+
+            List<StudentMarksDTO> studentMarks =mp.map( studentMarksRepo.findCoursecodeOverallScoreByStId(id),new TypeToken<ArrayList<StudentMarksDTO>>(){}.getType());
+
+            return studentMarks;
+
+    }
 }
