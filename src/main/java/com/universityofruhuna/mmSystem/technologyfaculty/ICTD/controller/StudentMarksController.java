@@ -3,7 +3,10 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.StudentMarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.StudentMarks;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.StudentMarksService;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +27,7 @@ import java.util.List;
 public class StudentMarksController
 {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String student_id;
@@ -51,7 +55,8 @@ public class StudentMarksController
     }
 
 
-    @PutMapping("EditMarksForm")
+
+    @PutMapping("/EditMarksForm/{id}")
     public ResponseEntity editMarksById(@RequestBody StudentMarksDTO studentMarksDTO){
         String Response=studentMarksService.editMarks(studentMarksDTO);
         if (Response.equals(VarList.RIP_SUCCESS)){
@@ -72,6 +77,15 @@ public class StudentMarksController
 
 
     }
+
+    @GetMapping("/getCourseCodeOverallScoreById/{id}")
+    public List<StudentMarksDTO> getCourseCodeOverallScoreById(@PathVariable String id)
+    {
+        List<StudentMarksDTO> studentsMarksList=studentMarksService.getMarksforCourseById(id);
+
+        return studentsMarksList;
+    }
+
 
 
 

@@ -14,4 +14,7 @@ public interface StudentMarksRepo extends JpaRepository<StudentMarks,Integer> {
     @Query(nativeQuery = true, value = "select * from grade g where g.level = :level and g.semester = :semester")
     List<StudentMarks> findStudentMarksByLevelSemester(@Param("level") String level, @Param("semester") String semester);
 
+    @Query(nativeQuery = true, value = "select * from grade  where student_id= :id")
+    List<StudentMarks> findCoursecodeOverallScoreByStId(@Param("id") String id);
+
 }
