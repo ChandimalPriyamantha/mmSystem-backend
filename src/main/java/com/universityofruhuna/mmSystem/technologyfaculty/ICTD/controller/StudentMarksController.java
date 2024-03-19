@@ -56,7 +56,7 @@ public class StudentMarksController
 
 
 
-    @PutMapping("/EditMarksForm/{id}")
+    @PutMapping("/EditMarksForm/")
     public ResponseEntity editMarksById(@RequestBody StudentMarksDTO studentMarksDTO){
         String Response=studentMarksService.editMarks(studentMarksDTO);
         if (Response.equals(VarList.RIP_SUCCESS)){

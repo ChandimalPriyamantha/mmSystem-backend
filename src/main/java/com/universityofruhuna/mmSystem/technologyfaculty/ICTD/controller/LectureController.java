@@ -50,4 +50,8 @@ public class LectureController {
         return lectureScoreService.getScoreByID(id);
     }
 
+    @GetMapping("get/scorebyStudentID/{student_id}")
+    public List<ExamScore> getScoreByStudent_ID(@PathVariable String student_id){
+        return lectureScoreService.getScoreByStudent_ID(student_id);
+    }
 }
