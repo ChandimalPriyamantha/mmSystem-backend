@@ -2,7 +2,6 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.ExamScoreRepository;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.ExamScore;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.StudentMarks;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.requestmodel.AddScoreRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +52,12 @@ public class LectureScoreService {
     public Optional<ExamScore> getScoreByID(int id)
     {
         return examScoreRepository.findById((long) id);
+    }
+
+
+
+    public List<ExamScore> getScoreByStudent_ID(String student_id)
+    {
+        return examScoreRepository.getScoreByStudent_ID(student_id);
     }
 }

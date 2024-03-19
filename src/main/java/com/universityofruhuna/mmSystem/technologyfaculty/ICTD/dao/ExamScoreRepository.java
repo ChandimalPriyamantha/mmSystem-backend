@@ -16,4 +16,7 @@ public interface ExamScoreRepository extends JpaRepository<ExamScore, Long> {
     @Query(nativeQuery = true, value = "select * from marks where course_id=course_id")
     List<ExamScore> findStudentMarksByCourseID(@Param("course_id") String course_id);
 
+    @Query(nativeQuery = true, value = "select * from marks where student_id=student_id")
+    List<ExamScore> getScoreByStudent_ID(@Param("student_id") String student_id);
+
 }
