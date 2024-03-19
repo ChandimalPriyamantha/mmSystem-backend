@@ -20,8 +20,8 @@ public class CourseService {
     @Autowired
     private ModelMapper mp;
 
-    public List<CourseDTO> findCoursesByDepartmentLevelSemester(String department_id,int level, int semester){
-        List<Course> courseList= courseRepo.findCoursesByDepartmentLevelSemester(department_id,level,semester);
+    public List<CourseDTO> findCoursesByDepartmentLevelSemester(String department_id,int level, int semester, String approval_level){
+        List<Course> courseList= courseRepo.findCoursesByDepartmentLevelSemester(department_id,level,semester,approval_level);
         return mp.map(courseList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
 
     }

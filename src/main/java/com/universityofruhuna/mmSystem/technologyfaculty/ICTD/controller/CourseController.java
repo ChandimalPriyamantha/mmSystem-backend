@@ -23,9 +23,9 @@ public class CourseController {
     @Autowired
     private ResponseDTO responseDTO;
 
-    @GetMapping("/findCoursesByDepartmentLevelSemester/{department_id}/{level}/{semester}")
-    public List<CourseDTO> findCoursesByDepartmentLevelSemester(@PathVariable String department_id ,@PathVariable int level, @PathVariable int semester){
-        return courseService.findCoursesByDepartmentLevelSemester(department_id,level,semester);
+    @GetMapping("/findCoursesByDepartmentLevelSemester/{department_id}/{level}/{semester}/{approval_level}")
+    public List<CourseDTO> findCoursesByDepartmentLevelSemester(@PathVariable String department_id ,@PathVariable int level, @PathVariable int semester, @PathVariable String approval_level){
+        return courseService.findCoursesByDepartmentLevelSemester(department_id,level,semester,approval_level);
     }
 
     @GetMapping("/findAllCourses")
