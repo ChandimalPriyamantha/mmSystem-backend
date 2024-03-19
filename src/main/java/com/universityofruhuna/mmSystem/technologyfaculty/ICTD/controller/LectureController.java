@@ -33,6 +33,11 @@ public class LectureController {
         return lectureScoreService.getAllScore();
     }
 
+    @GetMapping("get/scoreByCourseId/{course_id}")
+    public List<ExamScore> getAllScoreByCourseId(@PathVariable String course_id){
+        return lectureScoreService.getAllScoreByCourseId(course_id);
+    }
+
     @PutMapping("edit/score/{id}")
    public void editScore(@RequestBody ExamScore examScore)
     {
