@@ -34,30 +34,4 @@ public class LectureScoreService {
         examScoreRepository.save(examScore);
 
     }
-
-    public List<ExamScore> getAllScore(){
-        return examScoreRepository.findAll();
-    }
-
-
-    public List<ExamScore> getAllScoreByCourseId(String course_id){
-        return examScoreRepository.findStudentMarksByCourseID(course_id);
-    }
-
-    public void editScore( ExamScore examScore)
-    {
-        examScoreRepository.save(examScore);
-    }
-
-    public Optional<ExamScore> getScoreByID(int id)
-    {
-        return examScoreRepository.findById((long) id);
-    }
-
-
-
-    public List<ExamScore> getScoreByStudent_ID(String student_id)
-    {
-        return examScoreRepository.getScoreByStudent_ID(student_id);
-    }
 }

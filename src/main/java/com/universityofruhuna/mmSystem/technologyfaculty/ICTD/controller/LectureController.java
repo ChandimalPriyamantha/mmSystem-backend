@@ -25,32 +25,4 @@ public class LectureController {
     public void addScore(@RequestBody AddScoreRequest addScoreRequest){
         lectureScoreService.feedScores(addScoreRequest);
     }
-
-
-    @GetMapping("get/score")
-    public List<ExamScore> getAllScore(){
-        return lectureScoreService.getAllScore();
-    }
-
-    @GetMapping("get/scoreByCourseId/{course_id}")
-    public List<ExamScore> getAllScoreByCourseId(@PathVariable String course_id){
-        return lectureScoreService.getAllScoreByCourseId(course_id);
-    }
-
-    @PutMapping("edit/score/{id}")
-   public void editScore(@RequestBody ExamScore examScore)
-    {
-        lectureScoreService.editScore(examScore);
-    }
-
-
-    @GetMapping("get/scorebyID/{id}")
-    public Optional<ExamScore> getScoreByID(@PathVariable int id){
-        return lectureScoreService.getScoreByID(id);
-    }
-
-    @GetMapping("get/scorebyStudentID/{student_id}")
-    public List<ExamScore> getScoreByStudent_ID(@PathVariable String student_id){
-        return lectureScoreService.getScoreByStudent_ID(student_id);
-    }
 }

@@ -56,23 +56,26 @@ public class StudentMarksController
 
 
 
-    @PutMapping("/EditMarksForm/")
-    public ResponseEntity editMarksById(@RequestBody StudentMarksDTO studentMarksDTO){
-        String Response=studentMarksService.editMarks(studentMarksDTO);
-        if (Response.equals(VarList.RIP_SUCCESS)){
-            responseDTO.setCode(VarList.RIP_SUCCESS);
-            responseDTO.setMessage("Successfully Updated!");
-            responseDTO.setContent(studentMarksDTO);
+    @PutMapping("/EditMarksForm")
+    public void editMarksById(@RequestBody List<StudentMarksDTO> studentMarksDTO){
 
-            return new ResponseEntity(studentMarksDTO, HttpStatus.ACCEPTED);
+        studentMarksService.editMarks(studentMarksDTO);
 
-        }else {
-            responseDTO.setCode(VarList.RIP_ERROR);
-            responseDTO.setMessage("No Data Found for Update!");
-            responseDTO.setContent(studentMarksDTO);
-
-            return new ResponseEntity(studentMarksDTO, HttpStatus.NOT_FOUND);
-        }
+//        String Response=studentMarksService.editMarks(studentMarksDTO);
+//        if (Response.equals(VarList.RIP_SUCCESS)){
+//            responseDTO.setCode(VarList.RIP_SUCCESS);
+//            responseDTO.setMessage("Successfully Updated!");
+//            responseDTO.setContent(studentMarksDTO);
+//
+//            return new ResponseEntity(studentMarksDTO, HttpStatus.ACCEPTED);
+//
+//        }else {
+//            responseDTO.setCode(VarList.RIP_ERROR);
+//            responseDTO.setMessage("No Data Found for Update!");
+//            responseDTO.setContent(studentMarksDTO);
+//
+//            return new ResponseEntity(studentMarksDTO, HttpStatus.NOT_FOUND);
+//        }
 
 
 
@@ -86,6 +89,15 @@ public class StudentMarksController
         return studentsMarksList;
     }
 
+
+
+    /*Lakindu-Start--------------------*/
+
+    @GetMapping("/findAllStudentMarksRemainingToApprove/{approval_level}/{course_id}")
+    public ResponseEntity<List<Object[]>> findAllStudentMarksRemainingToApprove(@PathVariable String approval_level,@PathVariable String course_id){
+        List<Object[]> joinedData=studentMarksService.findAllStudentMarksRemainingToApprove(approval_level,course_id);
+        return ResponseEntity.ok(joinedData);
+    }
 
 
 
