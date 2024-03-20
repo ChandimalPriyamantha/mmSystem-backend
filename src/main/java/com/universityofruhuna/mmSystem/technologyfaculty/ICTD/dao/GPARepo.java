@@ -11,5 +11,5 @@ import java.util.List;
 public interface GPARepo extends JpaRepository<GPA,Integer>
 {
     @Query(nativeQuery = true, value = "select * from gpa  where student_id= :id")
-    GPA findGPAByStId(@Param("id") String id);
+   List<GPA>  findGPAByStId(@Param("id") String id);
 }

@@ -56,11 +56,4 @@ public class StudentMarksService
 
     }
 
-    /*Lakindu-Start--------------------*/
-    public List<Object[]> findAllStudentMarksRemainingToApprove(String approval_level,String course_id ){
-
-
-        return studentMarksRepo.findAllStudentMarksRemainingToApprove(approval_level,course_id);
-
-    }
 }
