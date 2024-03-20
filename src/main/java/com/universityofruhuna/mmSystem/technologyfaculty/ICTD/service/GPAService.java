@@ -22,8 +22,8 @@ public class GPAService
     @Autowired
     ModelMapper mp;
 
-    public List<GPADTO> getGPAByStID(String student_id)
+    public List<GPADTO> getGPAByStID(String level,String semester)
     {
-        return mp.map(gpaRepo.findGPAByStId(student_id),new TypeToken<ArrayList<GPADTO>>(){}.getType());
+        return mp.map(gpaRepo.findGPAByStId(level,semester),new TypeToken<ArrayList<GPADTO>>(){}.getType());
     }
 }
