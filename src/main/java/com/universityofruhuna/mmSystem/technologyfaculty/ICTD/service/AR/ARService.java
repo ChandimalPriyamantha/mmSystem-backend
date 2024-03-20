@@ -1,7 +1,7 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.CourseRepo;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.ARCourseRepo;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.ArMarksRepo;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Course;
 import jakarta.transaction.Transactional;
@@ -17,28 +17,27 @@ import java.util.List;
 @Transactional
 public class ARService {
     @Autowired
-    private CourseRepo courseRepo;
+    private ARCourseRepo arCourseRepo;
     @Autowired
     private ArMarksRepo arMarksRepo;
     @Autowired
     private ModelMapper mp;
 
     public List<CourseDTO> findCoursesByDepartmentLevelSemester(String department_id,int level, int semester, String approval_level){
-        List<Course> courseList= courseRepo.findCoursesByDepartmentLevelSemester(department_id,level,semester,approval_level);
+        List<Course> courseList= arCourseRepo.findCoursesByDepartmentLevelSemester(department_id,level,semester,approval_level);
         return mp.map(courseList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
 
     }
 
     public List<CourseDTO> getAllCourses(){
-        List<Course> courseList= courseRepo.findAll();
+        List<Course> courseList= arCourseRepo.findAll();
         return mp.map(courseList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
     }
 
-    /*Lakindu-Start--------------------*/
     public List<Object[]> findAllStudentMarksRemainingToApprove(String approval_level,String course_id ){
 
 
-        return arMarksRepo.findAllStudentMarksRemainingToApprove(approval_level,course_id);
+        return arCourseRepo.findAllStudentMarksRemainingToApprove(approval_level,course_id);
 
     }
 }
