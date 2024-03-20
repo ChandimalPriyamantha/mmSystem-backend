@@ -91,6 +91,15 @@ public class StudentMarksController
 
 
 
+    /*Lakindu-Start--------------------*/
+
+    @GetMapping("/findAllStudentMarksRemainingToApprove/{approval_level}/{course_id}")
+    public ResponseEntity<List<Object[]>> findAllStudentMarksRemainingToApprove(@PathVariable String approval_level,@PathVariable String course_id){
+        List<Object[]> joinedData=studentMarksService.findAllStudentMarksRemainingToApprove(approval_level,course_id);
+        return ResponseEntity.ok(joinedData);
+    }
+
+
 
 
 }
