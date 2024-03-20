@@ -1,6 +1,5 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
 
-
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.ExamScore;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.requestmodel.AddScoreRequest;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.LectureScoreService;
