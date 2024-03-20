@@ -1,8 +1,9 @@
-package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service;
+package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR;
 
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.CourseDTO;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.CourseRepo;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.Course;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.CourseRepo;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.ArMarksRepo;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Course;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -14,9 +15,11 @@ import java.util.List;
 
 @Service
 @Transactional
-public class CourseService {
+public class ARService {
     @Autowired
     private CourseRepo courseRepo;
+    @Autowired
+    private ArMarksRepo arMarksRepo;
     @Autowired
     private ModelMapper mp;
 
@@ -29,5 +32,13 @@ public class CourseService {
     public List<CourseDTO> getAllCourses(){
         List<Course> courseList= courseRepo.findAll();
         return mp.map(courseList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
+    }
+
+    /*Lakindu-Start--------------------*/
+    public List<Object[]> findAllStudentMarksRemainingToApprove(String approval_level,String course_id ){
+
+
+        return arMarksRepo.findAllStudentMarksRemainingToApprove(approval_level,course_id);
+
     }
 }

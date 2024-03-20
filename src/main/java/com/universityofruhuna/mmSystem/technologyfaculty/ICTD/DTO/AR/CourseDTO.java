@@ -1,4 +1,4 @@
-package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO;
+package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
