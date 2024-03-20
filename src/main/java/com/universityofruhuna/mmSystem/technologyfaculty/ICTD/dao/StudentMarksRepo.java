@@ -21,7 +21,7 @@ public interface StudentMarksRepo extends JpaRepository<StudentMarks,Integer> {
             " where mark_approved_level.approval_level=?1 and marks.course_id=?2")
     List<Object[]> findAllStudentMarksRemainingToApprove( String approval_level,String course_id);
 
-    @Query(nativeQuery = true, value = "select * from grade  where student_id= :id")
+    @Query(nativeQuery = true, value = "select * from grade  where grade.student_id= :id")
     List<StudentMarks> findCoursecodeOverallScoreByStId(@Param("id") String id);
 
 
