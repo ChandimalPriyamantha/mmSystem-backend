@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,5 +29,9 @@ public class StudentMarks
     private double overall_score;
 
     private String grade;
+
+
+
+
 
 }
