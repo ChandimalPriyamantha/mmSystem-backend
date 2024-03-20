@@ -37,13 +37,22 @@ public class StudentMarksService
     }
 
 
-    public String editMarks(StudentMarksDTO studentMarksDTO){
-        if (studentMarksRepo.existsById(studentMarksDTO.getId())){
-            studentMarksRepo.save(mp.map(studentMarksDTO,StudentMarks.class));
-            return VarList.RIP_SUCCESS;
-        }else {
+    public String editMarks(List<StudentMarksDTO> studentMarksDTO){
+      //  if (studentMarksRepo.existsById(studentMarksDTO.getId())){
+            studentMarksRepo.saveAll(mp.map(studentMarksDTO,new TypeToken<ArrayList<StudentMarks>>(){}.getType()));
+        //    return VarList.RIP_SUCCESS;
+      //  }else {
             return VarList.RIP_NO_DATA_FOUND;
-        }
+     //   }
+
+    }
+
+
+    public List<StudentMarksDTO> getMarksforCourseById(String id) {
+
+            List<StudentMarksDTO> studentMarks =mp.map( studentMarksRepo.findCoursecodeOverallScoreByStId(id),new TypeToken<ArrayList<StudentMarksDTO>>(){}.getType());
+
+            return studentMarks;
 
     }
 

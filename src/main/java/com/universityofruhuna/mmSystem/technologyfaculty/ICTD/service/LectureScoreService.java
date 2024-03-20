@@ -40,6 +40,10 @@ public class LectureScoreService {
     }
 
 
+    public List<ExamScore> getAllScoreByCourseId(String course_id){
+        return examScoreRepository.findStudentMarksByCourseID(course_id);
+    }
+
     public void editScore( ExamScore examScore)
     {
         examScoreRepository.save(examScore);
@@ -48,5 +52,12 @@ public class LectureScoreService {
     public Optional<ExamScore> getScoreByID(int id)
     {
         return examScoreRepository.findById((long) id);
+    }
+
+
+
+    public List<ExamScore> getScoreByStudent_ID(String student_id)
+    {
+        return examScoreRepository.getScoreByStudent_ID(student_id);
     }
 }
