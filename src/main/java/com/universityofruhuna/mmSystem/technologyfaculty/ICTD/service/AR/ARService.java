@@ -42,4 +42,11 @@ public class ARService {
         return mp.map(marksEntities,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
 
     }
+
+    public List<MarksDTO> findAllStudentMarksRemainingToApproveByStuId(String approval_level, String course_id,String student_id ){
+
+        List<ARMarksEntity> marksEntities=arMarksRepo.findAllStudentMarksRemainingToApproveByStuId(approval_level,course_id,student_id);
+        return mp.map(marksEntities,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
+
+    }
 }
