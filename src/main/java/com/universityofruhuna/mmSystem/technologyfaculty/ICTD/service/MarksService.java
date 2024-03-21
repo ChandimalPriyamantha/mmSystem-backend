@@ -54,4 +54,11 @@ public class MarksService {
         List<MarksEntity> list=marksRepo.getScoreByStudent_ID(student_id);
         return modelMapper.map(list,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
     }
+
+    public List<MarksDTO> getScoreByLS(String level,String  semester)
+    {
+        List<MarksEntity> list=marksRepo.getScoreByLS(level,semester);
+        return modelMapper.map(list,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
+    }
+
 }
