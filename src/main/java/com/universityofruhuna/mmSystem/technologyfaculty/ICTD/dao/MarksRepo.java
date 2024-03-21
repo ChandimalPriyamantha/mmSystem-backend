@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface MarksRepo extends JpaRepository<MarksEntity,Integer> {
-    @Query(nativeQuery = true, value = "select * from marks where course_id=course_id")
+    @Query(nativeQuery = true, value = "select * from marks  where course_id=course_id ")
     List<MarksEntity> findStudentMarksByCourseID(@Param("course_id") String course_id);
 
     @Query(nativeQuery = true, value = "select * from marks where student_id=student_id")
