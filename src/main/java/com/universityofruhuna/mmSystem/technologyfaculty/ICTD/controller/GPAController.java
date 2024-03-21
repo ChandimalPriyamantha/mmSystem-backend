@@ -2,6 +2,7 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
 
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.GPADTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.GPA;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.GPAService;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,8 +10,11 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
@@ -38,12 +42,21 @@ public class GPAController
 
     @Autowired
     private GPAService gpaService;
-    @GetMapping("/GetGPAByStudent_Id/{student_id}")
-    public GPADTO GetGPAByStudent_Id(@PathVariable String student_id)
+
+    @Autowired
+    private ModelMapper modelMapper;
+    @GetMapping("/GetGPAByLevelSemester/{level},{semester}")
+    public List<GPADTO> GetGPAByLevelSemester(@PathVariable("level")String level,@PathVariable("semester")String semester)
     {
-        return  gpaService.getGPAByStID(student_id);
+       return gpaService.getGPAByLevelSemester(level,semester);
+
     }
 
+    @GetMapping("/GetGPAByStudent_Id/{student_id}")
+    public List<GPADTO> GetGPAByStudent_Id(@PathVariable("student_id")String student_id)
+    {
+        return gpaService.getGPAByStID(student_id);
 
+    }
 
 }
