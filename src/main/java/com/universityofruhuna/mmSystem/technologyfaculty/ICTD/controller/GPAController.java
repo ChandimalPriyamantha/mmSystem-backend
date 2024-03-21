@@ -45,13 +45,18 @@ public class GPAController
 
     @Autowired
     private ModelMapper modelMapper;
-    @GetMapping("/GetGPAByStudent_Id/{level},{semester}")
-    public List<GPADTO> GetGPAByStudent_Id(@PathVariable("level")String level,@PathVariable("semester")String semester)
+    @GetMapping("/GetGPAByLevelSemester/{level},{semester}")
+    public List<GPADTO> GetGPAByLevelSemester(@PathVariable("level")String level,@PathVariable("semester")String semester)
     {
-       return gpaService.getGPAByStID(level,semester);
+       return gpaService.getGPAByLevelSemester(level,semester);
 
     }
 
+    @GetMapping("/GetGPAByStudent_Id/{student_id}")
+    public List<GPADTO> GetGPAByStudent_Id(@PathVariable("student_id")String student_id)
+    {
+        return gpaService.getGPAByStID(student_id);
 
+    }
 
 }
