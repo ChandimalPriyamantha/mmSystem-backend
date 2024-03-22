@@ -1,7 +1,9 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller.AR;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.ExamScore;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR.ARService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,9 +39,14 @@ public class ARController {
 
 
     @GetMapping("/findAllStudentMarksRemainingToApprove/{approval_level}/{course_id}")
-    public ResponseEntity<List<Object[]>> findAllStudentMarksRemainingToApprove(@PathVariable String approval_level, @PathVariable String course_id){
-        List<Object[]> joinedData=arService.findAllStudentMarksRemainingToApprove(approval_level,course_id);
-        return ResponseEntity.ok(joinedData);
+    public List<MarksDTO> findAllStudentMarksRemainingToApprove(@PathVariable String approval_level, @PathVariable String course_id){
+        List<MarksDTO> joinedData=arService.findAllStudentMarksRemainingToApprove(approval_level,course_id);
+        return joinedData;
+    }
+    @GetMapping("/findAllStudentMarksRemainingToApproveByStuId/{approval_level}/{course_id}/{student_id}")
+    public List<MarksDTO> findAllStudentMarksRemainingToApproveByStuId(@PathVariable String approval_level, @PathVariable String course_id,@PathVariable String student_id){
+        List<MarksDTO> joinedData=arService.findAllStudentMarksRemainingToApproveByStuId(approval_level,course_id,student_id);
+        return joinedData;
     }
 
 
