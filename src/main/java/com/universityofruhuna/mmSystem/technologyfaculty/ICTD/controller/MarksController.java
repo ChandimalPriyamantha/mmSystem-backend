@@ -72,6 +72,6 @@ public class MarksController {
     @GetMapping("get/scorebyLS/{level},{semester}")
     public List<MarksDTO> getScoreByLS(@PathVariable String level,@PathVariable String semester){
         return marksService.getScoreByLS(level,semester);
-        
+
     }
 }
