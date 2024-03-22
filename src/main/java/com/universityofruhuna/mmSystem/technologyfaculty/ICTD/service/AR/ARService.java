@@ -1,9 +1,11 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.ARCourseRepo;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.ArMarksRepo;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Course;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.ARMarksEntity;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -34,10 +36,17 @@ public class ARService {
         return mp.map(courseList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
     }
 
-    public List<Object[]> findAllStudentMarksRemainingToApprove(String approval_level,String course_id ){
+    public List<MarksDTO> findAllStudentMarksRemainingToApprove(String approval_level, String course_id ){
 
+        List<ARMarksEntity> marksEntities=arMarksRepo.findAllStudentMarksRemainingToApprove(approval_level,course_id);
+        return mp.map(marksEntities,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
 
-        return arCourseRepo.findAllStudentMarksRemainingToApprove(approval_level,course_id);
+    }
+
+    public List<MarksDTO> findAllStudentMarksRemainingToApproveByStuId(String approval_level, String course_id,String student_id ){
+
+        List<ARMarksEntity> marksEntities=arMarksRepo.findAllStudentMarksRemainingToApproveByStuId(approval_level,course_id,student_id);
+        return mp.map(marksEntities,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
 
     }
 }
