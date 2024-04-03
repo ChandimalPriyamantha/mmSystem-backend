@@ -1,19 +1,16 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
 
-@Component
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ResponseDTO
+public class StudentRegCoursesDTO
 {
-    private String code;
+    private String student_id;
 
-    private String message;
-
-    private Object content;
+    private String course_id;
 }
