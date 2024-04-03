@@ -1,6 +1,6 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.config;
 
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.ExamScore;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.Lecture.ExamScore;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
