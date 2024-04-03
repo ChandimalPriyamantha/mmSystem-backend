@@ -4,13 +4,14 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+// Mapping exam score table with the ExamScore class
 @Entity
 @Table(name = "marks")
 @Data
 public class ExamScore {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Generate  autoincrement ID
     @Column(name = "id")
     private Long ID;
 
