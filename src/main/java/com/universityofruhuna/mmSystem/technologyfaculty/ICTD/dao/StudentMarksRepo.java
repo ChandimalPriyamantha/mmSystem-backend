@@ -1,0 +1,26 @@
+package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao;
+
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.StudentMarks;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.lang.annotation.Native;
+import java.util.List;
+import java.util.Optional;
+
+public interface StudentMarksRepo extends JpaRepository<StudentMarks,Integer> {
+
+    @Query(nativeQuery = true, value = "select * from grade g where g.level = :level and g.semester = :semester")
+    List<StudentMarks> findStudentMarksByLevelSemester(@Param("level") String level, @Param("semester") String semester);
+
+
+
+    @Query(nativeQuery = true, value = "select * from grade  where grade.student_id= :id")
+    List<StudentMarks> findCoursecodeOverallScoreByStId(@Param("id") String id);
+
+    @Query(nativeQuery = true, value = "select * from grade where student_id=:student_id and course_id=:course_id")
+    StudentMarks findMarksByStuCourse(@Param("student_id") String student_id,@Param("course_id") String course_id);
+
+
+}
