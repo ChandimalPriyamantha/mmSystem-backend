@@ -16,11 +16,13 @@ public class LectureScoreService {
 
     private ExamScoreRepository examScoreRepository;
 
+    // Initialization examRepository object
     @Autowired
     public LectureScoreService(ExamScoreRepository examScoreRepository) {
         this.examScoreRepository = examScoreRepository;
     }
 
+    // Score Feeding method to add new score
     public void feedScores(AddScoreRequest addScoreRequest){
 
         ExamScore examScore = new ExamScore();
