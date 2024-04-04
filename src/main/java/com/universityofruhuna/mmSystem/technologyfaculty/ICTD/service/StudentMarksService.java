@@ -56,11 +56,11 @@ public class StudentMarksService
 
     }
 
-    public StudentMarksDTO getMarksbySC(String course_id,String student_id)
+    public List<StudentMarksDTO> getMarksbySC(String course_id)
     {
-        StudentMarksDTO list=mp.map(studentMarksRepo.findMarksByStuCourse(student_id,course_id),StudentMarksDTO.class);
+        return mp.map(studentMarksRepo.findMarksByCourse(course_id),new TypeToken<ArrayList<StudentMarksDTO>>(){}.getType());
 
-        return list;
+
     }
 
 }
