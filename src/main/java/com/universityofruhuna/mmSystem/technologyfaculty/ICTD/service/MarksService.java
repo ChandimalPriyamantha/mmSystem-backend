@@ -2,7 +2,6 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.MarksRepo;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.ExamScore;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.MarksEntity;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
