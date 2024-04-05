@@ -1,8 +1,8 @@
-package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
+package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller.Lecture;
 
 
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.requestmodel.AddScoreRequest;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.LectureScoreService;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.requestmodel.Lecture.AddScoreRequest;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.Lecture.LectureScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

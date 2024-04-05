@@ -1,6 +1,5 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao;
 
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.ExamScore;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.MarksEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
