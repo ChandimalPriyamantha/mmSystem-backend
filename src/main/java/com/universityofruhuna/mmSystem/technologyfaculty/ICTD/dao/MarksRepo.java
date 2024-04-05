@@ -18,5 +18,8 @@ public interface MarksRepo extends JpaRepository<MarksEntity,Integer> {
     @Query(nativeQuery = true, value = "select * from marks where level=:level and semester=:semester")
     List<MarksEntity> getScoreByLS(@Param("level") String level,@Param("semester") String semester);
 
+    @Query(nativeQuery = true, value = "select * from marks where course_id=:course_id and student_id=:student_id")
+    List<MarksEntity> getScoreByStuIDCourseID(@Param("course_id") String course_id,@Param("student_id") String student_id);
+
 
 }
