@@ -10,6 +10,7 @@ import java.util.List;
 public interface ARMarksApprovalLevelRepo extends JpaRepository<MarksApprovalLevel,Integer> {
 
     //This method is to find * details of mark approval level table with passing course id, student_id, approval level and approved year
+    //hello
     @Query(value = "select * from mark_approved_level where course_id=?1 and student_id=?2 and approval_level=?3 and approved_year=?4",nativeQuery = true)
     List<MarksApprovalLevel> getMarksApprovalLevelByAllParameters(String course_id, String student_id, String approval_level, String approved_year);
 
