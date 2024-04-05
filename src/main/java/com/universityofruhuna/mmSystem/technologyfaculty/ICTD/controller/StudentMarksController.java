@@ -92,9 +92,16 @@ public class StudentMarksController
     }
 
     @GetMapping("/getStudentMarksbyCourse/{course_id}")
-    public List<StudentMarksDTO> getMarksBySC(@PathVariable String course_id)
+    public List<StudentMarksDTO> getMarksByC(@PathVariable String course_id)
     {
-        List<StudentMarksDTO> list=studentMarksService.getMarksbySC(course_id);
+        List<StudentMarksDTO> list=studentMarksService.getMarksbyC(course_id);
+        return list;
+    }
+
+    @GetMapping("/getStudentMarksbySC/{course_id},{student_id}")
+    public StudentMarksDTO getMarksBySC(@PathVariable String course_id,@PathVariable String student_id)
+    {
+        StudentMarksDTO list=studentMarksService.getMarksbySC(course_id,student_id);
         return list;
     }
 
