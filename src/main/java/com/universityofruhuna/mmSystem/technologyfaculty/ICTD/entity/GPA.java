@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 @Table(name="gpa")
 public class GPA
 {
+
+    //hello
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     private int id;
