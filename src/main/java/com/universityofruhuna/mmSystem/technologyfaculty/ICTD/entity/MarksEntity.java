@@ -23,6 +23,4 @@ public class MarksEntity {
     private String Assignment_type;
     private String Assignment_score;
 
-
-
 }
