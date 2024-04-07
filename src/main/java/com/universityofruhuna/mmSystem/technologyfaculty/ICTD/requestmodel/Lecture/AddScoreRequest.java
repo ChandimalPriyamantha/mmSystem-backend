@@ -1,4 +1,4 @@
-package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.requestmodel;
+package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.requestmodel.Lecture;
 
 
 import lombok.Data;

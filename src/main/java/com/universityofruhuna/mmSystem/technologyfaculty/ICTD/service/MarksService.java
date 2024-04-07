@@ -2,7 +2,6 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.MarksRepo;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.ExamScore;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.MarksEntity;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -55,10 +54,19 @@ public class MarksService {
         return modelMapper.map(list,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
     }
 
+
+    public List<MarksDTO> getScoreByStuIDCourseID(String course_id,String student_id)
+    {
+        List<MarksEntity> list=marksRepo.getScoreByStuIDCourseID(course_id,student_id);
+        return modelMapper.map(list,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
+    }
+
     public List<MarksDTO> getScoreByLS(String level,String  semester)
     {
         List<MarksEntity> list=marksRepo.getScoreByLS(level,semester);
         return modelMapper.map(list,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
     }
+
+
 
 }

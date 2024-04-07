@@ -1,4 +1,4 @@
-package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity;
+package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.Lecture;
 
 
 import jakarta.persistence.*;

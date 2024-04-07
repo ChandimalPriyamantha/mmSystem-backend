@@ -1,14 +1,11 @@
-package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service;
+package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.Lecture;
 
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.ExamScoreRepository;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.ExamScore;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.requestmodel.AddScoreRequest;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.Lecture.ExamScoreRepository;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.Lecture.ExamScore;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.requestmodel.Lecture.AddScoreRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional

@@ -92,6 +92,13 @@ public class StudentMarksController
         return studentsMarksList;
     }
 
+    @GetMapping("/getStudentMarksbyCourse/{course_id}")
+    public List<StudentMarksDTO> getMarksByC(@PathVariable String course_id)
+    {
+        List<StudentMarksDTO> list=studentMarksService.getMarksbyC(course_id);
+        return list;
+    }
+
     @GetMapping("/getStudentMarksbySC/{course_id},{student_id}")
     public StudentMarksDTO getMarksBySC(@PathVariable String course_id,@PathVariable String student_id)
     {

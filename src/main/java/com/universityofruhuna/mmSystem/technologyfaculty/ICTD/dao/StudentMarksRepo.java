@@ -19,8 +19,12 @@ public interface StudentMarksRepo extends JpaRepository<StudentMarks,Integer> {
     @Query(nativeQuery = true, value = "select * from grade  where grade.student_id= :id")
     List<StudentMarks> findCoursecodeOverallScoreByStId(@Param("id") String id);
 
-    @Query(nativeQuery = true, value = "select * from grade where student_id=:student_id and course_id=:course_id")
-    StudentMarks findMarksByStuCourse(@Param("student_id") String student_id,@Param("course_id") String course_id);
+    @Query(nativeQuery = true, value = "select * from grade where   course_id=:course_id")
+    List<StudentMarks> findMarksByCourse(@Param("course_id") String course_id);
+
+    @Query(nativeQuery = true, value = "select * from grade where   course_id=:course_id and student_id=:student_id")
+    StudentMarks findMarksByCS(@Param("course_id") String course_id,@Param("student_id")String student_id);
+
 
 
 }
