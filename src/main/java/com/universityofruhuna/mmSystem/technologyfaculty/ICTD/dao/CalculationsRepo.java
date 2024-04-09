@@ -1,0 +1,14 @@
+package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao;
+
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.Calculations;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+
+public interface CalculationsRepo extends JpaRepository<Calculations,Integer>
+{
+    @Query(nativeQuery = true, value = "select * from markcalculations where course_id=:course_id")
+    public List<Calculations> getCalculationresults(@Param("course_id")String course_id);
+}
