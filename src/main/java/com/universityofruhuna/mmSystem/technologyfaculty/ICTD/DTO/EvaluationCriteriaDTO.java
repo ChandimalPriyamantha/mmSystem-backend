@@ -20,7 +20,7 @@ public class EvaluationCriteriaDTO
 
     private int no_of_taken;
 
-    private int percentage;
+    private int precentage;
 
     private String description;
 }

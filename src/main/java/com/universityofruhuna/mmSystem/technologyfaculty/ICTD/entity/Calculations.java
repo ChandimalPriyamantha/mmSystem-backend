@@ -5,27 +5,30 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
-@Table(name="evaluationcrieteria")
-public class EvaluationCriteria
+@Table(name="markcalculation")
+public class Calculations
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String student_id;
+
     private String course_id;
 
-    private String assessment_type;
+    private double quiz_avg;
 
-    private int no_of_conducted;
+    private double quiz_Percentage;
 
-    private int no_of_taken;
+    private double mid_exam_percentage;
 
-    private int precentage;
+    private double total_ca_marks;
 
-    private String description;
+    private double end_exam_percentage;
+
 
 }

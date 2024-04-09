@@ -1,20 +1,24 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.EvaluationCriteriaDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.EvaluationCriteriaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/api/evaluationCriteria")
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 public class EvaluationCriteriaController
 {
-    
+    @Autowired
+    private EvaluationCriteriaService evaluationCriteriaService;
+
+    @GetMapping("/getCriteria/{course_id}")
+    public List<EvaluationCriteriaDTO> getEvaluationCriteria(@PathVariable String course_id)
+    {
+        return evaluationCriteriaService.getEvaluationCriteria(course_id);
+    }
 }
