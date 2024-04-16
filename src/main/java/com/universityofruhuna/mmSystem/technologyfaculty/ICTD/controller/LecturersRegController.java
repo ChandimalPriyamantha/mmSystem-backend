@@ -5,6 +5,8 @@ import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.LecturersR
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("api/lecreg")
@@ -16,5 +18,10 @@ public class LecturersRegController {
     @PostMapping("savelecdetails")
     public void saveLecturerDetails(@RequestBody LecturersRegDTO lecturerRegDetails){
         lecturersRegService.saveLecturerDetails(lecturerRegDetails);
+    }
+
+    @GetMapping("get/alllecturersdetails")
+    public List<LecturersRegDTO> getAllLecDetails(){
+        return lecturersRegService.getAllLecturers();
     }
 }
