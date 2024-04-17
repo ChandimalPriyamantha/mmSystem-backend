@@ -24,4 +24,8 @@ public class LecturersRegController {
     public List<LecturersRegDTO> getAllLecDetails(){
         return lecturersRegService.getAllLecturers();
     }
+
+    @PutMapping("edit/alecdetails/{id}")
+    public void editLecturerDetails(@RequestBody LecturersRegDTO lecturersRegDTO){lecturersRegService.editLecturerDetails(lecturersRegDTO);}
+
 }

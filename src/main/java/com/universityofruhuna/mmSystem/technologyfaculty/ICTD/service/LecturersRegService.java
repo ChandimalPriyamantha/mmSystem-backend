@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -30,6 +31,10 @@ public class LecturersRegService {
     public List<LecturersRegDTO> getAllLecturers(){
         List<LecturersRegEntity> lecList = lecturersRegRepo.findAll();
         return modelMapper.map(lecList,new TypeToken<ArrayList<LecturersRegDTO>>(){}.getType());
+    }
+
+    public void editLecturerDetails(LecturersRegDTO lecturersRegDTO){
+        lecturersRegRepo.save(modelMapper.map(lecturersRegDTO,LecturersRegEntity.class));
     }
 
 }
