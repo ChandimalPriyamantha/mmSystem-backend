@@ -1,6 +1,5 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity;
 
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Course;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,17 +9,26 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "marks")
-public class MarksEntity {
+@Table(name="markcalculation")
+public class Calculations
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String student_id;
+
     private String course_id;
-    private String academic_year;
-    private String level;
-    private String semester;
-    private String Assignment_type;
-    private String Assignment_score;
+
+    private double quiz_avg;
+
+    private double quiz_Percentage;
+
+    private double mid_exam_percentage;
+
+    private double total_ca_marks;
+
+    private double end_exam_percentage;
+
 
 }

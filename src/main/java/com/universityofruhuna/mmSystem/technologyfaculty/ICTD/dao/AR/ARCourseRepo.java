@@ -18,9 +18,11 @@ public interface ARCourseRepo extends JpaRepository<Course,String> {
             " where mark_approved_level.approval_level=?1 and marks.course_id=?2")
     List<Object[]> findAllStudentMarksRemainingToApprove(String approval_level, String course_id);
 
+
     //Find all course details from the course table passing approved level and grade.....................
     @Query(nativeQuery = true,value = "select  DISTINCT course.course_id , course.course_name , course.hours ,course.type ,course.credit ,course.department_id ,course.level ,course.semester" +
             "from course inner join mark_approved_level on course.course_id =mark_approved_level.course_id and course.course_id=grade.course+id" +
             "where mark_approved_level.approval_level=?1 and grade.grade=?2")
     List<Course> findCoursesByApprovalLevelAndGrade(String approval_level, String grade);
 }
+
