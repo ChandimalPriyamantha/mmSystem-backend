@@ -73,4 +73,6 @@ public class ARService {
             arMarksApprovalLevelRepo.updateMarksApprovalLevelByAllParameters( new_approval_level, course_id,  student_id,  old_approval_level,  approved_year);
         return true;
     }
+
+    //Find all course details from the course table passing approved level and grade.....................
 }
