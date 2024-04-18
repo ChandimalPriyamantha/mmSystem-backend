@@ -56,9 +56,9 @@ public class CourseController {
         // Check if courseNameIdDTOs is empty after populating it
         if (courseNameIdDTOs.isEmpty()) {
             responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
-            responseDTO.setMessage("Courses Not Found");
+            responseDTO.setMessage("No Approved Courses");
             responseDTO.setContent(courseNameIdDTOs);
-            return new ResponseEntity(responseDTO, HttpStatus.NO_CONTENT);
+            return new ResponseEntity(responseDTO, HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity(courseNameIdDTOs, HttpStatus.OK);
         }

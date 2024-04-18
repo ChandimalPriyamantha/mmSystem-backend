@@ -2,6 +2,8 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
 
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.CalculationsDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.CalculationsService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,25 +29,25 @@ public class CalculationsController
     @GetMapping("/getMarksCalculation/{course_id}")
     public ResponseEntity getMarkCalculations(@PathVariable String course_id)
     {
-        List<CalculationsDTO> list=calculationsService.getMarksCalculations(course_id);
-        if(list.isEmpty())
+        ResponseDTO list=calculationsService.getMarksCalculations(course_id);
+        if(list.getCode().equals(VarList.RIP_NO_DATA_FOUND))
         {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity(list,HttpStatus.NOT_FOUND);
         }
         else
-       return new ResponseEntity(list,HttpStatus.OK);
+       return new ResponseEntity(list.getContent(),HttpStatus.OK);
     }
 
     @GetMapping("/getMarksCalculationByStuID/{course_id},{student_id}")
     public ResponseEntity getMarkCalculations(@PathVariable String course_id,@PathVariable String student_id)
     {
-        List<CalculationsDTO> list= calculationsService.getMarksCalculations(course_id,student_id);
-        if(list.isEmpty())
+        ResponseDTO list= calculationsService.getMarksCalculations(course_id,student_id);
+        if(list.getCode().equals(VarList.RIP_NO_DATA_FOUND))
         {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity(list,HttpStatus.NOT_FOUND);
         }
         else
-            return new ResponseEntity(list,HttpStatus.OK);
+            return new ResponseEntity(list.getContent(),HttpStatus.OK);
     }
 
 

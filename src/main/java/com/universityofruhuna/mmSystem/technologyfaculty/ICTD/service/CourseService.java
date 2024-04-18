@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +32,13 @@ public class CourseService {
 
 
 
+
+
         public List<CourseDTO> findCidCnameByLS(int level, int sem) {
 
-                List<CourseEntity> list = courseRepo.FindCourseCodeAndNameByLS(level, sem);
+
+
+                List<CourseEntity> list = courseRepo.findCCApprovedCourses(level, sem, Year.of(LocalDate.now().getYear()));
                 List<CourseDTO> courseDTOList=modelMapper.map(list,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
 
                return courseDTOList;
