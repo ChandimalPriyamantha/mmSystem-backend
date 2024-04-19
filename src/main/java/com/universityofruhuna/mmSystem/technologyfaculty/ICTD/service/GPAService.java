@@ -3,6 +3,7 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.GPADTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.GPARepo;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.GPA;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -24,11 +25,25 @@ public class GPAService
 
     public List<GPADTO> getGPAByLevelSemester(String level,String semester)
     {
-        return mp.map(gpaRepo.findGPAByLevelSemester(level,semester),new TypeToken<ArrayList<GPADTO>>(){}.getType());
+        List<GPA> list=gpaRepo.findGPAByLevelSemester(level,semester);
+
+        if(list.isEmpty())
+        {
+            return null;
+        }
+        else
+            return mp.map(list,new TypeToken<ArrayList<GPADTO>>(){}.getType());
     }
 
     public List<GPADTO> getGPAByStID(String student_id)
     {
-        return mp.map(gpaRepo.findGPAByStId(student_id),new TypeToken<ArrayList<GPADTO>>(){}.getType());
+        List<GPA> list=gpaRepo.findGPAByStId(student_id);
+
+        if(list.isEmpty())
+        {
+            return  null;
+        }
+        else
+        return mp.map(list,new TypeToken<ArrayList<GPADTO>>(){}.getType());
     }
 }

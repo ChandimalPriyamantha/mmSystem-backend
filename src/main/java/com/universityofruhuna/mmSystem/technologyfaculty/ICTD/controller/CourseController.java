@@ -2,11 +2,15 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.CourseNameIdDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.CourseService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -33,21 +37,31 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
+    @Autowired
+    private ResponseDTO responseDTO;
+
     @GetMapping("/getcidcnamebyls/{level},{semester}")
-    public List<CourseNameIdDTO> getCidCnameByLS(@PathVariable int level, @PathVariable int semester){
-       List<CourseDTO> list  = courseService.findCidCnameByLS(level,semester);
-       List<CourseNameIdDTO> courseNameIdDTOs = new ArrayList<>();
+    public ResponseEntity getCidCnameByLS(@PathVariable int level, @PathVariable int semester){
 
+        List<CourseDTO> courseDTOList = courseService.findCidCnameByLS(level, semester);
+        List<CourseNameIdDTO> courseNameIdDTOs = new ArrayList<>();
 
-        for (CourseDTO courseDTO : list) {
+        for (CourseDTO courseDTO : courseDTOList) {
             CourseNameIdDTO courseNameIdDTO = new CourseNameIdDTO();
             courseNameIdDTO.setCourse_name(courseDTO.getCourse_name());
             courseNameIdDTO.setCourse_id(courseDTO.getCourse_id());
             courseNameIdDTOs.add(courseNameIdDTO);
         }
 
-        return courseNameIdDTOs;
-
-
+        // Check if courseNameIdDTOs is empty after populating it
+        if (courseNameIdDTOs.isEmpty()) {
+            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+            responseDTO.setMessage("No Approved Courses");
+            responseDTO.setContent(courseNameIdDTOs);
+            return new ResponseEntity(responseDTO, HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity(courseNameIdDTOs, HttpStatus.OK);
+        }
     }
+
 }

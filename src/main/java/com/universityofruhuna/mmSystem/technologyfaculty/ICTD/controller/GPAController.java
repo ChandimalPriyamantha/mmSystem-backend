@@ -12,6 +12,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,16 +48,30 @@ public class GPAController
     @Autowired
     private ModelMapper modelMapper;
     @GetMapping("/GetGPAByLevelSemester/{level},{semester}")
-    public List<GPADTO> GetGPAByLevelSemester(@PathVariable("level")String level,@PathVariable("semester")String semester)
+    public ResponseEntity GetGPAByLevelSemester(@PathVariable("level")String level,@PathVariable("semester")String semester)
     {
-       return gpaService.getGPAByLevelSemester(level,semester);
+        List<GPADTO> list=gpaService.getGPAByLevelSemester(level,semester);
+
+        if(list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        else {
+            return new ResponseEntity(list,HttpStatus.OK);
+        }
 
     }
 
     @GetMapping("/GetGPAByStudent_Id/{student_id}")
-    public List<GPADTO> GetGPAByStudent_Id(@PathVariable("student_id")String student_id)
+    public ResponseEntity GetGPAByStudent_Id(@PathVariable("student_id")String student_id)
     {
-        return gpaService.getGPAByStID(student_id);
+        List<GPADTO> list=gpaService.getGPAByStID(student_id);
+
+        if(list.isEmpty())
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(list, HttpStatus.OK);
 
     }
 
