@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -74,11 +75,63 @@ public class CourseService {
                        responseDTO.setContent(courseDTOS);
                        responseDTO.setMessage(e.getMessage());
                }
+               return responseDTO;
         }
-        public ResponseDTO insertACourse(){}
-        public ResponseDTO getACourseById(){}
-        public ResponseDTO updateACourseById(){}
-        public ResponseDTO deleteACourseById(){}
+        public ResponseDTO insertACourse(CourseDTO courseDTO){
+                CourseEntity insertOneCourse = modelMapper.map(courseDTO,CourseEntity.class);
+                try {
+                        courseRepo.save(insertOneCourse);
+                        responseDTO.setCode(VarList.RIP_SUCCESS);
+                        responseDTO.setContent(courseDTO);
+                        responseDTO.setMessage("Course has been inserted");
+                }catch (Exception e){
+                        responseDTO.setCode(VarList.RIP_ERROR);
+                        responseDTO.setContent(courseDTO);
+                        responseDTO.setMessage(e.getMessage());
+                }
+                return responseDTO;
+        }
+        public ResponseDTO getACourseById(int id){
+                if (courseRepo.existsById(id)){
+                        Optional<CourseEntity> courseById = courseRepo.findById(id);
+                        responseDTO.setCode(VarList.RIP_SUCCESS);
+                        responseDTO.setContent(courseById);
+                        responseDTO.setMessage("Data found");
+
+                }else {
+                        responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+                        responseDTO.setContent(null);
+                        responseDTO.setMessage("Data not found");
+                }
+                return responseDTO;
+        }
+        public ResponseDTO updateACourseById(CourseDTO courseDTO){
+                CourseEntity updateOneCourseById = modelMapper.map(courseDTO,CourseEntity.class);
+                try {
+                        courseRepo.save(updateOneCourseById);
+                        responseDTO.setCode(VarList.RIP_SUCCESS);
+                        responseDTO.setContent(courseDTO);
+                        responseDTO.setMessage("Course has been updated");
+                }catch (Exception e){
+                        responseDTO.setCode(VarList.RIP_ERROR);
+                        responseDTO.setContent(courseDTO);
+                        responseDTO.setMessage(e.getMessage());
+                }
+                return responseDTO;
+        }
+        public ResponseDTO deleteACourseById(int id){
+                if (courseRepo.existsById(id)){
+                        courseRepo.deleteById(id);
+                        responseDTO.setCode(VarList.RIP_SUCCESS);
+                        responseDTO.setContent(id);
+                        responseDTO.setMessage("Course has been deleted");
+                }else {
+                        responseDTO.setCode(VarList.RIP_ERROR);
+                        responseDTO.setContent(id);
+                        responseDTO.setMessage("Course id not found");
+                }
+                return responseDTO;
+        }
 
 
 
