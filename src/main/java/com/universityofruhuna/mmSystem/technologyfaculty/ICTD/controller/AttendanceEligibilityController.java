@@ -83,14 +83,26 @@ public class AttendanceEligibilityController
             return new ResponseEntity(getOneAttendanceById,HttpStatus.OK);
         }else {
             return new ResponseEntity(getOneAttendanceById,HttpStatus.NOT_FOUND);
-
         }
     }
 
     @PutMapping("updateattendance/{id}")
-    public ResponseEntity updateAAttendanceById(@RequestBody AttendanceEligibilityDTO attendanceEligibilityDTO){}
+    public ResponseEntity updateAAttendanceById(@RequestBody AttendanceEligibilityDTO attendanceEligibilityDTO){
+        ResponseDTO updateOneAttendanceById = attendanceEligibilityService.updateAAttendanceById(attendanceEligibilityDTO);
+        if (updateOneAttendanceById.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(updateOneAttendanceById,HttpStatus.OK);
+        }else {
+            return new ResponseEntity(updateOneAttendanceById,HttpStatus.NOT_FOUND);
+        }
+    }
 
     @DeleteMapping("delattendance/{id}")
     public ResponseEntity deleteAAttendanceById(@PathVariable int id){
+        ResponseDTO deleteOneAttendanceById = attendanceEligibilityService.deleteAAttendanceById(id);
+        if (deleteOneAttendanceById.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(deleteOneAttendanceById,HttpStatus.OK);
+        }else {
+            return new ResponseEntity(deleteOneAttendanceById,HttpStatus.NOT_FOUND);
+        }
     }
 }
