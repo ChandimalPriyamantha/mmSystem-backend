@@ -66,32 +66,63 @@ public class CourseController {
 
     @GetMapping("getallcourses")
     public ResponseEntity<ResponseDTO> getAllCourses(){
-//        ResponseDTO allCourses
+        ResponseDTO allCourses = courseService.getAllCourses();
+        if (allCourses.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity<>(allCourses, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(allCourses,HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("insertbulkcourses")
     public  ResponseEntity insertBulkCourses(@RequestBody List<CourseDTO> courseDTOS){
+        ResponseDTO courseAsBulk = courseService.insertCoursesAsBulk(courseDTOS);
+        if (courseAsBulk.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(courseAsBulk,HttpStatus.CREATED);
 
+        }else{
+            return new ResponseEntity(courseAsBulk,HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("insertacourse")
     public  ResponseEntity insertBulkCourses(@RequestBody CourseDTO courseDTO){
-
+        ResponseDTO insertOneCourse = courseService.insertACourse(courseDTO);
+        if (insertOneCourse.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(insertOneCourse,HttpStatus.CREATED);
+        }else {
+            return new ResponseEntity(insertOneCourse,HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("getacourse/{id}")
     public ResponseEntity getACourseById(@PathVariable int id){
-
+        ResponseDTO getACourseById =courseService.getACourseById(id);
+        if (getACourseById.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(getACourseById,HttpStatus.OK);
+        }else {
+            return new ResponseEntity(getACourseById,HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("updateacourse/{id}")
     public ResponseEntity updateACourseById(@RequestBody CourseDTO courseDTO){
-
+        ResponseDTO updateOneCourseById = courseService.updateACourseById(courseDTO);
+        if (updateOneCourseById.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(updateOneCourseById,HttpStatus.OK);
+        }else {
+            return new ResponseEntity(updateOneCourseById,HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping("delacourse/{id}")
     public ResponseEntity deletaCourseByIb(@PathVariable int id){
-
+        ResponseDTO deleteOneCourseById = courseService.deleteACourseById(id);
+        if (deleteOneCourseById.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(deleteOneCourseById,HttpStatus.OK);
+        }else {
+            return new ResponseEntity(deleteOneCourseById,HttpStatus.NOT_FOUND);
+        }
     }
 
 }
