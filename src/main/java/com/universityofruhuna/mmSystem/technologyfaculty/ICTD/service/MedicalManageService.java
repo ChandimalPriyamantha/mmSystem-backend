@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -68,15 +69,48 @@ public class MedicalManageService {
         }
         return responseDTO;
     }
-    public void getAMedicalById(int id){
-        
+    public ResponseDTO getAMedicalById(int id){
+        if (medicalRepo.existsById(id)){
 
+            Optional<MedicalEntity> medicalById = medicalRepo.findById(id);
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(medicalById);
+            responseDTO.setMessage("id is found");
+
+        }else {
+            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+            responseDTO.setContent(null);
+            responseDTO.setMessage("id is not found");
+        }
+
+        return responseDTO;
     }
-    public void updateAMedicalById(MedicalDTO medicalDTO){
-
+    public ResponseDTO updateAMedicalById(MedicalDTO medicalDTO){
+        MedicalEntity updateOneMedicalById = modelMapper.map(medicalDTO,MedicalEntity.class);
+        try {
+            medicalRepo.save(updateOneMedicalById);
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(medicalDTO);
+            responseDTO.setMessage("medical has been updated");
+        }catch (Exception e){
+            responseDTO.setCode(VarList.RIP_ERROR);
+            responseDTO.setContent(medicalDTO);
+            responseDTO.setMessage(e.getMessage());
+        }
+        return responseDTO;
     }
-    public void deleteAMedicalById(int id){
-
+    public ResponseDTO deleteAMedicalById(int id){
+        if (medicalRepo.existsById(id)){
+             medicalRepo.deleteById(id);
+             responseDTO.setCode(VarList.RIP_SUCCESS);
+             responseDTO.setContent(id);
+             responseDTO.setMessage("medical has been deleted");
+        }else {
+            responseDTO.setCode(VarList.RIP_ERROR);
+            responseDTO.setContent(id);
+            responseDTO.setMessage("medical id not found");
+        }
+        return responseDTO;
     }
 
 }
