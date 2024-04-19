@@ -1,7 +1,6 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AttendanceEligibilityDTO;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MedicalDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AttendanceEligibilityRepo;
@@ -56,9 +55,34 @@ public class AttendanceEligibilityService
         return responseDTO;
     }
     public ResponseDTO insertAttendancesAsBulk(List<AttendanceEligibilityDTO> attendanceEligibilityDTOS){
-        
+        List<AttendanceEligibility> insertAttendancesAsBulk = modelMapper.map(attendanceEligibilityDTOS,new TypeToken<ArrayList<AttendanceEligibility>>(){}.getType());
+        try {
+            attendanceEligibilityRepo.saveAll(insertAttendancesAsBulk);
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(attendanceEligibilityDTOS);
+            responseDTO.setMessage("Attendances have been inserted");
+        }catch (Exception e){
+            responseDTO.setCode(VarList.RIP_ERROR);
+            responseDTO.setContent(attendanceEligibilityDTOS);
+            responseDTO.setMessage(e.getMessage());
+        }
+        return responseDTO;
     }
-    public ResponseDTO insertAAttendance(){}
+    public ResponseDTO insertAAttendance(AttendanceEligibilityDTO attendanceEligibilityDTO){
+        AttendanceEligibility insertOneAttendance = modelMapper.map(attendanceEligibilityDTO,AttendanceEligibility.class);
+        try {
+            attendanceEligibilityRepo.save(insertOneAttendance);
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(attendanceEligibilityDTO);
+            responseDTO.setMessage("Attendance has been inserted");
+        } catch (Exception e){
+            responseDTO.setCode(VarList.RIP_ERROR);
+            responseDTO.setContent(attendanceEligibilityDTO);
+            responseDTO.setMessage(e.getMessage());
+
+        }
+        return responseDTO;
+    }
     public ResponseDTO getAAttendanceById(){}
     public ResponseDTO updateAAttendanceById(){}
     public ResponseDTO deleteAAttendanceById(){}
