@@ -29,12 +29,22 @@ public class MedicalController {
         }
     }
     @PostMapping("insertbulkmedical")
-    public void insertMedicalsAsBulk(@RequestBody List<MedicalDTO> medicalDTOS){
-        medicalManageService.insertMedicalsAsBulk(medicalDTOS);
+    public ResponseEntity insertMedicalsAsBulk(@RequestBody List<MedicalDTO> medicalDTOS){
+        ResponseDTO medicalsAsBulk = medicalManageService.insertMedicalsAsBulk(medicalDTOS);
+        if (medicalsAsBulk.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(HttpStatus.CREATED);
+        }else{
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
     @PostMapping("insertamedical")
-    public void insertAMedical(@RequestBody MedicalDTO medicalDTO){
-        medicalManageService.insertAMedical(medicalDTO);
+    public ResponseEntity insertAMedical(@RequestBody MedicalDTO medicalDTO){
+      ResponseDTO insertOneMedical = medicalManageService.insertAMedical(medicalDTO);
+      if (insertOneMedical.getCode().equals(VarList.RIP_SUCCESS)){
+          return new ResponseEntity(HttpStatus.CREATED);
+      }else {
+          return new ResponseEntity(HttpStatus.BAD_REQUEST);
+      }
     }
 
     @GetMapping("getamedical/{id}")
