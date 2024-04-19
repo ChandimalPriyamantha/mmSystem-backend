@@ -2,6 +2,7 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
 
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AttendanceEligibilityDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AttendanceEligibilityService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,5 +41,26 @@ public class AttendanceEligibilityController
             return  new ResponseEntity(list,HttpStatus.OK);
         }
 
+    }
+
+    @GetMapping("getallattendance")
+    public ResponseEntity<ResponseDTO> getAllAttendance(){}
+
+    @PostMapping("insertbulkattendance")
+    public ResponseEntity insertBulkAttendance(@RequestBody List<AttendanceEligibilityDTO> attendanceEligibilityDTOS){}
+
+    @PostMapping("insertoneattendance")
+    public ResponseEntity insertAAttendance(@RequestBody AttendanceEligibilityDTO attendanceEligibilityDTO){
+
+    }
+
+    @GetMapping("getattendance/{id}")
+    public ResponseEntity getAAttendanceById(@PathVariable int id){}
+
+    @PutMapping("updateattendance/{id}")
+    public ResponseEntity updateAAttendanceById(@RequestBody AttendanceEligibilityDTO attendanceEligibilityDTO){}
+
+    @DeleteMapping("delattendance/{id}")
+    public ResponseEntity deleteAAttendanceById(@PathVariable int id){
     }
 }
