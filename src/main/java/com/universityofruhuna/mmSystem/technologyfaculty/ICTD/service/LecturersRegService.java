@@ -37,4 +37,6 @@ public class LecturersRegService {
         lecturersRegRepo.save(modelMapper.map(lecturersRegDTO,LecturersRegEntity.class));
     }
 
+//    public void
+
 }
