@@ -5,22 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Entity
-@Table(name="markcalculation")
-public class Calculations
+@Table(name = "notifications")
+public class NotificationsEntity
 {
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private int id;
-    private String student_id;
+    private String receiver_id;
     private String course_id;
-    private String type;
-    private String mark;
-    private String percentage;
-    private String description;
-
-
+    private String student_id;
+    private String remark;
+    private String status;
 }

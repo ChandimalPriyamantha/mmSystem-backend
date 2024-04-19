@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="evaluationcrieteria")
+@Table(name="evaluationcriteria")
 public class EvaluationCriteria
 {
     @Id
@@ -18,13 +18,15 @@ public class EvaluationCriteria
 
     private String course_id;
 
+    private String type;
+
     private String assessment_type;
 
     private int no_of_conducted;
 
     private int no_of_taken;
 
-    private int precentage;
+    private int percentage;
 
     private String description;
 

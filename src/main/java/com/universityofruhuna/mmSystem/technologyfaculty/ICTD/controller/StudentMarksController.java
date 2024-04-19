@@ -69,25 +69,43 @@ public class StudentMarksController
     }
 
     @GetMapping("/getCourseCodeOverallScoreById/{id}")
-    public List<StudentMarksDTO> getCourseCodeOverallScoreById(@PathVariable String id)
+    public ResponseEntity getCourseCodeOverallScoreById(@PathVariable String id)
     {
         List<StudentMarksDTO> studentsMarksList=studentMarksService.getMarksforCourseById(id);
 
-        return studentsMarksList;
+        if(studentsMarksList.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        else
+
+            return new ResponseEntity(studentsMarksList,HttpStatus.OK);
     }
 
     @GetMapping("/getStudentMarksbyCourse/{course_id}")
-    public List<StudentMarksDTO> getMarksByC(@PathVariable String course_id)
+    public ResponseEntity getMarksByC(@PathVariable String course_id)
     {
         List<StudentMarksDTO> list=studentMarksService.getMarksbyC(course_id);
-        return list;
+
+        if(list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        else
+
+        return new ResponseEntity(list,HttpStatus.OK);
     }
 
     @GetMapping("/getStudentMarksbySC/{course_id},{student_id}")
-    public StudentMarksDTO getMarksBySC(@PathVariable String course_id,@PathVariable String student_id)
+    public ResponseEntity getMarksBySC(@PathVariable String course_id,@PathVariable String student_id)
     {
         StudentMarksDTO list=studentMarksService.getMarksbySC(course_id,student_id);
-        return list;
+        if(list==null)
+        {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        else
+        return new ResponseEntity(list,HttpStatus.OK);
     }
 
 
