@@ -31,6 +31,8 @@ public class CourseService {
         private ModelMapper modelMapper;
 
 
+        @Autowired
+        ResponseDTO responseDTO;
 
 
 
@@ -45,4 +47,39 @@ public class CourseService {
 
 
         }
+
+
+        public ResponseDTO getAllCourses(){
+                List<CourseEntity> courseEntities = courseRepo.findAll();
+                if (courseEntities.isEmpty()){
+                        responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+                        responseDTO.setContent(null);
+                        responseDTO.setMessage("Courses not found!");
+                }else {
+                        responseDTO.setCode(VarList.RIP_SUCCESS);
+                        responseDTO.setContent(modelMapper.map(courseEntities,new TypeToken<ArrayList<CourseDTO>>(){}.getType()));
+                        responseDTO.setMessage("Courses found!");
+                }
+                return responseDTO;
+        }
+        public ResponseDTO insertCoursesAsBulk(List<CourseDTO> courseDTOS){
+               List<CourseEntity> coursesAsBulk  = modelMapper.map(courseDTOS,new TypeToken<ArrayList<CourseEntity>>(){}.getType());
+               try {
+                       courseRepo.saveAll(coursesAsBulk);
+                       responseDTO.setCode(VarList.RIP_SUCCESS);
+                       responseDTO.setContent(courseDTOS);
+                       responseDTO.setMessage("Courses have been inserted");
+               }catch (Exception e){
+                       responseDTO.setCode(VarList.RIP_ERROR);
+                       responseDTO.setContent(courseDTOS);
+                       responseDTO.setMessage(e.getMessage());
+               }
+        }
+        public ResponseDTO insertACourse(){}
+        public ResponseDTO getACourseById(){}
+        public ResponseDTO updateACourseById(){}
+        public ResponseDTO deleteACourseById(){}
+
+
+
 }
