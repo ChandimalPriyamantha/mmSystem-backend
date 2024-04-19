@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -83,9 +84,48 @@ public class AttendanceEligibilityService
         }
         return responseDTO;
     }
-    public ResponseDTO getAAttendanceById(){}
-    public ResponseDTO updateAAttendanceById(){}
-    public ResponseDTO deleteAAttendanceById(){}
+    public ResponseDTO getAAttendanceById(int id){
+        if (attendanceEligibilityRepo.existsById(id)){
+            Optional<AttendanceEligibility> attendanceById = attendanceEligibilityRepo.findById(id);
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(attendanceById);
+            responseDTO.setMessage("Data found");
+
+        }else {
+            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+            responseDTO.setContent(null);
+            responseDTO.setMessage("Data not found");
+        }
+        return responseDTO;
+    }
+    public ResponseDTO updateAAttendanceById(AttendanceEligibilityDTO attendanceEligibilityDTO){
+        AttendanceEligibility updateOneAttendanceById = modelMapper.map(attendanceEligibilityDTO,AttendanceEligibility.class);
+        try {
+            attendanceEligibilityRepo.save(updateOneAttendanceById);
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(attendanceEligibilityDTO);
+            responseDTO.setMessage("Attendance has been updated");
+        }catch (Exception e){
+            responseDTO.setCode(VarList.RIP_ERROR);
+            responseDTO.setContent(attendanceEligibilityDTO);
+            responseDTO.setMessage(e.getMessage());
+        }
+        return responseDTO;
+
+    }
+    public ResponseDTO deleteAAttendanceById(int id){
+        if (attendanceEligibilityRepo.existsById(id)){
+            attendanceEligibilityRepo.deleteById(id);
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(id);
+            responseDTO.setMessage("Attendance has been deleted");
+        }else {
+            responseDTO.setCode(VarList.RIP_ERROR);
+            responseDTO.setContent(id);
+            responseDTO.setMessage("Attendance id not found");
+        }
+        return responseDTO;
+    }
 
 
 
