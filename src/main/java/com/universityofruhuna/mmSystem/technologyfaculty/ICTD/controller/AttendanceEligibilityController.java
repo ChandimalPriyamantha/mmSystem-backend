@@ -67,11 +67,25 @@ public class AttendanceEligibilityController
 
     @PostMapping("insertoneattendance")
     public ResponseEntity insertAAttendance(@RequestBody AttendanceEligibilityDTO attendanceEligibilityDTO){
+        ResponseDTO insertOneAttendance = attendanceEligibilityService.insertAAttendance(attendanceEligibilityDTO);
+        if (insertOneAttendance.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(insertOneAttendance,HttpStatus.CREATED);
+        }else {
+            return new ResponseEntity(insertOneAttendance,HttpStatus.BAD_REQUEST);
 
+        }
     }
 
     @GetMapping("getattendance/{id}")
-    public ResponseEntity getAAttendanceById(@PathVariable int id){}
+    public ResponseEntity getAAttendanceById(@PathVariable int id){
+        ResponseDTO getOneAttendanceById = attendanceEligibilityService.getAAttendanceById(id);
+        if (getOneAttendanceById.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(getOneAttendanceById,HttpStatus.OK);
+        }else {
+            return new ResponseEntity(getOneAttendanceById,HttpStatus.NOT_FOUND);
+
+        }
+    }
 
     @PutMapping("updateattendance/{id}")
     public ResponseEntity updateAAttendanceById(@RequestBody AttendanceEligibilityDTO attendanceEligibilityDTO){}
