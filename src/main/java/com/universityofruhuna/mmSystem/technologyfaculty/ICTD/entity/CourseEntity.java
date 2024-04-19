@@ -18,7 +18,8 @@ import java.util.List;
 public class CourseEntity {
 
     @Id
-//    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private int Id;
     private String course_id;
     private String course_name;
     private int hours;
