@@ -11,19 +11,19 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "user")
+@Table(name = "students")
 public class StudentDetailsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String user_id;
-    private String first_name;
-    private String second_name;
+    private String student_id;
+    private String full_name;
+    private String name_with_initials;
     private String user_name;
     private String email;
     private String password;
     private Date registered_year;
-    private String role;
+
 
 
 }

@@ -11,12 +11,12 @@ import java.util.Date;
 @Data
 public class StudentDetailsDTO {
     private int id;
-    private String user_id;
-    private String first_name;
-    private String second_name;
+    private String student_id;
+    private String full_name;
+    private String name_with_initials;
     private String user_name;
     private String email;
     private String password;
-    private Date registered_year;
-    private String role;
+    private String registered_year;
+
 }
