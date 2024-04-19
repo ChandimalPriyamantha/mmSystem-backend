@@ -22,10 +22,8 @@ public class MedicalManageService {
 
     @Autowired
     MedicalRepo medicalRepo;
-
     @Autowired
     ModelMapper modelMapper;
-
     @Autowired
     ResponseDTO responseDTO;
     public ResponseDTO getAllMedicals(){
@@ -75,12 +73,12 @@ public class MedicalManageService {
             Optional<MedicalEntity> medicalById = medicalRepo.findById(id);
             responseDTO.setCode(VarList.RIP_SUCCESS);
             responseDTO.setContent(medicalById);
-            responseDTO.setMessage("id is found");
+            responseDTO.setMessage("Data found");
 
         }else {
             responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
             responseDTO.setContent(null);
-            responseDTO.setMessage("id is not found");
+            responseDTO.setMessage("Data not found");
         }
 
         return responseDTO;
