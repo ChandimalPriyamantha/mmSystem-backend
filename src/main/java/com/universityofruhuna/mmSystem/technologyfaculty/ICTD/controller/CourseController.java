@@ -64,4 +64,34 @@ public class CourseController {
         }
     }
 
+    @GetMapping("getallcourses")
+    public ResponseEntity<ResponseDTO> getAllCourses(){
+//        ResponseDTO allCourses
+    }
+
+    @PostMapping("insertbulkcourses")
+    public  ResponseEntity insertBulkCourses(@RequestBody List<CourseDTO> courseDTOS){
+
+    }
+
+    @PostMapping("insertacourse")
+    public  ResponseEntity insertBulkCourses(@RequestBody CourseDTO courseDTO){
+
+    }
+
+    @GetMapping("getacourse/{id}")
+    public ResponseEntity getACourseById(@PathVariable int id){
+
+    }
+
+    @PutMapping("updateacourse/{id}")
+    public ResponseEntity updateACourseById(@RequestBody CourseDTO courseDTO){
+
+    }
+
+    @DeleteMapping("delacourse/{id}")
+    public ResponseEntity deletaCourseByIb(@PathVariable int id){
+
+    }
+
 }
