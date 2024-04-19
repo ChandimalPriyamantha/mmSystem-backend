@@ -3,10 +3,12 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AttendanceEligibilityDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AttendanceEligibilityService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -44,10 +46,24 @@ public class AttendanceEligibilityController
     }
 
     @GetMapping("getallattendance")
-    public ResponseEntity<ResponseDTO> getAllAttendance(){}
+    public ResponseEntity<ResponseDTO> getAllAttendance(){
+        ResponseDTO allAttendance = attendanceEligibilityService.getAllAttendance();
+        if (allAttendance.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity<>(allAttendance,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(allAttendance,HttpStatus.NOT_FOUND);
+        }
+    }
 
     @PostMapping("insertbulkattendance")
-    public ResponseEntity insertBulkAttendance(@RequestBody List<AttendanceEligibilityDTO> attendanceEligibilityDTOS){}
+    public ResponseEntity insertBulkAttendance(@RequestBody List<AttendanceEligibilityDTO> attendanceEligibilityDTOS){
+        ResponseDTO attendanceAsBulk = attendanceEligibilityService.insertAttendancesAsBulk(attendanceEligibilityDTOS);
+        if (attendanceAsBulk.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(attendanceAsBulk,HttpStatus.CREATED);
+        }else {
+            return new ResponseEntity(attendanceAsBulk,HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @PostMapping("insertoneattendance")
     public ResponseEntity insertAAttendance(@RequestBody AttendanceEligibilityDTO attendanceEligibilityDTO){
