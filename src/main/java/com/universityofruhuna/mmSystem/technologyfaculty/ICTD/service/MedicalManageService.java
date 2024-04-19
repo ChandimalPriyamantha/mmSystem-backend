@@ -54,10 +54,22 @@ public class MedicalManageService {
         }
         return responseDTO;
     }
-    public void insertAMedical(MedicalDTO medicalDTO){
-
+    public ResponseDTO insertAMedical(MedicalDTO medicalDTO){
+        MedicalEntity insertOneMedical = modelMapper.map(medicalDTO,MedicalEntity.class);
+        try {
+            medicalRepo.save(insertOneMedical);
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(medicalDTO);
+            responseDTO.setMessage("Medical has been inserted");
+        }catch (Exception e){
+            responseDTO.setCode(VarList.RIP_ERROR);
+            responseDTO.setContent(medicalDTO);
+            responseDTO.setMessage(e.getMessage());
+        }
+        return responseDTO;
     }
     public void getAMedicalById(int id){
+        
 
     }
     public void updateAMedicalById(MedicalDTO medicalDTO){
