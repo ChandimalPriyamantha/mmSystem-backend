@@ -48,17 +48,32 @@ public class MedicalController {
     }
 
     @GetMapping("getamedical/{id}")
-    public void getAMedicalById(@PathVariable int id){
-        medicalManageService.getAMedicalById(id);
+    public ResponseEntity getAMedicalById(@PathVariable int id){
+        ResponseDTO getAMedicalById =medicalManageService.getAMedicalById(id);
+        if (getAMedicalById.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(HttpStatus.OK);
+        }else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
 
-    @PutMapping("updateamedical")
-    public void updateAMedicalById(@RequestBody MedicalDTO medicalDTO){
-        medicalManageService.updateAMedicalById(medicalDTO);
+    @PutMapping("updateamedical/{id}")
+    public ResponseEntity updateAMedicalById(@RequestBody MedicalDTO medicalDTO){
+        ResponseDTO updateOneMedicalById = medicalManageService.updateAMedicalById(medicalDTO);
+        if (updateOneMedicalById.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(HttpStatus.OK);
+        }else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
     @DeleteMapping("delamedical/{id}")
-    public void deleteAMedicalById(@PathVariable int id){
-        medicalManageService.deleteAMedicalById(id);
+    public ResponseEntity deleteAMedicalById(@PathVariable int id){
+        ResponseDTO deleteOneMedicalById = medicalManageService.deleteAMedicalById(id);
+        if (deleteOneMedicalById.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(HttpStatus.OK);
+        }else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
