@@ -10,7 +10,7 @@ import java.time.Year;
 import java.util.Date;
 import java.util.List;
 
-public interface CourseRepo extends JpaRepository<CourseEntity,String> {
+public interface CourseRepo extends JpaRepository<CourseEntity,Integer> {
     @Query(nativeQuery = true, value = "SELECT * FROM course where level=:level and semester= :sem")
     List<CourseEntity> FindCourseCodeAndNameByLS (@Param("level")int level,@Param("sem") int semester);
 
