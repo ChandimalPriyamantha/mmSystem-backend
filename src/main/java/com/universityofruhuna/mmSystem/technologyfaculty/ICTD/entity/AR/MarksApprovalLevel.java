@@ -1,8 +1,6 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class MarksApprovalLevel {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int approval_id;
     private String course_id;
     private String student_id;
