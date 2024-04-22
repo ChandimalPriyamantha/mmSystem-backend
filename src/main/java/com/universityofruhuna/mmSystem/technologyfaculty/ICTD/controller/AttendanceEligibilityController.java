@@ -17,9 +17,6 @@ import java.util.List;
 @CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/api/attendanceEligibility")
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 public class AttendanceEligibilityController
 {
     @Autowired
