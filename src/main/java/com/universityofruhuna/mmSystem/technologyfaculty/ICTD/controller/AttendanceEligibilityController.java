@@ -2,10 +2,13 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
 
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AttendanceEligibilityDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AttendanceEligibilityService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -40,5 +43,66 @@ public class AttendanceEligibilityController
             return  new ResponseEntity(list,HttpStatus.OK);
         }
 
+    }
+
+    @GetMapping("getallattendance")
+    public ResponseEntity<ResponseDTO> getAllAttendance(){
+        ResponseDTO allAttendance = attendanceEligibilityService.getAllAttendance();
+        if (allAttendance.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity<>(allAttendance,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(allAttendance,HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("insertbulkattendance")
+    public ResponseEntity insertBulkAttendance(@RequestBody List<AttendanceEligibilityDTO> attendanceEligibilityDTOS){
+        ResponseDTO attendanceAsBulk = attendanceEligibilityService.insertAttendancesAsBulk(attendanceEligibilityDTOS);
+        if (attendanceAsBulk.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(attendanceAsBulk,HttpStatus.CREATED);
+        }else {
+            return new ResponseEntity(attendanceAsBulk,HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("insertoneattendance")
+    public ResponseEntity insertAAttendance(@RequestBody AttendanceEligibilityDTO attendanceEligibilityDTO){
+        ResponseDTO insertOneAttendance = attendanceEligibilityService.insertAAttendance(attendanceEligibilityDTO);
+        if (insertOneAttendance.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(insertOneAttendance,HttpStatus.CREATED);
+        }else {
+            return new ResponseEntity(insertOneAttendance,HttpStatus.BAD_REQUEST);
+
+        }
+    }
+
+    @GetMapping("getattendance/{id}")
+    public ResponseEntity getAAttendanceById(@PathVariable int id){
+        ResponseDTO getOneAttendanceById = attendanceEligibilityService.getAAttendanceById(id);
+        if (getOneAttendanceById.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(getOneAttendanceById,HttpStatus.OK);
+        }else {
+            return new ResponseEntity(getOneAttendanceById,HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("updateattendance/{id}")
+    public ResponseEntity updateAAttendanceById(@RequestBody AttendanceEligibilityDTO attendanceEligibilityDTO){
+        ResponseDTO updateOneAttendanceById = attendanceEligibilityService.updateAAttendanceById(attendanceEligibilityDTO);
+        if (updateOneAttendanceById.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(updateOneAttendanceById,HttpStatus.OK);
+        }else {
+            return new ResponseEntity(updateOneAttendanceById,HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("delattendance/{id}")
+    public ResponseEntity deleteAAttendanceById(@PathVariable int id){
+        ResponseDTO deleteOneAttendanceById = attendanceEligibilityService.deleteAAttendanceById(id);
+        if (deleteOneAttendanceById.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(deleteOneAttendanceById,HttpStatus.OK);
+        }else {
+            return new ResponseEntity(deleteOneAttendanceById,HttpStatus.NOT_FOUND);
+        }
     }
 }
