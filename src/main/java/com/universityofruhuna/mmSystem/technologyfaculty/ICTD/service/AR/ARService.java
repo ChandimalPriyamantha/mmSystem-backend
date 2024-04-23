@@ -1,12 +1,15 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.GradeDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.MarksApprovalLevelDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.ARCourseRepo;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.ARGradeRepo;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.ARMarksApprovalLevelRepo;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.ArMarksRepo;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Course;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Grade;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.MarksApprovalLevel;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.MarksEntity;
 import jakarta.transaction.Transactional;
@@ -27,6 +30,8 @@ public class ARService {
     private ArMarksRepo arMarksRepo;
     @Autowired
     private ARMarksApprovalLevelRepo arMarksApprovalLevelRepo;
+    @Autowired
+    private ARGradeRepo arGradeRepo;
     @Autowired
     private ModelMapper mp;
 
@@ -74,5 +79,9 @@ public class ARService {
         return true;
     }
 
-    //Find all course details from the course table passing approved level and grade.....................
+    //Get student id and other details from grade table where grade is E*........
+    public List<Object[]> getEStarDetails(){
+        List<Object[]> eStarList= arGradeRepo.getEStarDetails();
+        return eStarList;
+    }
 }

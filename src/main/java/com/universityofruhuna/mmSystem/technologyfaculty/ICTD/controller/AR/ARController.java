@@ -1,6 +1,7 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller.AR;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.GradeDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR.ARService;
@@ -54,6 +55,12 @@ public class ARController {
     @PostMapping("/updateMarksApprovalLevelByAllParameters/{new_approval_level}/{course_id}/{student_id}/{old_approval_level}/{approved_year}")
     public Boolean updateMarksApprovalLevelByAllParameters(@PathVariable String new_approval_level,@PathVariable String course_id, @PathVariable String student_id, @PathVariable String old_approval_level, @PathVariable String approved_year){
        return arService.updateMarksApprovalLevelByAllParameters( new_approval_level, course_id,  student_id,  old_approval_level,  approved_year);
+    }
+
+    //Get student id and other details from grade table where grade is E*
+    @GetMapping("/getEStarDetails")
+    public List<Object[]> getEStarDetails(){
+        return arService.getEStarDetails();
     }
 
 
