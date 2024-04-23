@@ -79,9 +79,9 @@ public class ARService {
         return true;
     }
 
-    //Get student id and other details from grade table where grade is E*........
+    //Get student id and other details from marks table where grade is E*........
     public List<Object[]> getEStarDetails(){
-        List<Object[]> eStarList= arGradeRepo.getEStarDetails();
+        List<Object[]> eStarList= arMarksRepo.getEStarDetails();
         return eStarList;
     }
 }

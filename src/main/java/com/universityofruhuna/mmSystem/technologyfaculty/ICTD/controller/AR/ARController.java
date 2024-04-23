@@ -57,7 +57,7 @@ public class ARController {
        return arService.updateMarksApprovalLevelByAllParameters( new_approval_level, course_id,  student_id,  old_approval_level,  approved_year);
     }
 
-    //Get student id and other details from grade table where grade is E*
+    //Get student id and other details from marks table where grade is E*
     @GetMapping("/getEStarDetails")
     public List<Object[]> getEStarDetails(){
         return arService.getEStarDetails();
