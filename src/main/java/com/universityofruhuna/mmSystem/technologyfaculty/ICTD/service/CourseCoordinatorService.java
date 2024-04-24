@@ -100,5 +100,19 @@ public class CourseCoordinatorService {
         return responseDTO;
     }
 
+    public ResponseDTO getCIDByUserId(String user_id){
+        try{
+            courseCoordinatorRepo.findCourseIDByUserID(user_id);
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(user_id);
+            responseDTO.setMessage("Course ID has taken");
+        }catch (Exception e){
+            responseDTO.setCode(VarList.RIP_ERROR);
+            responseDTO.setContent(user_id);
+            responseDTO.setMessage("Course ID not found");
+        }
+        return responseDTO;
+    }
+
 
 }
