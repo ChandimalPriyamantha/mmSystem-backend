@@ -63,4 +63,14 @@ public class CourseCoordinatorController {
         }
     }
 
+    @GetMapping("getcidbyuserid/{course_id}")
+    public ResponseEntity getCidByUserId(@PathVariable String user_id){
+        ResponseDTO cidByUserId = courseCoordinatorService.getCIDByUserId(user_id);
+        if (cidByUserId.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(cidByUserId,HttpStatus.OK);
+        }else{
+            return new ResponseEntity(cidByUserId,HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
