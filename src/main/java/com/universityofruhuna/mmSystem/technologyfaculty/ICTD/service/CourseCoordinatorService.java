@@ -107,7 +107,7 @@ public class CourseCoordinatorService {
             responseDTO.setContent(user_id);
             responseDTO.setMessage("Course ID has taken");
         }catch (Exception e){
-            responseDTO.setCode(VarList.RIP_ERROR);
+            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
             responseDTO.setContent(user_id);
             responseDTO.setMessage("Course ID not found");
         }
