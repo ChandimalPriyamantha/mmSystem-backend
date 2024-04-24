@@ -30,6 +30,7 @@ public class LectureScoreService {
         examScore.setAssignmentScore(addScoreRequest.getAssignmentScore());
         examScore.setLevel(addScoreRequest.getLevel());
         examScore.setSemester(addScoreRequest.getSemester());
+        examScore.setAssignmentName(addScoreRequest.getAssignmentName());
         examScoreRepository.save(examScore);
 
     }
