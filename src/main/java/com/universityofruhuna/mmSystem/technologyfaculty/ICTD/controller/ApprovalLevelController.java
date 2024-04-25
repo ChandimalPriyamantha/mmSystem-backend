@@ -29,4 +29,18 @@ public class ApprovalLevelController
             return new ResponseEntity(HttpStatus.NOT_FOUND );
         }
     }
+
+    @PutMapping("updateApprovalLevelByDean/{level}/{sem}/{academic_year}/{approval_level}")
+    public ResponseEntity updateApprovalLevelByDean(@PathVariable String level,@PathVariable String sem,@PathVariable String academic_year,@PathVariable String approval_level)
+    {
+        ResponseDTO responseDTO=approvalLevelService.updateApprovalLevel(level,sem,academic_year,approval_level);
+        if(responseDTO.getCode().equals(VarList.RIP_SUCCESS))
+        {
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity(HttpStatus.NOT_FOUND );
+        }
+    }
 }

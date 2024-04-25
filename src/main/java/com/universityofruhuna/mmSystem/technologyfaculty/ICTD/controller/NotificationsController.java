@@ -31,7 +31,7 @@ public class NotificationsController
        ResponseDTO responseDTO= notificationsService.sendNotifications(notificationsDTO);
         if(responseDTO.getCode().equals(VarList.RIP_SUCCESS))
         {
-            return new ResponseEntity(responseDTO, HttpStatus.OK);
+            return new ResponseEntity(responseDTO, HttpStatus.CREATED);
         }
         else
             return new ResponseEntity(responseDTO,HttpStatus.INTERNAL_SERVER_ERROR);

@@ -100,5 +100,20 @@ public class CourseCoordinatorService {
         return responseDTO;
     }
 
+    public ResponseDTO getCCbyCourse(String course_id)
+    {
+        CourseCoordinatorEntity courseCoordinatorEntity=courseCoordinatorRepo.getCCBycourse(course_id);
+        if(courseCoordinatorEntity!=null)
+        {
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(courseCoordinatorEntity.getUser_id());
+            responseDTO.setMessage("Successfully get Course coordinator");
+        }else {
+            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+            responseDTO.setContent(null);
+            responseDTO.setMessage("error getting Course coordinator");
+        }
+        return responseDTO;
+    }
 
 }

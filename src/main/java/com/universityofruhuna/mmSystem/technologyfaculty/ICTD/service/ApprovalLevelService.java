@@ -33,4 +33,19 @@ public class ApprovalLevelService {
         }
         return responseDTO;
     }
+
+    public ResponseDTO updateApprovalLevel(String level,String sem, String academic_year, String approval_level) {
+
+        try {
+            approvalLevelRepo.updateApprovedLevelByDean(level,sem, academic_year, approval_level);
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setMessage("Successfully updated approval level");
+            responseDTO.setContent(null);
+        } catch (RuntimeException e) {
+            responseDTO.setCode(VarList.RIP_ERROR);
+            responseDTO.setMessage("Error updating approval level: " + e.getMessage());
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        return responseDTO;
+    }
 }

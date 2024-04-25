@@ -15,7 +15,7 @@ public interface CourseRepo extends JpaRepository<CourseEntity,Integer> {
     List<CourseEntity> FindCourseCodeAndNameByLS (@Param("level")int level,@Param("sem") int semester);
 
 
-    @Query(nativeQuery = true, value = "SELECT  c.course_id,c.course_name,c.hours,c.type,c.credit,c.department_id,c.level,c.semester FROM course c inner join mark_approved_level on c.course_id=mark_approved_level.course_id where approval_level='course_coordinator' and c.level=:level and c.semester=:sem and academic_year=:academic_year")
+    @Query(nativeQuery = true, value = "SELECT c.id, c.course_id,c.course_name,c.hours,c.type,c.credit,c.department_id,c.level,c.semester FROM course c inner join mark_approved_level on c.course_id=mark_approved_level.course_id where approval_level='course_coordinator' and c.level=:level and c.semester=:sem and academic_year=:academic_year")
     List<CourseEntity> findCCApprovedCourses(@Param("level")int level, @Param("sem") int semester, @Param("academic_year") Year year);
 
 }
