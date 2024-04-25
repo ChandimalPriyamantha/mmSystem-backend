@@ -3,6 +3,7 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.MarksApprovalLevelDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.MedicalDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.UpdateEStarDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.*;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Course;
@@ -15,6 +16,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,5 +116,16 @@ public class ARService {
         return eStarList;
     }
 
+    /*---------------------------------------------------------------------------------------- Service for marks table ----------------------------START-------------*/
+
+    public void updateStudentGrade(UpdateEStarDTO updateEStarDTO){      //Update selected student grade with medical submissions
+
+        arMarksRepo.updateStudentGrade(updateEStarDTO.getNew_grade(),updateEStarDTO.getStudent_id(),updateEStarDTO.getCourse_id(), Year.parse(updateEStarDTO.getAcademic_year()),updateEStarDTO.getExam_type());
+
+    }
+
+
+    /*---------------------------------------------------------------------------------------- Service for marks table ----------------------------END-------------*/
 
 }
+

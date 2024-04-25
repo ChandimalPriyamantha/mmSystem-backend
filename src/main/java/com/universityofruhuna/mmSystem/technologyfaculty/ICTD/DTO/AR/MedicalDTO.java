@@ -16,4 +16,6 @@ public class MedicalDTO {
     private Year academic_year;
     private String exam_type;
     private String medical_state;
+
+
 }

@@ -3,6 +3,7 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller.AR;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.GradeDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.MedicalDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.UpdateEStarDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR.ARService;
@@ -75,11 +76,18 @@ public class ARController {
     /*---------------------------------------------------------------------------------------- Controller for medical table ----------------------------END-------------*/
 
 
+    /*---------------------------------------------------------------------------------------- Controller for marks table ----------------------------START-------------*/
+
     //Get student id and other details from marks table where grade is E*
     @GetMapping("/getEStarDetails")
     public List<Object[]> getEStarDetails(){
         return arService.getEStarDetails();
     }
 
+    @PutMapping("/updateStudentGrade")      //Update selected student grade with medical submissions
+    public void updateStudentGrade(@RequestBody UpdateEStarDTO updateEStarDTO){
+        arService.updateStudentGrade(updateEStarDTO);
+    }
+    /*---------------------------------------------------------------------------------------- Controller for marks table ----------------------------END-------------*/
 
 }
