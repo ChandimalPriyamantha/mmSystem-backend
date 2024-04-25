@@ -99,6 +99,12 @@ public class ARService {
         return  mp.map(allMedicalList,new TypeToken<ArrayList<MedicalDTO>>(){}.getType());
     }
 
+    //Get medical details of selected one student for a selected exam
+    public List<MedicalDTO> getSelectedStudentMedicalDetails(String student_id, String course_id, String academic_year, String exam_type){
+        List<Medical> selectedStudentMedicalDetails = arMedicalRepo.getSelectedStudentMedicalDetails(student_id,course_id,academic_year,exam_type);
+        return mp.map(selectedStudentMedicalDetails,new TypeToken<ArrayList<MedicalDTO>>(){}.getType());
+    }
+
     //-----------------Services for medical table---------------------------------------END
 
 
@@ -107,4 +113,6 @@ public class ARService {
         List<Object[]> eStarList= arMarksRepo.getEStarDetails();
         return eStarList;
     }
+
+
 }

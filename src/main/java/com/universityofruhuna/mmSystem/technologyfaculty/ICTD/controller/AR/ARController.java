@@ -59,10 +59,21 @@ public class ARController {
        return arService.updateMarksApprovalLevelByAllParameters( new_approval_level, course_id,  student_id,  old_approval_level,  approved_year);
     }
 
-    @GetMapping("/getAllMedicalSubmissions/{academic_year}")
+    /*---------------------------------------------------------------------------------------- Controller for medical table ----------------------------START------------*/
+    @GetMapping("/getAllMedicalSubmissions/{academic_year}")    //controller to get all medical list
     public List<MedicalDTO> getAllMedicalSubmissions(@PathVariable String academic_year){
         return arService.getAllMedicalSubmissions(academic_year);
     }
+    @GetMapping("/getSelectedStudentMedicalDetails/{student_id}/{course_id}/{academic_year}/{exam_type}")   //Controller to get selected student's medical details for selected exam
+    public List<MedicalDTO> getSelectedStudentMedicalDetails(@PathVariable String student_id, @PathVariable String course_id, @PathVariable String academic_year, @PathVariable String exam_type){
+        return arService.getSelectedStudentMedicalDetails(student_id, course_id, academic_year, exam_type);
+    }
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Controller for medical table ----------------------------END-------------*/
+
 
     //Get student id and other details from marks table where grade is E*
     @GetMapping("/getEStarDetails")
