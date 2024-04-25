@@ -2,12 +2,14 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller.AR;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.GradeDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.MedicalDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR.ARService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.tomcat.util.http.parser.MediaTypeCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,6 +57,11 @@ public class ARController {
     @PostMapping("/updateMarksApprovalLevelByAllParameters/{new_approval_level}/{course_id}/{student_id}/{old_approval_level}/{approved_year}")
     public Boolean updateMarksApprovalLevelByAllParameters(@PathVariable String new_approval_level,@PathVariable String course_id, @PathVariable String student_id, @PathVariable String old_approval_level, @PathVariable String approved_year){
        return arService.updateMarksApprovalLevelByAllParameters( new_approval_level, course_id,  student_id,  old_approval_level,  approved_year);
+    }
+
+    @GetMapping("/getAllMedicalSubmissions/{academic_year}")
+    public List<MedicalDTO> getAllMedicalSubmissions(@PathVariable String academic_year){
+        return arService.getAllMedicalSubmissions(academic_year);
     }
 
     //Get student id and other details from marks table where grade is E*

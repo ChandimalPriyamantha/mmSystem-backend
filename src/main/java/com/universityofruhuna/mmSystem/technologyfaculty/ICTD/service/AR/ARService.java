@@ -1,16 +1,13 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.GradeDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.MarksApprovalLevelDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.MedicalDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.ARCourseRepo;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.ARGradeRepo;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.ARMarksApprovalLevelRepo;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.ArMarksRepo;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.*;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Course;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Grade;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.MarksApprovalLevel;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Medical;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.MarksEntity;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -33,7 +30,12 @@ public class ARService {
     @Autowired
     private ARGradeRepo arGradeRepo;
     @Autowired
+    private ARMedicalRepo arMedicalRepo;
+    @Autowired
     private ModelMapper mp;
+
+
+    //-----------------Services for course table---------------------------------------START
 
     public List<CourseDTO> findCoursesByDepartmentLevelSemester(String department_id,int level, int semester, String approval_level){
         List<Course> courseList= arCourseRepo.findCoursesByDepartmentLevelSemester(department_id,level,semester,approval_level);
@@ -46,6 +48,10 @@ public class ARService {
         return mp.map(courseList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
     }
 
+    //-----------------Services for course table---------------------------------------END
+
+    //-----------------Services for marks table---------------------------------------START
+
     public List<MarksDTO> findAllStudentMarksRemainingToApprove(String approval_level, String course_id ){
 
         List<MarksEntity> marksEntities=arMarksRepo.findAllStudentMarksRemainingToApprove(approval_level,course_id);
@@ -57,8 +63,11 @@ public class ARService {
 
         List<MarksEntity> marksEntities=arMarksRepo.findAllStudentMarksRemainingToApproveByStuId(approval_level,course_id,student_id);
         return mp.map(marksEntities,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
-
     }
+
+    //-----------------Services for marks table---------------------------------------END
+
+    //-----------------Services for marksApprovalLevel table---------------------------------------START
 
     //This method is to find * details of mark approval level table with passing course id, student_id, approval level and approved year
     public List<MarksApprovalLevelDTO> getMarksApprovalLevelByAllParameters(String course_id,String student_id,String approval_level, String approved_year){
@@ -78,6 +87,20 @@ public class ARService {
             arMarksApprovalLevelRepo.updateMarksApprovalLevelByAllParameters( new_approval_level, course_id,  student_id,  old_approval_level,  approved_year);
         return true;
     }
+
+    //-----------------Services for marksApprovalLevel table---------------------------------------END
+
+
+    //-----------------Services for medical table---------------------------------------START
+
+    //This method get all medical submission list related to a particular year
+    public List<MedicalDTO> getAllMedicalSubmissions(String academic_year){
+        List<Medical> allMedicalList = arMedicalRepo.getAllMedicalSubmissions(academic_year);
+        return  mp.map(allMedicalList,new TypeToken<ArrayList<MedicalDTO>>(){}.getType());
+    }
+
+    //-----------------Services for medical table---------------------------------------END
+
 
     //Get student id and other details from marks table where grade is E*........
     public List<Object[]> getEStarDetails(){

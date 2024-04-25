@@ -20,7 +20,7 @@ public interface ArMarksRepo extends JpaRepository<MarksEntity,Integer> {
 
 
     //Get E* students records to list down from marks table
-    @Query(nativeQuery = true, value="select distinct course.level, course.semester, course.course_id, course.course_name, marks.student_id, marks.assignment_score, marks.assignment_name, mark_approved_level.approval_level from ((marks inner join mark_approved_level on marks.course_id=mark_approved_level.course_id) inner join course on course.course_id=marks.course_id) WHERE ((marks.assignment_score='E*')AND(marks.assignment_name='End theory exam' OR marks.assignment_name='End practical exam' OR marks.assignment_name='Mid theory exam' OR marks.assignment_name='Mid practical exam')) order by course.level, course.semester, course.course_id, marks.student_id")
+    @Query(nativeQuery = true, value="select distinct course.level, course.semester, course.course_id, course.course_name, marks.student_id, marks.assignment_score, marks.assignment_name, mark_approved_level.approval_level, marks.academic_year from ((marks inner join mark_approved_level on marks.course_id=mark_approved_level.course_id AND marks.academic_year =mark_approved_level.academic_year ) inner join course on course.course_id=marks.course_id) WHERE ((marks.assignment_score='E*') AND (marks.assignment_name='End theory exam' OR marks.assignment_name='End practical exam' OR marks.assignment_name='Mid theory exam' OR marks.assignment_name='Mid practical exam')) order by course.level, course.semester, course.course_id, marks.student_id")
     List<Object[]> getEStarDetails();
 
 }
