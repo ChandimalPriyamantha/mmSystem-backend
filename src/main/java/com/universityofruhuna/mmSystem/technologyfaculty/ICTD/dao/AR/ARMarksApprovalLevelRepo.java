@@ -18,4 +18,6 @@ public interface ARMarksApprovalLevelRepo extends JpaRepository<MarksApprovalLev
     @Modifying
     @Query(value = "UPDATE mark_approved_level set approval_level=?1 where course_id=?2 and student_id=?3 and approval_level=?4 and approved_year=?5 ",nativeQuery = true)
     void updateMarksApprovalLevelByAllParameters(String new_approval_level,String course_id, String student_id, String old_approval_level, String approved_year);
+
+
 }

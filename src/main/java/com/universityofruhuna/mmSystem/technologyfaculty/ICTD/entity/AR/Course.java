@@ -1,8 +1,6 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +12,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "course")
 public class Course {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String course_id;
     private String course_name;
     private int hours;

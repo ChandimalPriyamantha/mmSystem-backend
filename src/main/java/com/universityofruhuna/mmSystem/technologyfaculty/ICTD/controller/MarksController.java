@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -69,16 +71,33 @@ public class MarksController {
     }
 
     @GetMapping("get/scorebyStuIDCourseID/{course_id},{student_id}")
-    public List<MarksDTO> getScoreByStudent_ID(@PathVariable String course_id,@PathVariable String student_id){
-        return marksService.getScoreByStuIDCourseID(course_id,student_id);
+    public ResponseEntity getScoreByStudent_ID(@PathVariable String course_id, @PathVariable String student_id){
+
+        List<MarksDTO> list=marksService.getScoreByStuIDCourseID(course_id,student_id);
+
+        if(list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        else
+
+        return new ResponseEntity(list,HttpStatus.OK);
 
 
     }
 
 
     @GetMapping("get/scorebyLS/{level},{semester}")
-    public List<MarksDTO> getScoreByLS(@PathVariable String level,@PathVariable String semester){
-        return marksService.getScoreByLS(level,semester);
+    public ResponseEntity getScoreByLS(@PathVariable String level,@PathVariable String semester){
+        List<MarksDTO> list= marksService.getScoreByLS(level,semester);
+
+        if(list.isEmpty())
+        {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        else
+
+            return new ResponseEntity(list,HttpStatus.OK);
 
     }
 }
