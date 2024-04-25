@@ -118,14 +118,20 @@ public class ARService {
 
     /*---------------------------------------------------------------------------------------- Service for marks table ----------------------------START-------------*/
 
-    public void updateStudentGrade(UpdateEStarDTO updateEStarDTO){      //Update selected student grade with medical submissions
+    public int updateStudentGrade(UpdateEStarDTO updateEStarDTO){      //Update selected student grade with medical submissions
 
-        arMarksRepo.updateStudentGrade(updateEStarDTO.getNew_grade(),updateEStarDTO.getStudent_id(),updateEStarDTO.getCourse_id(), Year.parse(updateEStarDTO.getAcademic_year()),updateEStarDTO.getExam_type());
+        return arMarksRepo.updateStudentGrade(updateEStarDTO.getNew_grade(),updateEStarDTO.getStudent_id(),updateEStarDTO.getCourse_id(), Year.parse(updateEStarDTO.getAcademic_year()),updateEStarDTO.getExam_type());
 
     }
 
 
     /*---------------------------------------------------------------------------------------- Service for marks table ----------------------------END-------------*/
+
+    /*---------------------------------------------------------------------------------------- Service for grade table ----------------------------START-------------*/
+    public void updateStudentFinalGrade(UpdateEStarDTO updateEStarDTO){         //Update selected student's Final grade to WH
+        arGradeRepo.updateStudentFinalGrade(updateEStarDTO.getStudent_id(),updateEStarDTO.getCourse_id());
+    }
+    /*---------------------------------------------------------------------------------------- Service for grade table ----------------------------END-------------*/
 
 }
 

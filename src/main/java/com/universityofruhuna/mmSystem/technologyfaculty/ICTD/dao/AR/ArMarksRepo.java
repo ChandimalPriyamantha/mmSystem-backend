@@ -28,6 +28,6 @@ public interface ArMarksRepo extends JpaRepository<MarksEntity,Integer> {
     //Update E* details of selected student--------
     @Modifying
     @Query(nativeQuery = true, value = "update marks set assignment_score=:assignment_score where student_id=:student_id AND course_id=:course_id AND academic_year=:academic_year AND assignment_name=:exam_type")
-    void updateStudentGrade(String assignment_score, String student_id, String course_id, Year academic_year, String exam_type);
+    int updateStudentGrade(String assignment_score, String student_id, String course_id, Year academic_year, String exam_type);
 
 }

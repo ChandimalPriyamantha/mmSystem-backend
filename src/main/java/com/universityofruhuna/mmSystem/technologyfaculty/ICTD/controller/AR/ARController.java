@@ -85,9 +85,17 @@ public class ARController {
     }
 
     @PutMapping("/updateStudentGrade")      //Update selected student grade with medical submissions
-    public void updateStudentGrade(@RequestBody UpdateEStarDTO updateEStarDTO){
-        arService.updateStudentGrade(updateEStarDTO);
+    public int updateStudentGrade(@RequestBody UpdateEStarDTO updateEStarDTO){
+        return arService.updateStudentGrade(updateEStarDTO);
     }
     /*---------------------------------------------------------------------------------------- Controller for marks table ----------------------------END-------------*/
 
+
+    /*---------------------------------------------------------------------------------------- Controller for grade table ----------------------------START-------------*/
+    @PutMapping("/updateStudentFinalGrade")     //Update selected student's Final grade to WH
+    public void updateStudentFinalGrade(@RequestBody UpdateEStarDTO updateEStarDTO){
+        arService.updateStudentFinalGrade(updateEStarDTO);
+    }
+
+    /*---------------------------------------------------------------------------------------- Controller for grade table ----------------------------END-------------*/
 }
