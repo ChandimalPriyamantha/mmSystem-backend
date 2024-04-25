@@ -69,7 +69,9 @@ public class ARService {
 
     //-----------------Services for marks table---------------------------------------END
 
-    //-----------------Services for marksApprovalLevel table---------------------------------------START
+
+
+
 
     //This method is to find * details of mark approval level table with passing course id, student_id, approval level and approved year
     public List<MarksApprovalLevelDTO> getMarksApprovalLevelByAllParameters(String course_id,String student_id,String approval_level, String approved_year){
@@ -90,11 +92,12 @@ public class ARService {
         return true;
     }
 
-    //-----------------Services for marksApprovalLevel table---------------------------------------END
 
 
-    //-----------------Services for medical table---------------------------------------START
+    /* ----------------------------------------------------------------------New Update Start -------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
+
+    /*---------------------------------------------------------------------------------------- Service for medical table ----------------------------START-------------*/
     //This method get all medical submission list related to a particular year
     public List<MedicalDTO> getAllMedicalSubmissions(String academic_year){
         List<Medical> allMedicalList = arMedicalRepo.getAllMedicalSubmissions(academic_year);
@@ -107,8 +110,7 @@ public class ARService {
         return mp.map(selectedStudentMedicalDetails,new TypeToken<ArrayList<MedicalDTO>>(){}.getType());
     }
 
-    //-----------------Services for medical table---------------------------------------END
-
+    /*---------------------------------------------------------------------------------------- Service for medical table ----------------------------END-------------*/
 
     //Get student id and other details from marks table where grade is E*........
     public List<Object[]> getEStarDetails(){
@@ -132,6 +134,14 @@ public class ARService {
         arGradeRepo.updateStudentFinalGrade(updateEStarDTO.getStudent_id(),updateEStarDTO.getCourse_id());
     }
     /*---------------------------------------------------------------------------------------- Service for grade table ----------------------------END-------------*/
+
+
+    /*---------------------------------------------------------------------------------------- Service for course table ----------------------------START-------------*/
+    public List<CourseDTO> getViewMarksCourseList(String level, String semester){
+        List<Course> courseList= arCourseRepo.getViewMarksCourseList(level, semester);
+        return mp.map(courseList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
+    }
+    /*---------------------------------------------------------------------------------------- Service for course table ----------------------------END-------------*/
 
 }
 

@@ -60,6 +60,21 @@ public class ARController {
        return arService.updateMarksApprovalLevelByAllParameters( new_approval_level, course_id,  student_id,  old_approval_level,  approved_year);
     }
 
+
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Controller for course table ----------------------------START-------------*/
+    @GetMapping("/getViewMarksCourseList/{level}/{semester}")
+    public List<CourseDTO> getViewMarksCourseList (@PathVariable String level, @PathVariable String semester){
+
+        return arService.getViewMarksCourseList(level, semester);
+    }
+
+    /*---------------------------------------------------------------------------------------- Controller for course table ----------------------------END-------------*/
+
     /*---------------------------------------------------------------------------------------- Controller for medical table ----------------------------START------------*/
     @GetMapping("/getAllMedicalSubmissions/{academic_year}")    //controller to get all medical list
     public List<MedicalDTO> getAllMedicalSubmissions(@PathVariable String academic_year){
