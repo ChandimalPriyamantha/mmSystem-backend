@@ -67,10 +67,10 @@ public class ARController {
 
 
     /*---------------------------------------------------------------------------------------- Controller for course table ----------------------------START-------------*/
-    @GetMapping("/getViewMarksCourseList/{level}/{semester}")
-    public List<CourseDTO> getViewMarksCourseList (@PathVariable String level, @PathVariable String semester){
+    @GetMapping("/getViewMarksCourseList/{level}/{semester}/{department_id}")
+    public List<CourseDTO> getViewMarksCourseList (@PathVariable String level, @PathVariable String semester, @PathVariable String department_id){
 
-        return arService.getViewMarksCourseList(level, semester);
+        return arService.getViewMarksCourseList(level, semester,department_id);
     }
 
     /*---------------------------------------------------------------------------------------- Controller for course table ----------------------------END-------------*/
