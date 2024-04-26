@@ -59,11 +59,11 @@ public class ARService {
 //
 //    }
 
-    public List<MarksDTO> findAllStudentMarksRemainingToApproveByStuId(String approval_level, String course_id,String student_id ){
-
-        List<MarksEntity> marksEntities=arMarksRepo.findAllStudentMarksRemainingToApproveByStuId(approval_level,course_id,student_id);
-        return mp.map(marksEntities,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
-    }
+//    public List<MarksDTO> findAllStudentMarksRemainingToApproveByStuId(String approval_level, String course_id,String student_id ){
+//
+//        List<MarksEntity> marksEntities=arMarksRepo.findAllStudentMarksRemainingToApproveByStuId(approval_level,course_id,student_id);
+//        return mp.map(marksEntities,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
+//    }
 
     //-----------------Services for marks table---------------------------------------END
 
@@ -110,11 +110,9 @@ public class ARService {
 
     /*---------------------------------------------------------------------------------------- Service for medical table ----------------------------END-------------*/
 
-    //Get student id and other details from marks table where grade is E*........
-    public List<Object[]> getEStarDetails(){
-        List<Object[]> eStarList= arMarksRepo.getEStarDetails();
-        return eStarList;
-    }
+
+
+
 
     /*---------------------------------------------------------------------------------------- Service for marks table ----------------------------START-------------*/
 
@@ -126,6 +124,10 @@ public class ARService {
 
 
     /*---------------------------------------------------------------------------------------- Service for marks table ----------------------------END-------------*/
+
+
+
+
 
     /*---------------------------------------------------------------------------------------- Service for grade table ----------------------------START-------------*/
     public void updateStudentFinalGrade(UpdateEStarDTO updateEStarDTO){         //Update selected student's Final grade to WH
@@ -146,6 +148,11 @@ public class ARService {
     /*---------------------------------------------------------------------------------------- Service for grade table ----------------------------END-------------*/
 
 
+
+
+
+
+
     /*---------------------------------------------------------------------------------------- Service for course table ----------------------------START-------------*/
     public List<CourseDTO> getViewMarksCourseList(String level, String semester,String department_id){      //Get all course details of selected department by level and semester
         List<Course> courseList= arCourseRepo.getViewMarksCourseList(level, semester, department_id);
@@ -153,5 +160,18 @@ public class ARService {
     }
     /*---------------------------------------------------------------------------------------- Service for course table ----------------------------END-------------*/
 
+
+
+
+
+    public List<Object[]> getEStarDetails(){        //Get student id and other details from marks table where grade is E*........
+        List<Object[]> eStarList= arMarksRepo.getEStarDetails();
+        return eStarList;
+    }
+
+    public List<Object[]> getEStarDetailsByCourseId(String course_id){        //Get student id and other details from marks table where grade is E* by selected course........
+        List<Object[]> eStarList= arMarksRepo.getEStarDetailsByCourseId(course_id);
+        return eStarList;
+    }
 }
 
