@@ -1,12 +1,10 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR;
 
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.MarksApprovalLevelDTO;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.MedicalDTO;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.UpdateEStarDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.*;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.*;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Course;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Grade;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.MarksApprovalLevel;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Medical;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.MarksEntity;
@@ -54,12 +52,12 @@ public class ARService {
 
     //-----------------Services for marks table---------------------------------------START
 
-    public List<MarksDTO> findAllStudentMarksRemainingToApprove(String approval_level, String course_id ){
-
-        List<MarksEntity> marksEntities=arMarksRepo.findAllStudentMarksRemainingToApprove(approval_level,course_id);
-        return mp.map(marksEntities,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
-
-    }
+//    public List<MarksDTO> findAllStudentMarksRemainingToApprove(String approval_level, String course_id ){
+//
+//        List<MarksEntity> marksEntities=arMarksRepo.findAllStudentMarksRemainingToApprove(approval_level,course_id);
+//        return mp.map(marksEntities,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
+//
+//    }
 
     public List<MarksDTO> findAllStudentMarksRemainingToApproveByStuId(String approval_level, String course_id,String student_id ){
 
@@ -133,11 +131,23 @@ public class ARService {
     public void updateStudentFinalGrade(UpdateEStarDTO updateEStarDTO){         //Update selected student's Final grade to WH
         arGradeRepo.updateStudentFinalGrade(updateEStarDTO.getStudent_id(),updateEStarDTO.getCourse_id());
     }
+
+    public List<GradeDTO> findAllStudentMarksGrade(String course_id){          //Get all student grades of selected course module
+        List<Grade> gradeList = arGradeRepo.findAllStudentMarksGrade(course_id);
+        return mp.map(gradeList,new TypeToken<ArrayList<GradeDTO>>(){}.getType());
+
+    }
+
+    public List<GradeDTO> findSelectedStudentMarksGrade(String course_id, String student_id){          //Get selected student grades of selected course module
+        List<Grade> gradeList = arGradeRepo.findSelectedStudentMarksGrade(course_id,student_id);
+        return mp.map(gradeList,new TypeToken<ArrayList<GradeDTO>>(){}.getType());
+
+    }
     /*---------------------------------------------------------------------------------------- Service for grade table ----------------------------END-------------*/
 
 
     /*---------------------------------------------------------------------------------------- Service for course table ----------------------------START-------------*/
-    public List<CourseDTO> getViewMarksCourseList(String level, String semester,String department_id){
+    public List<CourseDTO> getViewMarksCourseList(String level, String semester,String department_id){      //Get all course details of selected department by level and semester
         List<Course> courseList= arCourseRepo.getViewMarksCourseList(level, semester, department_id);
         return mp.map(courseList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
     }
