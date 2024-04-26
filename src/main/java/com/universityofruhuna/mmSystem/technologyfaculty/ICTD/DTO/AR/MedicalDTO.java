@@ -4,14 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Year;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class MarksApprovalLevelDTO {
-    private int approval_id;
+public class MedicalDTO {
+    private int id;
+    private String student_id;
     private String course_id;
-    private int course_level;
-    private int course_semester;
-    private String academic_year;
-    private String approval_level;
+    private Year academic_year;
+    private String exam_type;
+    private String medical_state;
+
+
 }
