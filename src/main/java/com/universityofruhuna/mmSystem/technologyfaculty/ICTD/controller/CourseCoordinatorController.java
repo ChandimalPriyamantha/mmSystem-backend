@@ -63,7 +63,7 @@ public class CourseCoordinatorController {
         }
     }
 
-    @GetMapping("getcidbyuserid/{course_id}")
+    @GetMapping("getcidbyuserid/{user_id}")
     public ResponseEntity getCidByUserId(@PathVariable String user_id){
         ResponseDTO cidByUserId = courseCoordinatorService.getCIDByUserId(user_id);
         if (cidByUserId.getCode().equals(VarList.RIP_SUCCESS)){
