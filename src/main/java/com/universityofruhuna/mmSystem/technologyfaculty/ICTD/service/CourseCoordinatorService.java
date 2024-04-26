@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +60,7 @@ public class CourseCoordinatorService {
 
             Optional<CourseCoordinatorEntity> CCById = courseCoordinatorRepo.findById(id);
             responseDTO.setCode(VarList.RIP_SUCCESS);
-            responseDTO.setContent(CCById);
+            responseDTO.setContent(modelMapper.map(CCById,CourseCoordinatorDTO.class));
             responseDTO.setMessage("Data found");
 
         }else {
@@ -102,14 +103,15 @@ public class CourseCoordinatorService {
 
     public ResponseDTO getCIDByUserId(String user_id){
         try{
-            courseCoordinatorRepo.findCourseIDByUserID(user_id);
+            String cIDByUserId = courseCoordinatorRepo.findCourseIDByUserID(user_id);
             responseDTO.setCode(VarList.RIP_SUCCESS);
-            responseDTO.setContent(user_id);
+            responseDTO.setContent(cIDByUserId);
             responseDTO.setMessage("Course ID has taken");
         }catch (Exception e){
             responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
             responseDTO.setContent(user_id);
             responseDTO.setMessage("Course ID not found");
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
         return responseDTO;
     }
