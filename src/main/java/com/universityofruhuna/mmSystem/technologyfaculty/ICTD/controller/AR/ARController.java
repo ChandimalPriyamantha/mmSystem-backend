@@ -1,12 +1,16 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller.AR;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.GradeDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.MedicalDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.UpdateEStarDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR.ARService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.tomcat.util.http.parser.MediaTypeCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,4 +61,56 @@ public class ARController {
     }
 
 
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Controller for course table ----------------------------START-------------*/
+    @GetMapping("/getViewMarksCourseList/{level}/{semester}")
+    public List<CourseDTO> getViewMarksCourseList (@PathVariable String level, @PathVariable String semester){
+
+        return arService.getViewMarksCourseList(level, semester);
+    }
+
+    /*---------------------------------------------------------------------------------------- Controller for course table ----------------------------END-------------*/
+
+    /*---------------------------------------------------------------------------------------- Controller for medical table ----------------------------START------------*/
+    @GetMapping("/getAllMedicalSubmissions/{academic_year}")    //controller to get all medical list
+    public List<MedicalDTO> getAllMedicalSubmissions(@PathVariable String academic_year){
+        return arService.getAllMedicalSubmissions(academic_year);
+    }
+    @GetMapping("/getSelectedStudentMedicalDetails/{student_id}/{course_id}/{academic_year}/{exam_type}")   //Controller to get selected student's medical details for selected exam
+    public List<MedicalDTO> getSelectedStudentMedicalDetails(@PathVariable String student_id, @PathVariable String course_id, @PathVariable String academic_year, @PathVariable String exam_type){
+        return arService.getSelectedStudentMedicalDetails(student_id, course_id, academic_year, exam_type);
+    }
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Controller for medical table ----------------------------END-------------*/
+
+
+    /*---------------------------------------------------------------------------------------- Controller for marks table ----------------------------START-------------*/
+
+    //Get student id and other details from marks table where grade is E*
+    @GetMapping("/getEStarDetails")
+    public List<Object[]> getEStarDetails(){
+        return arService.getEStarDetails();
+    }
+
+    @PutMapping("/updateStudentGrade")      //Update selected student grade with medical submissions
+    public int updateStudentGrade(@RequestBody UpdateEStarDTO updateEStarDTO){
+        return arService.updateStudentGrade(updateEStarDTO);
+    }
+    /*---------------------------------------------------------------------------------------- Controller for marks table ----------------------------END-------------*/
+
+
+    /*---------------------------------------------------------------------------------------- Controller for grade table ----------------------------START-------------*/
+    @PutMapping("/updateStudentFinalGrade")     //Update selected student's Final grade to WH
+    public void updateStudentFinalGrade(@RequestBody UpdateEStarDTO updateEStarDTO){
+        arService.updateStudentFinalGrade(updateEStarDTO);
+    }
+
+    /*---------------------------------------------------------------------------------------- Controller for grade table ----------------------------END-------------*/
 }

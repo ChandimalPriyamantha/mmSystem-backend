@@ -1,5 +1,6 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,17 +10,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "mark_approved_level")
-public class MarksApprovalLevel {
-
+@Table(name = "grade")
+public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int approval_id;
+    private int id;
+    private String student_id;
     private String course_id;
-    private int course_level;
-    private int course_semester;
-    private String academic_year;
-    private String approval_level;
-
+    private int level;
+    private int semester;
+    private double overall_score;
+    private String grade;
 
 }
