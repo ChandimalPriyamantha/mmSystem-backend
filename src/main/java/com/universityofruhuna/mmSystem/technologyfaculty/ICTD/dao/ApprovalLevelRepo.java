@@ -17,6 +17,6 @@ public interface ApprovalLevelRepo extends JpaRepository<MarksApprovalLevel,Inte
     void updateApprovedLevel(@Param("course_id") String course_id, @Param("academic_year")String academic_year, @Param("approval_level") String approval_level);
 
     @Modifying
-    @Query(nativeQuery = true,value ="UPDATE mark_approved_level INNER JOIN course  ON course.course_id=mark_approved_level.course_id SET mark_approved_level.approval_level =:approval_level WHERE course.level=:level AND course.semester=:sem AND mark_approved_level.academic_year =:academic_year")
-    void updateApprovedLevelByDean(@Param("level") String level,@Param("sem") String sem, @Param("academic_year")String academic_year, @Param("approval_level") String approval_level);
+    @Query(nativeQuery = true,value ="UPDATE mark_approved_level INNER JOIN course  ON course.course_id=mark_approved_level.course_id SET mark_approved_level.approval_level =:approval_level WHERE department_id=:department_id course.level=:level AND course.semester=:sem AND mark_approved_level.academic_year =:academic_year")
+    void updateApprovedLevelByDean(@Param("department_id") String department_id,@Param("level") String level,@Param("sem") String sem, @Param("academic_year")String academic_year, @Param("approval_level") String approval_level);
 }

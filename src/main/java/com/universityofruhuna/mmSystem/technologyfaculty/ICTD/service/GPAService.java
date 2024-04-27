@@ -2,6 +2,8 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service;
 
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.GPADTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.GPARepo;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.GPA;
 import jakarta.transaction.Transactional;
@@ -21,29 +23,52 @@ public class GPAService
     private GPARepo gpaRepo;
 
     @Autowired
+    private ResponseDTO responseDTO;
+
+    @Autowired
     ModelMapper mp;
 
-    public List<GPADTO> getGPAByLevelSemester(String level,String semester)
+    public ResponseDTO getGPAByLevelSemester(String level,String semester)
     {
         List<GPA> list=gpaRepo.findGPAByLevelSemester(level,semester);
 
-        if(list.isEmpty())
+        if(!list.isEmpty())
         {
-            return null;
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(mp.map(list,new TypeToken<ArrayList<GPADTO>>(){}.getType()));
+
+            responseDTO.setMessage("Data found");
+
         }
         else
-            return mp.map(list,new TypeToken<ArrayList<GPADTO>>(){}.getType());
+        {
+            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+            responseDTO.setContent(null);
+            responseDTO.setMessage("No Data found");
+        }
+        return responseDTO;
     }
 
-    public List<GPADTO> getGPAByStID(String student_id)
+    public ResponseDTO getGPAByStID(String student_id)
     {
-        List<GPA> list=gpaRepo.findGPAByStId(student_id);
 
-        if(list.isEmpty())
+        GPA gpa=gpaRepo.findGPAByStId(student_id);
+
+        if(gpa!=null)
         {
-            return  null;
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(mp.map(gpa,new TypeToken<ArrayList<GPADTO>>(){}.getType()));
+
+            responseDTO.setMessage("Data found");
+
         }
         else
-        return mp.map(list,new TypeToken<ArrayList<GPADTO>>(){}.getType());
+        {
+            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+            responseDTO.setContent(null);
+            responseDTO.setMessage("No Data found");
+        }
+        return responseDTO;
     }
+
 }

@@ -2,6 +2,8 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
 
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.GPADTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.GPA;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.GPAService;
 import jakarta.persistence.GeneratedValue;
@@ -50,14 +52,14 @@ public class GPAController
     @GetMapping("/GetGPAByLevelSemester/{level},{semester}")
     public ResponseEntity GetGPAByLevelSemester(@PathVariable("level")String level,@PathVariable("semester")String semester)
     {
-        List<GPADTO> list=gpaService.getGPAByLevelSemester(level,semester);
+       ResponseDTO responseDTO =gpaService.getGPAByLevelSemester(level,semester);
 
-        if(list.isEmpty())
+        if(responseDTO.getCode().equals(VarList.RIP_SUCCESS))
         {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity(responseDTO,HttpStatus.OK);
         }
         else {
-            return new ResponseEntity(list,HttpStatus.OK);
+            return new ResponseEntity(responseDTO,HttpStatus.NOT_FOUND);
         }
 
     }
@@ -65,13 +67,13 @@ public class GPAController
     @GetMapping("/GetGPAByStudent_Id/{student_id}")
     public ResponseEntity GetGPAByStudent_Id(@PathVariable("student_id")String student_id)
     {
-        List<GPADTO> list=gpaService.getGPAByStID(student_id);
+        ResponseDTO responseDTO=gpaService.getGPAByStID(student_id);
 
-        if(list.isEmpty())
+        if(responseDTO.getCode().equals(VarList.RIP_SUCCESS))
         {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(responseDTO,HttpStatus.OK);
         }
-        return new ResponseEntity(list, HttpStatus.OK);
+        return new ResponseEntity(responseDTO,HttpStatus.NOT_FOUND);
 
     }
 
