@@ -86,7 +86,7 @@ public class CourseController {
     }
 
     @PostMapping("insertacourse")
-    public  ResponseEntity insertBulkCourses(@RequestBody CourseDTO courseDTO){
+    public  ResponseEntity insertACourse(@RequestBody CourseDTO courseDTO){
         ResponseDTO insertOneCourse = courseService.insertACourse(courseDTO);
         if (insertOneCourse.getCode().equals(VarList.RIP_SUCCESS)){
             return new ResponseEntity(insertOneCourse,HttpStatus.CREATED);
