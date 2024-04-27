@@ -48,13 +48,10 @@ public class StudentRegistedCourseController
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         else {
-
             for (StudentRegCoursesDTO studentRegCoursesDTO : list)
             {
                 studentList.add(studentRegCoursesDTO.getStudent_id());
             }
-
-
             return new ResponseEntity(studentList,HttpStatus.OK);
 
         }

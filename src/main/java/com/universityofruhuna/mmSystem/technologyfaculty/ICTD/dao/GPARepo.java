@@ -14,5 +14,5 @@ public interface GPARepo extends JpaRepository<GPA,Integer>
    List<GPA>  findGPAByLevelSemester(@Param("level") String level,@Param("semester")String semester);
 
     @Query(nativeQuery = true, value = "select * from gpa  where student_id=:student_id")
-    List<GPA>  findGPAByStId(@Param("student_id") String student_id);
+    GPA  findGPAByStId(@Param("student_id") String student_id);
 }

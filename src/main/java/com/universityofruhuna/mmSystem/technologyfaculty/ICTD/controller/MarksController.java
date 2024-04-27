@@ -74,30 +74,24 @@ public class MarksController {
     public ResponseEntity getScoreByStudent_ID(@PathVariable String course_id, @PathVariable String student_id){
 
         List<MarksDTO> list=marksService.getScoreByStuIDCourseID(course_id,student_id);
-
         if(list.isEmpty())
         {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         else
-
-        return new ResponseEntity(list,HttpStatus.OK);
-
-
+            return new ResponseEntity(list,HttpStatus.OK);
     }
 
 
     @GetMapping("get/scorebyLS/{level},{semester}")
-    public ResponseEntity getScoreByLS(@PathVariable String level,@PathVariable String semester){
+    public ResponseEntity getScoreByLS(@PathVariable String level,@PathVariable String semester)
+    {
         List<MarksDTO> list= marksService.getScoreByLS(level,semester);
-
         if(list.isEmpty())
         {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         else
-
             return new ResponseEntity(list,HttpStatus.OK);
-
     }
 }

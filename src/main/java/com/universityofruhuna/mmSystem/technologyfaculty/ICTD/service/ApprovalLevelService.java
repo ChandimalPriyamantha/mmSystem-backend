@@ -6,7 +6,6 @@ import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.ApprovalLevelR
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 @Service
@@ -23,6 +22,21 @@ public class ApprovalLevelService {
 
         try {
             approvalLevelRepo.updateApprovedLevel(course_id, academic_year, approval_level);
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setMessage("Successfully updated approval level");
+            responseDTO.setContent(null);
+        } catch (RuntimeException e) {
+            responseDTO.setCode(VarList.RIP_ERROR);
+            responseDTO.setMessage("Error updating approval level: " + e.getMessage());
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        return responseDTO;
+    }
+
+    public ResponseDTO updateApprovalLevel(String department_id,String level,String sem, String academic_year, String approval_level) {
+
+        try {
+            approvalLevelRepo.updateApprovedLevelByDean(department_id,level,sem, academic_year, approval_level);
             responseDTO.setCode(VarList.RIP_SUCCESS);
             responseDTO.setMessage("Successfully updated approval level");
             responseDTO.setContent(null);

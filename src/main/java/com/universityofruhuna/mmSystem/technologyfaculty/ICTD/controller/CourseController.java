@@ -25,14 +25,7 @@ import java.util.List;
 
 public class CourseController {
 
-    private String course_id;
-    private String course_name;
-    private int hours;
-    private String type;
-    private double credit;
-    private String department_id;
-    private int level;
-    private int semester;
+
 
     @Autowired
     private CourseService courseService;
@@ -40,10 +33,45 @@ public class CourseController {
     @Autowired
     private ResponseDTO responseDTO;
 
-    @GetMapping("/getcidcnamebyls/{level},{semester}")
-    public ResponseEntity getCidCnameByLS(@PathVariable int level, @PathVariable int semester){
+//    @GetMapping("/getcidcnamebyls/{department_id},{level},{semester}")
+//    public ResponseEntity getCidCnameByLS(@PathVariable String department_id,@PathVariable int level, @PathVariable int semester){
+//
+//        List<CourseDTO> courseDTOList = courseService.findCidCnameByLS(department_id,level, semester);
+//        List<CourseNameIdDTO> courseNameIdDTOs = new ArrayList<>();
+//
+//        for (CourseDTO courseDTO : courseDTOList) {
+//            CourseNameIdDTO courseNameIdDTO = new CourseNameIdDTO();
+//            courseNameIdDTO.setCourse_name(courseDTO.getCourse_name());
+//            courseNameIdDTO.setCourse_id(courseDTO.getCourse_id());
+//            courseNameIdDTOs.add(courseNameIdDTO);
+//        }
+//
+//        // Check if courseNameIdDTOs is empty after populating it
+//        if (courseNameIdDTOs.isEmpty()) {
+//            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+//            responseDTO.setMessage("No Approved Courses");
+//            responseDTO.setContent(courseNameIdDTOs);
+//            return new ResponseEntity(responseDTO, HttpStatus.NOT_FOUND);
+//        } else {
+//            return new ResponseEntity(courseNameIdDTOs, HttpStatus.OK);
+//        }
+//    }
 
-        List<CourseDTO> courseDTOList = courseService.findCidCnameByLS(level, semester);
+    @GetMapping("getallcourses")
+    public ResponseEntity<ResponseDTO> getAllCourses(){
+        ResponseDTO allCourses = courseService.getAllCourses();
+        if (allCourses.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity<>(allCourses, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(allCourses,HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @GetMapping("/getcidcnamebyls/{level}/{semester}/{approved_level}")
+    public ResponseEntity getCidCnameByDLS(@PathVariable int level, @PathVariable int semester,@PathVariable String approved_level){
+
+        List<CourseDTO> courseDTOList = courseService.findCidCnameByDLS(level, semester,approved_level);
         List<CourseNameIdDTO> courseNameIdDTOs = new ArrayList<>();
 
         for (CourseDTO courseDTO : courseDTOList) {
@@ -53,7 +81,7 @@ public class CourseController {
             courseNameIdDTOs.add(courseNameIdDTO);
         }
 
-        // Check if courseNameIdDTOs is empty after populating it
+
         if (courseNameIdDTOs.isEmpty()) {
             responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
             responseDTO.setMessage("No Approved Courses");
@@ -61,16 +89,6 @@ public class CourseController {
             return new ResponseEntity(responseDTO, HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity(courseNameIdDTOs, HttpStatus.OK);
-        }
-    }
-
-    @GetMapping("getallcourses")
-    public ResponseEntity<ResponseDTO> getAllCourses(){
-        ResponseDTO allCourses = courseService.getAllCourses();
-        if (allCourses.getCode().equals(VarList.RIP_SUCCESS)){
-            return new ResponseEntity<>(allCourses, HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>(allCourses,HttpStatus.NOT_FOUND);
         }
     }
 
