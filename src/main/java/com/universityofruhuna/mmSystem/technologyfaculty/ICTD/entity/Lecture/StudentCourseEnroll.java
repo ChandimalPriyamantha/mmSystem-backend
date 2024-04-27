@@ -18,4 +18,7 @@ private String courseId;
 @Column(name = "student_id")
 private String studentId;
 
+@Column(name = "assignment_name")
+private String assignmentName;
+
 }

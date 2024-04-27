@@ -10,7 +10,7 @@ public class AddScoreRequest {
     private String courseID;
     private String year;
     private String assignmentType;
-    private Double assignmentScore;
+    private String assignmentScore;
     private String level;
     private String semester;
     private String assignmentName;

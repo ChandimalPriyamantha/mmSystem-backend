@@ -4,13 +4,24 @@ import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.Lecture.Stu
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.data.jpa.repository.Query;
 
 
 public interface StudentCourseEnrollRepository extends JpaRepository<StudentCourseEnroll,Integer> {
 
-    // to filter students the base on enrollment.
-    Page<StudentCourseEnroll> findStudentByCourseId(@RequestParam("courseId") String courseId, Pageable pageable);
+    // to filter students' ID the base on enrollment with subjects.
+    @Query("SELECT s FROM StudentCourseEnroll s WHERE s.courseId = :courseId AND " +
+            "s.assignmentName = :assignmentName")
+    Page<StudentCourseEnroll> findByCourseIdAndAssignmentName(String courseId,
+                                                              String assignmentName,
+                                                              Pageable pageable);
+   // To filter students' details base on student ID & course ID & assignment name
+    @Query("SELECT s FROM StudentCourseEnroll s WHERE s.courseId = :courseId AND " +
+            "s.assignmentName = :assignmentName " +
+            "AND s.studentId = :studentId")
+    Page<StudentCourseEnroll> findStudentCourseEnrollByStudentIdAndAssignmentNameAndStudentId(String courseId,
+                                                                                              String assignmentName,
+                                                                                              String studentId,
+                                                                                              Pageable pageable);
 
 }

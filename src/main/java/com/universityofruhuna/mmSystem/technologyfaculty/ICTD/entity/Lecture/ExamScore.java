@@ -28,7 +28,7 @@ public class ExamScore {
     private String assignmentType;
 
     @Column(name="assignment_score")
-    private Double assignmentScore;
+    private String assignmentScore;
 
     @Column(name = "level")
     private String level;
