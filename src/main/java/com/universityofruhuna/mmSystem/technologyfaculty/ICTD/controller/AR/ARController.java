@@ -40,18 +40,14 @@ public class ARController {
 
 
 
-    @GetMapping("/findAllStudentMarksRemainingToApprove/{approval_level}/{course_id}")
-    public List<MarksDTO> findAllStudentMarksRemainingToApprove(@PathVariable String approval_level, @PathVariable String course_id){
-        List<MarksDTO> joinedData=arService.findAllStudentMarksRemainingToApprove(approval_level,course_id);
-        return joinedData;
-    }
+
 
     //this method retrieve all records match with approval_level, course_id
-    @GetMapping("/findAllStudentMarksRemainingToApproveByStuId/{approval_level}/{course_id}/{student_id}")
-    public List<MarksDTO> findAllStudentMarksRemainingToApproveByStuId(@PathVariable String approval_level, @PathVariable String course_id,@PathVariable String student_id){
-        List<MarksDTO> joinedData=arService.findAllStudentMarksRemainingToApproveByStuId(approval_level,course_id,student_id);
-        return joinedData;
-    }
+//    @GetMapping("/findAllStudentMarksRemainingToApproveByStuId/{approval_level}/{course_id}/{student_id}")
+//    public List<MarksDTO> findAllStudentMarksRemainingToApproveByStuId(@PathVariable String approval_level, @PathVariable String course_id,@PathVariable String student_id){
+//        List<MarksDTO> joinedData=arService.findAllStudentMarksRemainingToApproveByStuId(approval_level,course_id,student_id);
+//        return joinedData;
+//    }
 
 
     //This method is to update mark approval level of mark approval_level_table with passing  new_approval_level, course_id,  student_id,  old_approval_level,  approved_year
@@ -67,13 +63,17 @@ public class ARController {
 
 
     /*---------------------------------------------------------------------------------------- Controller for course table ----------------------------START-------------*/
-    @GetMapping("/getViewMarksCourseList/{level}/{semester}")
-    public List<CourseDTO> getViewMarksCourseList (@PathVariable String level, @PathVariable String semester){
+    @GetMapping("/getViewMarksCourseList/{level}/{semester}/{department_id}")           //Get all course details of selected department by level and semester
+    public List<CourseDTO> getViewMarksCourseList (@PathVariable String level, @PathVariable String semester, @PathVariable String department_id){
 
-        return arService.getViewMarksCourseList(level, semester);
+        return arService.getViewMarksCourseList(level, semester,department_id);
     }
 
     /*---------------------------------------------------------------------------------------- Controller for course table ----------------------------END-------------*/
+
+
+
+
 
     /*---------------------------------------------------------------------------------------- Controller for medical table ----------------------------START------------*/
     @GetMapping("/getAllMedicalSubmissions/{academic_year}")    //controller to get all medical list
@@ -86,30 +86,57 @@ public class ARController {
     }
 
 
-
-
     /*---------------------------------------------------------------------------------------- Controller for medical table ----------------------------END-------------*/
+
+
+
+
 
 
     /*---------------------------------------------------------------------------------------- Controller for marks table ----------------------------START-------------*/
 
-    //Get student id and other details from marks table where grade is E*
-    @GetMapping("/getEStarDetails")
+
+    @GetMapping("/getEStarDetails")      //Get student id and other details from marks table where grade is E*
     public List<Object[]> getEStarDetails(){
         return arService.getEStarDetails();
+    }
+
+    @GetMapping("/getEStarDetailsByCourseId/{course_id}")      //Get student id and other details from marks table where grade is E*        This is for view marks table to identify is there E* for the subject
+    public List<Object[]> getEStarDetailsByCourseId(@PathVariable String course_id){
+        return arService.getEStarDetailsByCourseId(course_id);
     }
 
     @PutMapping("/updateStudentGrade")      //Update selected student grade with medical submissions
     public int updateStudentGrade(@RequestBody UpdateEStarDTO updateEStarDTO){
         return arService.updateStudentGrade(updateEStarDTO);
     }
+
+//    @GetMapping("/findAllStudentMarksRemainingToApprove/{approval_level}/{course_id}")
+//    public List<MarksDTO> findAllStudentMarksRemainingToApprove(@PathVariable String approval_level, @PathVariable String course_id){
+//        List<MarksDTO> joinedData=arService.findAllStudentMarksRemainingToApprove(approval_level,course_id);
+//        return joinedData;
+//    }
     /*---------------------------------------------------------------------------------------- Controller for marks table ----------------------------END-------------*/
+
+
+
+
 
 
     /*---------------------------------------------------------------------------------------- Controller for grade table ----------------------------START-------------*/
     @PutMapping("/updateStudentFinalGrade")     //Update selected student's Final grade to WH
     public void updateStudentFinalGrade(@RequestBody UpdateEStarDTO updateEStarDTO){
         arService.updateStudentFinalGrade(updateEStarDTO);
+    }
+
+    @GetMapping("/findAllStudentsGrade/{course_id}")     //Get all student grades of selected course module
+    public List<GradeDTO> findAllStudentGrade(@PathVariable String course_id){
+        return arService.findAllStudentMarksGrade(course_id);
+    }
+
+    @GetMapping("/findSelectedStudentGrade/{course_id}/{student_id}")     //Get selected student grades of selected course module
+    public List<GradeDTO> findSelectedStudentGrade(@PathVariable String course_id, @PathVariable String student_id){
+        return arService.findSelectedStudentMarksGrade(course_id,student_id);
     }
 
     /*---------------------------------------------------------------------------------------- Controller for grade table ----------------------------END-------------*/

@@ -1,12 +1,10 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR;
 
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.MarksApprovalLevelDTO;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.MedicalDTO;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.UpdateEStarDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.*;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.*;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Course;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Grade;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.MarksApprovalLevel;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Medical;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.MarksEntity;
@@ -54,18 +52,18 @@ public class ARService {
 
     //-----------------Services for marks table---------------------------------------START
 
-    public List<MarksDTO> findAllStudentMarksRemainingToApprove(String approval_level, String course_id ){
+//    public List<MarksDTO> findAllStudentMarksRemainingToApprove(String approval_level, String course_id ){
+//
+//        List<MarksEntity> marksEntities=arMarksRepo.findAllStudentMarksRemainingToApprove(approval_level,course_id);
+//        return mp.map(marksEntities,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
+//
+//    }
 
-        List<MarksEntity> marksEntities=arMarksRepo.findAllStudentMarksRemainingToApprove(approval_level,course_id);
-        return mp.map(marksEntities,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
-
-    }
-
-    public List<MarksDTO> findAllStudentMarksRemainingToApproveByStuId(String approval_level, String course_id,String student_id ){
-
-        List<MarksEntity> marksEntities=arMarksRepo.findAllStudentMarksRemainingToApproveByStuId(approval_level,course_id,student_id);
-        return mp.map(marksEntities,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
-    }
+//    public List<MarksDTO> findAllStudentMarksRemainingToApproveByStuId(String approval_level, String course_id,String student_id ){
+//
+//        List<MarksEntity> marksEntities=arMarksRepo.findAllStudentMarksRemainingToApproveByStuId(approval_level,course_id,student_id);
+//        return mp.map(marksEntities,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
+//    }
 
     //-----------------Services for marks table---------------------------------------END
 
@@ -112,11 +110,9 @@ public class ARService {
 
     /*---------------------------------------------------------------------------------------- Service for medical table ----------------------------END-------------*/
 
-    //Get student id and other details from marks table where grade is E*........
-    public List<Object[]> getEStarDetails(){
-        List<Object[]> eStarList= arMarksRepo.getEStarDetails();
-        return eStarList;
-    }
+
+
+
 
     /*---------------------------------------------------------------------------------------- Service for marks table ----------------------------START-------------*/
 
@@ -129,19 +125,53 @@ public class ARService {
 
     /*---------------------------------------------------------------------------------------- Service for marks table ----------------------------END-------------*/
 
+
+
+
+
     /*---------------------------------------------------------------------------------------- Service for grade table ----------------------------START-------------*/
     public void updateStudentFinalGrade(UpdateEStarDTO updateEStarDTO){         //Update selected student's Final grade to WH
         arGradeRepo.updateStudentFinalGrade(updateEStarDTO.getStudent_id(),updateEStarDTO.getCourse_id());
     }
+
+    public List<GradeDTO> findAllStudentMarksGrade(String course_id){          //Get all student grades of selected course module
+        List<Grade> gradeList = arGradeRepo.findAllStudentGrade(course_id);
+        return mp.map(gradeList,new TypeToken<ArrayList<GradeDTO>>(){}.getType());
+
+    }
+
+    public List<GradeDTO> findSelectedStudentMarksGrade(String course_id, String student_id){          //Get selected student grades of selected course module
+        List<Grade> gradeList = arGradeRepo.findSelectedStudentGrade(course_id,student_id);
+        return mp.map(gradeList,new TypeToken<ArrayList<GradeDTO>>(){}.getType());
+
+    }
     /*---------------------------------------------------------------------------------------- Service for grade table ----------------------------END-------------*/
 
 
+
+
+
+
+
     /*---------------------------------------------------------------------------------------- Service for course table ----------------------------START-------------*/
-    public List<CourseDTO> getViewMarksCourseList(String level, String semester){
-        List<Course> courseList= arCourseRepo.getViewMarksCourseList(level, semester);
+    public List<CourseDTO> getViewMarksCourseList(String level, String semester,String department_id){      //Get all course details of selected department by level and semester
+        List<Course> courseList= arCourseRepo.getViewMarksCourseList(level, semester, department_id);
         return mp.map(courseList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
     }
     /*---------------------------------------------------------------------------------------- Service for course table ----------------------------END-------------*/
 
+
+
+
+
+    public List<Object[]> getEStarDetails(){        //Get student id and other details from marks table where grade is E*........
+        List<Object[]> eStarList= arMarksRepo.getEStarDetails();
+        return eStarList;
+    }
+
+    public List<Object[]> getEStarDetailsByCourseId(String course_id){        //Get student id and other details from marks table where grade is E* by selected course........
+        List<Object[]> eStarList= arMarksRepo.getEStarDetailsByCourseId(course_id);
+        return eStarList;
+    }
 }
 

@@ -26,14 +26,16 @@ public interface ARCourseRepo extends JpaRepository<Course,Integer> {
 //    List<Course> findCoursesByApprovalLevelAndGrade(String approval_level, String grade);
 
 
-    //--------------New Update
+    /*------------------------------------------------New Update-------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
     //Find all course details of each department
-    @Query(nativeQuery = true,value = "select  DISTINCT course.id, course.course_id , course.course_name , course.hours ,course.type ,course.credit,\n" +
+    /*@Query(nativeQuery = true,value = "select  DISTINCT course.id, course.course_id , course.course_name , course.hours ,course.type ,course.credit,\n" +
             "course.department_id ,course.level ,course.semester from course inner join marks\n" +
             " on course.course_id =marks.course_id where course.level=:level AND course.semester=:semester AND Not exists (select 1 from marks As m" +
-            " where m.course_id=course.course_id AND m.assignment_score = 'E*') ")
-    List <Course> getViewMarksCourseList(String level, String semester);
+            " where m.course_id=course.course_id AND m.assignment_score = 'E*') ")*/
+    @Query(nativeQuery = true,value = "select  DISTINCT course.id, course.course_id , course.course_name , course.hours ,course.type ,course.credit,\n" +               // Get all courses of selected department by level and semester
+            "course.department_id ,course.level ,course.semester from course where course.level=:level AND course.semester=:semester AND course.department_id=:department_id")
+    List <Course> getViewMarksCourseList(String level, String semester,String department_id);
 
 }
 
