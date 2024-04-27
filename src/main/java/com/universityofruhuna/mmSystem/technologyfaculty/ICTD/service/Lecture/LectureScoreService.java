@@ -6,6 +6,12 @@ import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.requestmodel.Lectu
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -32,6 +38,31 @@ public class LectureScoreService {
         examScore.setSemester(addScoreRequest.getSemester());
         examScore.setAssignmentName(addScoreRequest.getAssignmentName());
         examScoreRepository.save(examScore);
+
+    }
+
+    public void saveCsvData(MultipartFile file) throws Exception{
+        List<ExamScore> csvRecords = new ArrayList<>();
+        BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()));
+        String line;
+        while((line = br.readLine()) != null){
+            String[] data = line.split(",");
+            ExamScore record = new ExamScore();
+            record.setStudentID(data[0]);
+//            record.setCourseID(addScoreRequest.getCourseID());
+//            record.setAssignmentType(addScoreRequest.getAssignmentType());
+            record.setAssignmentScore(data[1]);
+//            record.setYear(addScoreRequest.getYear());
+//            record.setLevel(addScoreRequest.getLevel());
+//            record.setSemester(addScoreRequest.getSemester());
+//            record.setAssignmentName(addScoreRequest.getAssignmentName());
+
+            csvRecords.add(record);
+
+        }
+
+        br.close();
+        examScoreRepository.saveAll(csvRecords);
 
     }
 }
