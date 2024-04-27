@@ -130,12 +130,12 @@ public class ARController {
     }
 
     @GetMapping("/findAllStudentsGrade/{course_id}")     //Get all student grades of selected course module
-    public List<GradeDTO> findAllStudentMarksGrade(@PathVariable String course_id){
+    public List<GradeDTO> findAllStudentGrade(@PathVariable String course_id){
         return arService.findAllStudentMarksGrade(course_id);
     }
 
     @GetMapping("/findSelectedStudentGrade/{course_id}/{student_id}")     //Get selected student grades of selected course module
-    public List<GradeDTO> findSelectedStudentMarksGrade(@PathVariable String course_id, @PathVariable String student_id){
+    public List<GradeDTO> findSelectedStudentGrade(@PathVariable String course_id, @PathVariable String student_id){
         return arService.findSelectedStudentMarksGrade(course_id,student_id);
     }
 

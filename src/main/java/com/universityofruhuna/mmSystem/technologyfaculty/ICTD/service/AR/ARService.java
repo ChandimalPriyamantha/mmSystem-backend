@@ -135,13 +135,13 @@ public class ARService {
     }
 
     public List<GradeDTO> findAllStudentMarksGrade(String course_id){          //Get all student grades of selected course module
-        List<Grade> gradeList = arGradeRepo.findAllStudentMarksGrade(course_id);
+        List<Grade> gradeList = arGradeRepo.findAllStudentGrade(course_id);
         return mp.map(gradeList,new TypeToken<ArrayList<GradeDTO>>(){}.getType());
 
     }
 
     public List<GradeDTO> findSelectedStudentMarksGrade(String course_id, String student_id){          //Get selected student grades of selected course module
-        List<Grade> gradeList = arGradeRepo.findSelectedStudentMarksGrade(course_id,student_id);
+        List<Grade> gradeList = arGradeRepo.findSelectedStudentGrade(course_id,student_id);
         return mp.map(gradeList,new TypeToken<ArrayList<GradeDTO>>(){}.getType());
 
     }
