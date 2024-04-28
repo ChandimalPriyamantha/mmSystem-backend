@@ -28,11 +28,14 @@ public class ExamScore {
     private String assignmentType;
 
     @Column(name="assignment_score")
-    private Double assignmentScore;
+    private String assignmentScore;
 
     @Column(name = "level")
     private String level;
 
     @Column(name = "semester")
     private String semester;
+
+    @Column(name = "assignment_name")
+    private String assignmentName;
 }
