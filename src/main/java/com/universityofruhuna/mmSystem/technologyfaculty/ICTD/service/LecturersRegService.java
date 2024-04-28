@@ -1,7 +1,10 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.LecturersRegDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.LecturersRegRepo;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.CourseEntity;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.LecturersRegEntity;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -22,6 +25,9 @@ public class LecturersRegService {
     @Autowired
     LecturersRegRepo lecturersRegRepo;
 
+    @Autowired
+    ResponseDTO responseDTO;
+
     public void saveLecturerDetails(LecturersRegDTO lecturerDetailObj){
         LecturersRegEntity lecturersRegEntity = modelMapper.map(lecturerDetailObj ,LecturersRegEntity.class);
         lecturersRegRepo.save(lecturersRegEntity);
@@ -37,6 +43,27 @@ public class LecturersRegService {
         lecturersRegRepo.save(modelMapper.map(lecturersRegDTO,LecturersRegEntity.class));
     }
 
-//    public void
+    public ResponseDTO getAllLecId(){
+        ArrayList<String> userIDlist = new ArrayList<>();
+        List<LecturersRegEntity> list=lecturersRegRepo.findAll();
+        if(!list.isEmpty())
+        {
+            for (LecturersRegEntity lecturersRegEntity : list) {
+                userIDlist.add(lecturersRegEntity.getUser_id());
+            }
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(userIDlist);
+            responseDTO.setMessage("get all Lecturer IDs");
+
+        }
+        else
+        {
+            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+            responseDTO.setMessage("No data found");
+            responseDTO.setContent(null);
+        }
+
+        return responseDTO;
+    }
 
 }

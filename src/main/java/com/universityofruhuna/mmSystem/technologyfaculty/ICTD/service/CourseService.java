@@ -1,6 +1,7 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.CourseNameIdDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.CourseRepo;
@@ -129,6 +130,29 @@ public class CourseService {
                         responseDTO.setContent(id);
                         responseDTO.setMessage("Course id not found");
                 }
+                return responseDTO;
+        }
+
+        public ResponseDTO getAllCIDs(){
+                ArrayList<String> allCIDs = new ArrayList<>();
+                List<CourseEntity> list=courseRepo.findAll();
+                if(!list.isEmpty())
+                {
+                        for (CourseEntity courseEntity : list) {
+                                allCIDs.add(courseEntity.getCourse_id());
+                        }
+                        responseDTO.setCode(VarList.RIP_SUCCESS);
+                        responseDTO.setContent(allCIDs);
+                        responseDTO.setMessage("get all Course IDs");
+
+                }
+                else
+                {
+                        responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+                        responseDTO.setMessage("No data found");
+                        responseDTO.setContent(null);
+                }
+
                 return responseDTO;
         }
 
