@@ -63,14 +63,18 @@ public class CourseCoordinatorController {
         }
     }
 
-    @GetMapping("getcidbyuserid/{user_id}")
-    public ResponseEntity getCidByUserId(@PathVariable String user_id){
-        ResponseDTO cidByUserId = courseCoordinatorService.getCIDByUserId(user_id);
-        if (cidByUserId.getCode().equals(VarList.RIP_SUCCESS)){
-            return new ResponseEntity(cidByUserId,HttpStatus.OK);
-        }else{
-            return new ResponseEntity(cidByUserId,HttpStatus.NOT_FOUND);
+
+    @GetMapping("getCCByCourse/{course_id}")
+    public ResponseEntity getCCByCourse(@PathVariable String course_id)
+    {
+        ResponseDTO responseDTO=courseCoordinatorService.getCCbyCourse((course_id));
+        if(responseDTO.getCode().equals(VarList.RIP_SUCCESS))
+        {
+            return new ResponseEntity(responseDTO,HttpStatus.OK);
+        }else {
+            return new ResponseEntity(responseDTO,HttpStatus.NOT_FOUND);
         }
     }
+
 
 }

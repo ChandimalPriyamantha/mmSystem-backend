@@ -5,8 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface CourseCoordinatorRepo extends JpaRepository<CourseCoordinatorEntity,Integer> {
+public interface CourseCoordinatorRepo extends JpaRepository<CourseCoordinatorEntity,Integer>
+{
+    @Query(nativeQuery = true,value = "SELECT * FROM coursecoordinator where course_id =:course_id")
+    public CourseCoordinatorEntity getCCBycourse(@Param("course_id")String course_id);
 
-    @Query(nativeQuery = true, value = "select course_id from coursecoordinator where  user_id=:user_id")
-    String findCourseIDByUserID(@Param("user_id") String user_id);
 }

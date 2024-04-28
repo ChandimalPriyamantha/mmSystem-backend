@@ -37,17 +37,20 @@ public class CourseService {
 
 
 
-        public List<CourseDTO> findCidCnameByLS(int level, int sem) {
+//        public List<CourseDTO> findCidCnameByLS(String department_id,int level, int sem) {
+//                List<CourseEntity> list = courseRepo.findApprovedCourses(department_id,level, sem, Year.of(LocalDate.now().getYear()));
+//                List<CourseDTO> courseDTOList=modelMapper.map(list,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
+//
+//               return courseDTOList;
+//        }
 
-
-
-                List<CourseEntity> list = courseRepo.findCCApprovedCourses(level, sem, Year.of(LocalDate.now().getYear()));
+        public List<CourseDTO> findCidCnameByDLS(int level,int sem,String approved_level) {
+                List<CourseEntity> list = courseRepo.findApprovedCourses(level,sem,approved_level,Year.of(LocalDate.now().getYear()));
                 List<CourseDTO> courseDTOList=modelMapper.map(list,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
 
-               return courseDTOList;
-
-
+                return courseDTOList;
         }
+
 
 
         public ResponseDTO getAllCourses(){

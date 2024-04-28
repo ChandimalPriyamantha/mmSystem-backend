@@ -101,17 +101,19 @@ public class CourseCoordinatorService {
         return responseDTO;
     }
 
-    public ResponseDTO getCIDByUserId(String user_id){
-        try{
-            String cIDByUserId = courseCoordinatorRepo.findCourseIDByUserID(user_id);
+
+    public ResponseDTO getCCbyCourse(String course_id)
+    {
+        CourseCoordinatorEntity courseCoordinatorEntity=courseCoordinatorRepo.getCCBycourse(course_id);
+        if(courseCoordinatorEntity!=null)
+        {
             responseDTO.setCode(VarList.RIP_SUCCESS);
-            responseDTO.setContent(cIDByUserId);
-            responseDTO.setMessage("Course ID has taken");
-        }catch (Exception e){
+            responseDTO.setContent(courseCoordinatorEntity.getUser_id());
+            responseDTO.setMessage("Successfully get Course coordinator");
+        }else {
             responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
-            responseDTO.setContent(user_id);
-            responseDTO.setMessage("Course ID not found");
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            responseDTO.setContent(null);
+            responseDTO.setMessage("error getting Course coordinator");
         }
         return responseDTO;
     }
