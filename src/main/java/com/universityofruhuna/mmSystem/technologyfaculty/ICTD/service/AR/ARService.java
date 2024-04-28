@@ -96,9 +96,9 @@ public class ARService {
 
 
     /*---------------------------------------------------------------------------------------- Service for medical table ----------------------------START-------------*/
-    //This method get all medical submission list related to a particular year
-    public List<MedicalDTO> getAllMedicalSubmissions(String academic_year){
-        List<Medical> allMedicalList = arMedicalRepo.getAllMedicalSubmissions(academic_year);
+
+    public List<MedicalDTO> getAllMedicalSubmissionsByYear(String academic_year){     //This method get all medical submission list related to a particular year
+        List<Medical> allMedicalList = arMedicalRepo.getAllMedicalSubmissionsByYear(academic_year);
         return  mp.map(allMedicalList,new TypeToken<ArrayList<MedicalDTO>>(){}.getType());
     }
 

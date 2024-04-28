@@ -76,9 +76,9 @@ public class ARController {
 
 
     /*---------------------------------------------------------------------------------------- Controller for medical table ----------------------------START------------*/
-    @GetMapping("/getAllMedicalSubmissions/{academic_year}")    //controller to get all medical list
-    public List<MedicalDTO> getAllMedicalSubmissions(@PathVariable String academic_year){
-        return arService.getAllMedicalSubmissions(academic_year);
+    @GetMapping("/getAllMedicalSubmissionsByYear/{academic_year}")    //controller to get all medical list by selected academic year
+    public List<MedicalDTO> getAllMedicalSubmissionsByYear(@PathVariable String academic_year){
+        return arService.getAllMedicalSubmissionsByYear(academic_year);
     }
     @GetMapping("/getSelectedStudentMedicalDetails/{student_id}/{course_id}/{academic_year}/{exam_type}")   //Controller to get selected student's medical details for selected exam
     public List<MedicalDTO> getSelectedStudentMedicalDetails(@PathVariable String student_id, @PathVariable String course_id, @PathVariable String academic_year, @PathVariable String exam_type){
