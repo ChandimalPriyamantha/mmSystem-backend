@@ -14,9 +14,9 @@ public interface ARMedicalRepo extends JpaRepository<Medical,Integer> {
     List<Medical> getAllMedicalSubmissionsByYear(String academic_year);
 
 
-    //Get all medical list with matching year
-//    @Query(nativeQuery = true, value = "select * from medical where academic_year= :academic_year")
-//    List<Medical> getAllMedicalSubmissions(String academic_year);
+    //Get all medical list
+    @Query(nativeQuery = true, value = "select * from medical")
+    List<Medical> getAllMedicalSubmissions();
 
 
     //Get medical details of selected one student for one exam in selected year

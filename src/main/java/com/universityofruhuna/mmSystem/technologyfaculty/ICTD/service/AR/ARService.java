@@ -72,23 +72,23 @@ public class ARService {
 
 
     //This method is to find * details of mark approval level table with passing course id, student_id, approval level and approved year
-    public List<MarksApprovalLevelDTO> getMarksApprovalLevelByAllParameters(String course_id,String student_id,String approval_level, String approved_year){
-
-        List<MarksApprovalLevel> marksApprovalLevelList=arMarksApprovalLevelRepo.getMarksApprovalLevelByAllParameters(course_id,student_id,approval_level,approved_year);
-        return  mp.map(marksApprovalLevelList,new TypeToken<ArrayList<MarksApprovalLevelDTO>>(){}.getType());
-
-    }
+//    public List<MarksApprovalLevelDTO> getMarksApprovalLevelByAllParameters(String course_id,String student_id,String approval_level, String approved_year){
+//
+//        List<MarksApprovalLevel> marksApprovalLevelList=arMarksApprovalLevelRepo.getMarksApprovalLevelByAllParameters(course_id,student_id,approval_level,approved_year);
+//        return  mp.map(marksApprovalLevelList,new TypeToken<ArrayList<MarksApprovalLevelDTO>>(){}.getType());
+//
+//    }
 
     //This method is to update mark approval level of mark approval_level_table with passing  new_approval_level, course_id,  student_id,  old_approval_level,  approved_year
 
-    public Boolean updateMarksApprovalLevelByAllParameters(String new_approval_level,String course_id, String student_id, String old_approval_level, String approved_year){
-        List <MarksApprovalLevel> marksApprovalLevelList =arMarksApprovalLevelRepo.getMarksApprovalLevelByAllParameters(course_id,student_id,old_approval_level,approved_year);
-        if(marksApprovalLevelList.isEmpty()){
-            return false;
-        }else
-            arMarksApprovalLevelRepo.updateMarksApprovalLevelByAllParameters( new_approval_level, course_id,  student_id,  old_approval_level,  approved_year);
-        return true;
-    }
+//    public Boolean updateMarksApprovalLevelByAllParameters(String new_approval_level,String course_id, String student_id, String old_approval_level, String approved_year){
+//        List <MarksApprovalLevel> marksApprovalLevelList =arMarksApprovalLevelRepo.getMarksApprovalLevelByAllParameters(course_id,student_id,old_approval_level,approved_year);
+//        if(marksApprovalLevelList.isEmpty()){
+//            return false;
+//        }else
+//            arMarksApprovalLevelRepo.updateMarksApprovalLevelByAllParameters( new_approval_level, course_id,  student_id,  old_approval_level,  approved_year);
+//        return true;
+//    }
 
 
 
@@ -99,6 +99,11 @@ public class ARService {
 
     public List<MedicalDTO> getAllMedicalSubmissionsByYear(String academic_year){     //This method get all medical submission list related to a particular year
         List<Medical> allMedicalList = arMedicalRepo.getAllMedicalSubmissionsByYear(academic_year);
+        return  mp.map(allMedicalList,new TypeToken<ArrayList<MedicalDTO>>(){}.getType());
+    }
+
+    public List<MedicalDTO> getAllMedicalSubmissions(){     //This method get all medical submission list
+        List<Medical> allMedicalList = arMedicalRepo.getAllMedicalSubmissions();
         return  mp.map(allMedicalList,new TypeToken<ArrayList<MedicalDTO>>(){}.getType());
     }
 
@@ -160,6 +165,20 @@ public class ARService {
     }
     /*---------------------------------------------------------------------------------------- Service for course table ----------------------------END-------------*/
 
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for approve level table ----------------------------START-------------*/
+
+    public List<MarksApprovalLevelDTO> getNotApprovedCoursesByLevelSemester(String level,String semester, String approval_level, String academic_year){
+
+        List<MarksApprovalLevel> notApprovedList=arMarksApprovalLevelRepo.getNotApprovedCoursesByLevelSemester( level,semester, approval_level, academic_year);
+        return  mp.map(notApprovedList,new TypeToken<ArrayList<MarksApprovalLevelDTO>>(){}.getType());
+
+    }
+
+    /*---------------------------------------------------------------------------------------- Service for approve level table ----------------------------END-------------*/
 
 
 
