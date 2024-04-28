@@ -6,7 +6,7 @@ import lombok.Data;
 @Entity
 @Table(name = "evaluationcriteria")
 @Data
-public class EvaluationCriteria {
+public class EvaluationCriteriaLecture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
