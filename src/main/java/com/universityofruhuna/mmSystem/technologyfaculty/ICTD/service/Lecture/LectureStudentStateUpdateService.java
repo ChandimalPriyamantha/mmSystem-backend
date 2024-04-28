@@ -33,7 +33,7 @@ public class LectureStudentStateUpdateService {
         // Assuming you want to update all student course enrollments in this page
         List<StudentCourseEnroll> studentCourseEnrollList = studentCourseEnrollPage.getContent();
         for (StudentCourseEnroll studentCourseEnroll : studentCourseEnrollList) {
-            studentCourseEnroll.setAssignmentName("true");
+            studentCourseEnroll.setAssignmentName("Completed");
             studentCourseEnrollRepository.save(studentCourseEnroll);
         }
     }

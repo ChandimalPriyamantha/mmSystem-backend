@@ -5,8 +5,6 @@ import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.requestmodel.Lectu
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.Lecture.LectureScoreService;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.Lecture.LectureStudentStateUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,15 +36,15 @@ public class LectureController { // Controller class to handle all function rega
         lectureScoreService.feedScores(addScoreRequest);
     }
 
-    @PostMapping("/upload/studentScore")
-    public ResponseEntity<?> uploadCsv(@RequestParam("file") MultipartFile file){
+    // to upload student score from CSV file
+    @PostMapping("/upload/csvFile")
+    public String uploadCsv(@RequestParam("file") MultipartFile file){
         try{
-           lectureScoreService.saveCsvData(file);
-           return ResponseEntity.ok("CSV data uploaded successfully");
+            lectureScoreService.saveCsvData(file); // to call method to upload CSV data
+           return "CSV data uploaded successfully";
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                    "Filed to upload CSV data: " + e.getMessage()
-            );
+           return e.getMessage();
+
         }
     }
 }
