@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,17 +42,30 @@ public class StudentDetailsService {
         return responseDTO;
     }
     public ResponseDTO insertStudentDetailsAsBulk(List <StudentDetailsDTO> studentDetailsDTOS){
-        List<StudentDetailsEntity> studentDetailsAsBulk = mmp.map( studentDetailsDTOS,new TypeToken<ArrayList <StudentDetailsEntity>>(){}.getType());
-        try {
-            studentDetailsRepo.saveAll(studentDetailsAsBulk);
-            responseDTO.setCode(VarList.RIP_SUCCESS);
+
+        if(studentDetailsDTOS.isEmpty())
+        {
+            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
             responseDTO.setContent(studentDetailsDTOS);
-            responseDTO.setMessage("Students Details have been inserted");
-        }catch (Exception e){
-            responseDTO.setCode(VarList.RIP_ERROR);
-            responseDTO.setContent(studentDetailsDTOS);
-            responseDTO.setMessage(e.getMessage());
+            responseDTO.setMessage("Empty Data");
         }
+        else {
+            List<StudentDetailsEntity> studentDetailsAsBulk = mmp.map( studentDetailsDTOS,new TypeToken<ArrayList <StudentDetailsEntity>>(){}.getType());
+            //TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+
+            try {
+                studentDetailsRepo.saveAll(studentDetailsAsBulk);
+                responseDTO.setCode(VarList.RIP_SUCCESS);
+                responseDTO.setContent(studentDetailsDTOS);
+                responseDTO.setMessage("Students Details have been uploaded");
+            }catch (Exception e){
+                responseDTO.setCode(VarList.RIP_ERROR);
+                responseDTO.setContent(studentDetailsDTOS);
+                responseDTO.setMessage(e.getMessage());
+            }
+        }
+
+
         return responseDTO;
     }
 

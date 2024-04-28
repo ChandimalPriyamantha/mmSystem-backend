@@ -20,17 +20,51 @@ public class LecturersRegController {
     LecturersRegService lecturersRegService;
 
     @PostMapping("savelecdetails")
-    public void saveLecturerDetails(@RequestBody LecturersRegDTO lecturerRegDetails){
-        lecturersRegService.saveLecturerDetails(lecturerRegDetails);
+    public ResponseEntity saveLecturerDetails(@RequestBody LecturersRegDTO lecturerRegDetails){
+        ResponseDTO response=lecturersRegService.saveLecturerDetails(lecturerRegDetails);
+        if(response.getCode().equals(VarList.RIP_SUCCESS))
+        {
+            return new ResponseEntity(response, HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity(response,HttpStatus.NOT_FOUND);
+
     }
 
     @GetMapping("get/alllecturersdetails")
-    public List<LecturersRegDTO> getAllLecDetails(){
-        return lecturersRegService.getAllLecturers();
+    public ResponseEntity getAllLecDetails(){
+        ResponseDTO response=lecturersRegService.getAllLecturers();
+        if(response.getCode().equals(VarList.RIP_SUCCESS))
+        {
+            return new ResponseEntity(response, HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity(response,HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping("edit/alecdetails/{id}")
-    public void editLecturerDetails(@RequestBody LecturersRegDTO lecturersRegDTO){lecturersRegService.editLecturerDetails(lecturersRegDTO);}
+    @PutMapping("edit/alecdetails")
+    public ResponseEntity editLecturerDetails(@RequestBody LecturersRegDTO lecturersRegDTO)
+    {
+        ResponseDTO response=lecturersRegService.editLecturerDetails(lecturersRegDTO);
+        if(response.getCode().equals(VarList.RIP_SUCCESS))
+        {
+            return new ResponseEntity(response, HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity(response,HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("delete/deleteById/{id}")
+    public ResponseEntity deleteLecById(@PathVariable int id)
+    {
+        ResponseDTO response=lecturersRegService.deleteLecByID(id);
+        if(response.getCode().equalsIgnoreCase(VarList.RIP_SUCCESS))
+        {
+            return new ResponseEntity(response, HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity(response,HttpStatus.NOT_FOUND);
+    }
 
     @GetMapping("allLecids")
     public ResponseEntity getAllLecIds(){
