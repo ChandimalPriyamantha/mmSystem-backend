@@ -2,10 +2,7 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity;
 
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.StudentCourseId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,8 +15,13 @@ import lombok.NoArgsConstructor;
 @IdClass(StudentCourseId.class)
 public class StudentRegCourses
 {
+
+    private int id;
     @Id
     private String student_id;
     @Id
     private String course_id;
+
+    private String academic_year;
+
 }

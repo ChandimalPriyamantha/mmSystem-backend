@@ -17,10 +17,11 @@ public class Calculations
     private int id;
     private String student_id;
     private String course_id;
-    private String type;
     private String mark;
     private String percentage;
-    private String description;
+    private String academic_year;
+    private String evaluation_criteria_id;
+
 
 
 }
