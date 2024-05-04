@@ -1,11 +1,11 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Data
 public class GradeDTO {
     private int id;

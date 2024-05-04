@@ -1,8 +1,10 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller.AR;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.*;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.AcademicYearDetails;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Grade;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR.ARService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -98,9 +100,9 @@ public class ARController {
     /*---------------------------------------------------------------------------------------- Controller for marks table ----------------------------START-------------*/
 
 
-    @GetMapping("/getABDetails")      //Get student id and other details from marks table where grade is E*
+    @GetMapping("/getABDetails")      //Get all  students records to list down from marks table having AB s for valid exams
     public List<Object[]> getABDetails(){
-        return arService.getEStarDetails();
+        return arService.getABDetails();
     }
 
     @GetMapping("/getEStarDetailsByCourseId/{course_id}")      //Get student id and other details from marks table where grade is E*        This is for view marks table to identify is there E* for the subject
@@ -108,10 +110,17 @@ public class ARController {
         return arService.getEStarDetailsByCourseId(course_id);
     }
 
+    @GetMapping("/getSelectedStudentSelectedExamMarksBySelectedCourseAndSelectedAcademicYear/{student_id}/{course_id}/{academic_year}/{exam_type}")                 //Get all from marks table by providing student id , course id, academic year, and exam type
+    public List<MarksDTO> getSelectedStudentSelectedExamMarksBySelectedCourseAndSelectedAcademicYear(@PathVariable String student_id, @PathVariable String course_id, @PathVariable String academic_year, @PathVariable String exam_type){
+        return arService.getSelectedStudentSelectedExamMarksBySelectedCourseAndSelectedAcademicYear(student_id, course_id, academic_year, exam_type);
+    }
+
     @PutMapping("/updateStudentScore")      //Update selected student grade with medical submissions
     public int updateStudentScore(@RequestBody UpdateABDTO updateEStarDTO){
         return arService.updateStudentScore(updateEStarDTO);
     }
+
+
 
 //    @GetMapping("/findAllStudentMarksRemainingToApprove/{approval_level}/{course_id}")
 //    public List<MarksDTO> findAllStudentMarksRemainingToApprove(@PathVariable String approval_level, @PathVariable String course_id){
@@ -127,8 +136,8 @@ public class ARController {
 
     /*---------------------------------------------------------------------------------------- Controller for grade table ----------------------------START-------------*/
     @PutMapping("/updateStudentFinalGrade")     //Update selected student's Final grade to WH
-    public void updateStudentFinalGrade(@RequestBody UpdateABDTO updateEStarDTO){
-        arService.updateStudentFinalGrade(updateEStarDTO);
+    public void updateStudentFinalGrade(@RequestBody GradeDTO gradeDTO){
+        arService.updateStudentFinalGrade(gradeDTO);
     }
 
     @GetMapping("/findAllStudentsGrade/{course_id}")     //Get all student grades of selected course module

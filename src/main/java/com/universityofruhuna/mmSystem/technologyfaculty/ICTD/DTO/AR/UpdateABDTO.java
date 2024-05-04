@@ -13,11 +13,8 @@ public class UpdateABDTO {
     private String new_score;
     private String exam_type;
     private String academic_year;
-    private String new_grade;
 
-    public String getNew_grade() {
-        return new_grade;
-    }
+
 
     public String getCourse_id() {
         return course_id;

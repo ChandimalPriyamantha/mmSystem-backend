@@ -11,9 +11,6 @@ import java.util.List;
 public interface ARGradeRepo extends JpaRepository<Grade,Integer> {
 
 
-    @Modifying
-    @Query(nativeQuery = true, value = "update grade set grade=:grade where student_id=:student_id AND course_id=:course_id")     //Update Final grade to With held details of selected student
-    void updateStudentFinalGrade(String grade,String student_id, String course_id);
 
     @Query(nativeQuery = true, value = "select grade.* from grade" +     //Get all student grades of selected course module
             " where grade.course_id=:course_id ")

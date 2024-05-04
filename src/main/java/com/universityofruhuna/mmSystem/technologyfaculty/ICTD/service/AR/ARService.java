@@ -1,8 +1,10 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.*;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.*;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.*;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.MarksEntity;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -117,9 +119,15 @@ public class ARService {
 
     /*---------------------------------------------------------------------------------------- Service for marks table ----------------------------START-------------*/
 
+
+    //Get all from marks table by providing student id , course id, academic year, and exam type
+    public List<MarksDTO> getSelectedStudentSelectedExamMarksBySelectedCourseAndSelectedAcademicYear(String student_id, String course_id, String academic_year , String exam_type){
+        List<MarksEntity> marksList = arMarksRepo.getSelectedStudentSelectedExamMarksBySelectedCourseAndSelectedAcademicYear(student_id, course_id, academic_year, exam_type);
+        return mp.map(marksList,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
+    }
     public int updateStudentScore(UpdateABDTO updateABDTO){      //Update selected student grade with medical submissions
 
-        return arMarksRepo.updateStudentScore(updateABDTO.getNew_score(), updateABDTO.getStudent_id(), updateABDTO.getCourse_id(), Year.parse(updateABDTO.getAcademic_year()), updateABDTO.getExam_type());
+        return arMarksRepo.updateStudentScore(updateABDTO.getNew_score(), updateABDTO.getStudent_id(), updateABDTO.getCourse_id(), updateABDTO.getAcademic_year(), updateABDTO.getExam_type());
 
     }
 
@@ -131,8 +139,13 @@ public class ARService {
 
 
     /*---------------------------------------------------------------------------------------- Service for grade table ----------------------------START-------------*/
-    public void updateStudentFinalGrade(UpdateABDTO updateABDTO){         //Update selected student's Final grade to WH
-        arGradeRepo.updateStudentFinalGrade(updateABDTO.getNew_grade(),updateABDTO.getStudent_id(),updateABDTO.getCourse_id());
+    public void updateStudentFinalGrade(GradeDTO gradeDTO){         //Update selected student's Final grade
+
+        if(arGradeRepo.existsById(gradeDTO.getId())) {
+            arGradeRepo.save(mp.map(gradeDTO, Grade.class));
+        }
+
+
     }
 
     public List<GradeDTO> findAllStudentMarksGrade(String course_id){          //Get all student grades of selected course module
@@ -197,7 +210,7 @@ public class ARService {
 
 
 
-    public List<Object[]> getEStarDetails(){        //Get student id and other details from marks table where grade is E*........
+    public List<Object[]> getABDetails(){        //Get all  students records to list down from marks table having AB s for valid exams
         List<Object[]> eStarList= arMarksRepo.getABDetails();
         return eStarList;
     }
