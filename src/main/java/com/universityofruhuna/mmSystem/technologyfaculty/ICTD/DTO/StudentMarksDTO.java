@@ -20,8 +20,16 @@ public class StudentMarksDTO
 
     private String semester;
 
-    private double overall_score;
+    private String total_ca_mark;
+
+    private String ca_eligibility;
+
+    private String total_final_mark;
+
+    private String total_rounded_mark;
 
     private String grade;
+
+    private String gpv;
 
 }

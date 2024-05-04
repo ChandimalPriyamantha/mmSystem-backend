@@ -12,6 +12,8 @@ public class EvaluationCriteriaDTO
 {
     private int id;
 
+    private String evaluationcriteria_id;
+
     private String course_id;
 
     private String type;
