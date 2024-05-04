@@ -7,12 +7,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UpdateEStarDTO {
+public class UpdateABDTO {
     private String course_id;
     private String student_id;
-    private String new_grade;
+    private String new_score;
     private String exam_type;
     private String academic_year;
+    private String new_grade;
+
+    public String getNew_grade() {
+        return new_grade;
+    }
 
     public String getCourse_id() {
         return course_id;
@@ -22,8 +27,8 @@ public class UpdateEStarDTO {
         return student_id;
     }
 
-    public String getNew_grade() {
-        return new_grade;
+    public String getNew_score() {
+        return new_score;
     }
 
     public String getExam_type() {

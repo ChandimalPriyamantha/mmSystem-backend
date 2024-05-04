@@ -1,13 +1,12 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller.AR;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.*;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.AcademicYearDetails;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR.ARService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.tomcat.util.http.parser.MediaTypeCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -99,8 +98,8 @@ public class ARController {
     /*---------------------------------------------------------------------------------------- Controller for marks table ----------------------------START-------------*/
 
 
-    @GetMapping("/getEStarDetails")      //Get student id and other details from marks table where grade is E*
-    public List<Object[]> getEStarDetails(){
+    @GetMapping("/getABDetails")      //Get student id and other details from marks table where grade is E*
+    public List<Object[]> getABDetails(){
         return arService.getEStarDetails();
     }
 
@@ -109,9 +108,9 @@ public class ARController {
         return arService.getEStarDetailsByCourseId(course_id);
     }
 
-    @PutMapping("/updateStudentGrade")      //Update selected student grade with medical submissions
-    public int updateStudentGrade(@RequestBody UpdateEStarDTO updateEStarDTO){
-        return arService.updateStudentGrade(updateEStarDTO);
+    @PutMapping("/updateStudentScore")      //Update selected student grade with medical submissions
+    public int updateStudentScore(@RequestBody UpdateABDTO updateEStarDTO){
+        return arService.updateStudentScore(updateEStarDTO);
     }
 
 //    @GetMapping("/findAllStudentMarksRemainingToApprove/{approval_level}/{course_id}")
@@ -128,7 +127,7 @@ public class ARController {
 
     /*---------------------------------------------------------------------------------------- Controller for grade table ----------------------------START-------------*/
     @PutMapping("/updateStudentFinalGrade")     //Update selected student's Final grade to WH
-    public void updateStudentFinalGrade(@RequestBody UpdateEStarDTO updateEStarDTO){
+    public void updateStudentFinalGrade(@RequestBody UpdateABDTO updateEStarDTO){
         arService.updateStudentFinalGrade(updateEStarDTO);
     }
 
@@ -158,5 +157,19 @@ public class ARController {
 
 
     /*---------------------------------------------------------------------------------------- Controller for approval table ----------------------------END-------------*/
+
+
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Controller for academic_year_details table ----------------------------START-------------*/
+    @GetMapping("/getAcademicYearDetails")
+    public List<AcademicYearDetailsDTO> getAcademicYearDetails(){
+        return arService.getAcademicYearDetails();
+    }
+
+    /*---------------------------------------------------------------------------------------- Controller for academic_year_details table ----------------------------END-------------*/
 
 }

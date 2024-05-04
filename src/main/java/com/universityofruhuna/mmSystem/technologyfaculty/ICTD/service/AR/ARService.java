@@ -1,13 +1,8 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.*;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.*;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Course;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Grade;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.MarksApprovalLevel;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Medical;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.MarksEntity;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.*;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -31,6 +26,7 @@ public class ARService {
     private ARGradeRepo arGradeRepo;
     @Autowired
     private ARMedicalRepo arMedicalRepo;
+    @Autowired ARAcademicYearDetailsRepo arAcademicYearDetailsRepo;
     @Autowired
     private ModelMapper mp;
 
@@ -121,9 +117,9 @@ public class ARService {
 
     /*---------------------------------------------------------------------------------------- Service for marks table ----------------------------START-------------*/
 
-    public int updateStudentGrade(UpdateEStarDTO updateEStarDTO){      //Update selected student grade with medical submissions
+    public int updateStudentScore(UpdateABDTO updateABDTO){      //Update selected student grade with medical submissions
 
-        return arMarksRepo.updateStudentGrade(updateEStarDTO.getNew_grade(),updateEStarDTO.getStudent_id(),updateEStarDTO.getCourse_id(), Year.parse(updateEStarDTO.getAcademic_year()),updateEStarDTO.getExam_type());
+        return arMarksRepo.updateStudentScore(updateABDTO.getNew_score(), updateABDTO.getStudent_id(), updateABDTO.getCourse_id(), Year.parse(updateABDTO.getAcademic_year()), updateABDTO.getExam_type());
 
     }
 
@@ -135,8 +131,8 @@ public class ARService {
 
 
     /*---------------------------------------------------------------------------------------- Service for grade table ----------------------------START-------------*/
-    public void updateStudentFinalGrade(UpdateEStarDTO updateEStarDTO){         //Update selected student's Final grade to WH
-        arGradeRepo.updateStudentFinalGrade(updateEStarDTO.getStudent_id(),updateEStarDTO.getCourse_id());
+    public void updateStudentFinalGrade(UpdateABDTO updateABDTO){         //Update selected student's Final grade to WH
+        arGradeRepo.updateStudentFinalGrade(updateABDTO.getNew_grade(),updateABDTO.getStudent_id(),updateABDTO.getCourse_id());
     }
 
     public List<GradeDTO> findAllStudentMarksGrade(String course_id){          //Get all student grades of selected course module
@@ -183,8 +179,26 @@ public class ARService {
 
 
 
+
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for academic_year_details table ----------------------------START-------------*/
+    public List<AcademicYearDetailsDTO> getAcademicYearDetails(){
+        List<AcademicYearDetails> academicYearDetails= arAcademicYearDetailsRepo.findAll();
+        return mp.map(academicYearDetails, new TypeToken<ArrayList<AcademicYearDetailsDTO>>(){}.getType());
+    }
+
+
+    /*---------------------------------------------------------------------------------------- Service for academic_year_details table ----------------------------END-------------*/
+
+
+
+
     public List<Object[]> getEStarDetails(){        //Get student id and other details from marks table where grade is E*........
-        List<Object[]> eStarList= arMarksRepo.getEStarDetails();
+        List<Object[]> eStarList= arMarksRepo.getABDetails();
         return eStarList;
     }
 
