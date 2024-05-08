@@ -1,9 +1,6 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller.AR;
 
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.GradeDTO;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.MedicalDTO;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.UpdateEStarDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.*;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR.ARService;
@@ -51,10 +48,10 @@ public class ARController {
 
 
     //This method is to update mark approval level of mark approval_level_table with passing  new_approval_level, course_id,  student_id,  old_approval_level,  approved_year
-    @PostMapping("/updateMarksApprovalLevelByAllParameters/{new_approval_level}/{course_id}/{student_id}/{old_approval_level}/{approved_year}")
-    public Boolean updateMarksApprovalLevelByAllParameters(@PathVariable String new_approval_level,@PathVariable String course_id, @PathVariable String student_id, @PathVariable String old_approval_level, @PathVariable String approved_year){
-       return arService.updateMarksApprovalLevelByAllParameters( new_approval_level, course_id,  student_id,  old_approval_level,  approved_year);
-    }
+//    @PostMapping("/updateMarksApprovalLevelByAllParameters/{new_approval_level}/{course_id}/{student_id}/{old_approval_level}/{approved_year}")
+//    public Boolean updateMarksApprovalLevelByAllParameters(@PathVariable String new_approval_level,@PathVariable String course_id, @PathVariable String student_id, @PathVariable String old_approval_level, @PathVariable String approved_year){
+//       return arService.updateMarksApprovalLevelByAllParameters( new_approval_level, course_id,  student_id,  old_approval_level,  approved_year);
+//    }
 
 
 
@@ -76,10 +73,16 @@ public class ARController {
 
 
     /*---------------------------------------------------------------------------------------- Controller for medical table ----------------------------START------------*/
-    @GetMapping("/getAllMedicalSubmissions/{academic_year}")    //controller to get all medical list
-    public List<MedicalDTO> getAllMedicalSubmissions(@PathVariable String academic_year){
-        return arService.getAllMedicalSubmissions(academic_year);
+    @GetMapping("/getAllMedicalSubmissionsByYear/{academic_year}")    //controller to get all medical list by selected academic year
+    public List<MedicalDTO> getAllMedicalSubmissionsByYear(@PathVariable String academic_year){
+        return arService.getAllMedicalSubmissionsByYear(academic_year);
     }
+
+    @GetMapping("/getAllMedicalSubmissions")    //controller to get all medical list by selected academic year
+    public List<MedicalDTO> getAllMedicalSubmissions(){
+        return arService.getAllMedicalSubmissions();
+    }
+
     @GetMapping("/getSelectedStudentMedicalDetails/{student_id}/{course_id}/{academic_year}/{exam_type}")   //Controller to get selected student's medical details for selected exam
     public List<MedicalDTO> getSelectedStudentMedicalDetails(@PathVariable String student_id, @PathVariable String course_id, @PathVariable String academic_year, @PathVariable String exam_type){
         return arService.getSelectedStudentMedicalDetails(student_id, course_id, academic_year, exam_type);
@@ -140,4 +143,20 @@ public class ARController {
     }
 
     /*---------------------------------------------------------------------------------------- Controller for grade table ----------------------------END-------------*/
+
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Controller for approval table ----------------------------START-------------*/
+
+    @GetMapping("/getNotApprovedCoursesByLevelSemester/{level}/{semester}/{approval_level}/{academic_year}")
+    public List<MarksApprovalLevelDTO> getNotApprovedCoursesByLevelSemester(@PathVariable String level,@PathVariable String semester, @PathVariable String approval_level, @PathVariable String academic_year){
+        return arService.getNotApprovedCoursesByLevelSemester(level,semester, approval_level, academic_year);
+    }
+
+
+    /*---------------------------------------------------------------------------------------- Controller for approval table ----------------------------END-------------*/
+
 }
