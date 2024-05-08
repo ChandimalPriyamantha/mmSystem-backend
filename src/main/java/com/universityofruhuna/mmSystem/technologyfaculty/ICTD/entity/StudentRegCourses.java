@@ -22,4 +22,6 @@ public class StudentRegCourses
     private String student_id;
     @Id
     private String course_id;
+
+    private String academic_year;
 }
