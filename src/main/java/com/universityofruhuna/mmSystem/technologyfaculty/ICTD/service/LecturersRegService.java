@@ -64,11 +64,16 @@ public class LecturersRegService {
         try
         {
             List<LecturersRegEntity> lecList = lecturersRegRepo.findAll();
-            if(lecList.isEmpty())
+            if(!lecList.isEmpty())
             {
                 responseDTO.setCode(VarList.RIP_SUCCESS);
                 responseDTO.setContent(modelMapper.map(lecList,new TypeToken<ArrayList<LecturersRegDTO>>(){}.getType()));
                 responseDTO.setMessage("Data found");
+            }
+            else {
+                responseDTO.setCode(VarList.RIP_ERROR);
+                responseDTO.setContent(null);
+                responseDTO.setMessage("No Data found");
             }
 
         }
@@ -76,7 +81,7 @@ public class LecturersRegService {
         {
             responseDTO.setCode(VarList.RIP_ERROR);
             responseDTO.setContent(null);
-            responseDTO.setMessage("No Data found");
+            responseDTO.setMessage(e.getMessage());
         }
         return responseDTO;
     }

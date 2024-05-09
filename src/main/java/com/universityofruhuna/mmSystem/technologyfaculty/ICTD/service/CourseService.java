@@ -159,6 +159,27 @@ public class CourseService {
                 return responseDTO;
         }
 
+        public ResponseDTO getApprovedCourse(String user_name){
+                List<CourseEntity> courseEntities = courseRepo.findLecturerApprovedCourses(user_name);
+                if (courseEntities.isEmpty()){
+                        responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+                        responseDTO.setContent(null);
+                        responseDTO.setMessage("Data Not Found!");
+                }else {
+                        List<CourseDTO> list=modelMapper.map(courseEntities,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
+                        responseDTO.setCode(VarList.RIP_SUCCESS);
+                        responseDTO.setContent(list);
+                        responseDTO.setMessage("Data Found");
+                }
+                 return responseDTO;
+        }
+
+//        public List<CourseDTO> findCidCnameByDLS(int level,int sem,String approved_level) {
+//                List<CourseEntity> list = courseRepo.findApprovedCourses(level,sem,approved_level,Year.of(LocalDate.now().getYear()));
+//                List<CourseDTO> courseDTOList=modelMapper.map(list,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
+//
+//                return courseDTOList;
+//        }
 
 
 }

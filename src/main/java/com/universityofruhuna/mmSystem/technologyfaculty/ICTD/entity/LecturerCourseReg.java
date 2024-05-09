@@ -12,8 +12,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "lecturer_course_reg")
 public class LecturerCourseReg
 {
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
     private String user_id;
