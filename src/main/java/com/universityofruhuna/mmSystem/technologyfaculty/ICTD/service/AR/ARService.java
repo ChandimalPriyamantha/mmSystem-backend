@@ -215,9 +215,9 @@ public class ARService {
         return eStarList;
     }
 
-    public List<Object[]> getEStarDetailsByCourseId(String course_id){        //Get student id and other details from marks table where grade is E* by selected course........
-        List<Object[]> eStarList= arMarksRepo.getEStarDetailsByCourseId(course_id);
-        return eStarList;
+    public List<Object[]> getABDetailsByCourseId(String course_id){        //Get student id and other details from marks table where grade is E* by selected course........
+        List<Object[]> abList= arMarksRepo.getABDetailsByCourseId(course_id);
+        return abList;
     }
 }
 

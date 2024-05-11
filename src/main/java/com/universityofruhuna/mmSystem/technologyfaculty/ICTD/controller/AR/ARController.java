@@ -105,9 +105,9 @@ public class ARController {
         return arService.getABDetails();
     }
 
-    @GetMapping("/getEStarDetailsByCourseId/{course_id}")      //Get student id and other details from marks table where grade is E*        This is for view marks table to identify is there E* for the subject
-    public List<Object[]> getEStarDetailsByCourseId(@PathVariable String course_id){
-        return arService.getEStarDetailsByCourseId(course_id);
+    @GetMapping("/getABDetailsByCourseId/{course_id}")      //Get student id and other details from marks table where grade is E*        This is for view marks table to identify is there E* for the subject
+    public List<Object[]> getABDetailsByCourseId(@PathVariable String course_id){
+        return arService.getABDetailsByCourseId(course_id);
     }
 
     @GetMapping("/getSelectedStudentSelectedExamMarksBySelectedCourseAndSelectedAcademicYear/{student_id}/{course_id}/{academic_year}/{exam_type}")                 //Get all from marks table by providing student id , course id, academic year, and exam type
