@@ -174,6 +174,21 @@ public class CourseService {
                  return responseDTO;
         }
 
+        public ResponseDTO getAllRegCourseForCC(String user_name){
+                List<CourseEntity> courseEntityList = courseRepo.findCCRegCourses(user_name);
+                if (courseEntityList.isEmpty()){
+                        responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+                        responseDTO.setContent(null);
+                        responseDTO.setMessage("Registered Courses Not Found!");
+                }else {
+                        List<CourseDTO> courseDTOList = modelMapper.map(courseEntityList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
+                        responseDTO.setCode(VarList.RIP_SUCCESS);
+                        responseDTO.setContent(courseDTOList);
+                        responseDTO.setMessage("Registered Courses Found!");
+                }
+                return responseDTO;
+        }
+
 //        public List<CourseDTO> findCidCnameByDLS(int level,int sem,String approved_level) {
 //                List<CourseEntity> list = courseRepo.findApprovedCourses(level,sem,approved_level,Year.of(LocalDate.now().getYear()));
 //                List<CourseDTO> courseDTOList=modelMapper.map(list,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
