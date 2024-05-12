@@ -1,6 +1,7 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.CourseNameIdDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.CourseRepo;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.time.LocalDate;
 import java.time.Year;
@@ -43,11 +45,39 @@ public class CourseService {
 //               return courseDTOList;
 //        }
 
-        public List<CourseDTO> findCidCnameByDLS(int level,int sem,String approved_level) {
-                List<CourseEntity> list = courseRepo.findApprovedCourses(level,sem,approved_level,Year.of(LocalDate.now().getYear()));
-                List<CourseDTO> courseDTOList=modelMapper.map(list,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
-
-                return courseDTOList;
+        public ResponseDTO findCidCnameByDLS(int level,int sem,String department,String approved_level) {
+                try
+                {
+                        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                        List<CourseEntity> list = courseRepo.findApprovedCourses(level,sem,department,approved_level,Year.of(LocalDate.now().getYear()));
+                        List<CourseNameIdDTO> courseNameIdDTOs = new ArrayList<>();
+                        if(!list.isEmpty())
+                        {
+                                List<CourseDTO> courseDTOList=modelMapper.map(list,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
+                                for (CourseDTO courseDTO : courseDTOList) {
+                                        CourseNameIdDTO courseNameIdDTO = new CourseNameIdDTO();
+                                        courseNameIdDTO.setCourse_name(courseDTO.getCourse_name());
+                                        courseNameIdDTO.setCourse_id(courseDTO.getCourse_id());
+                                        courseNameIdDTOs.add(courseNameIdDTO);
+                                }
+                                responseDTO.setCode(VarList.RIP_SUCCESS);
+                                responseDTO.setContent(courseNameIdDTOs);
+                                responseDTO.setMessage("Successful");
+                        }
+                        else
+                        {
+                                responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+                                responseDTO.setContent(null);
+                                responseDTO.setMessage("No data found");
+                        }
+                }
+                catch (Exception e)
+                {
+                        responseDTO.setCode(VarList.RIP_ERROR);
+                        responseDTO.setContent(null);
+                        responseDTO.setMessage("No data found");
+                }
+                return responseDTO;
         }
 
 
