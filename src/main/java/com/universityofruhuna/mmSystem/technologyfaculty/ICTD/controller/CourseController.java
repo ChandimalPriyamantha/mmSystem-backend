@@ -163,6 +163,12 @@ public class CourseController {
 
     }
 
+    @GetMapping("getccregcourses/{user_name}")
+    public ResponseEntity getCCRegCoursesBy(@PathVariable String user_name){
+        ResponseDTO getcsforcc = courseService.getAllRegCourseForCC(user_name);
+        if (getcsforcc.getCode().equals(VarList.RIP_SUCCESS)) return new ResponseEntity(getcsforcc,HttpStatus.OK);
+        else return new ResponseEntity(getcsforcc,HttpStatus.NOT_FOUND);
+    }
 
 
 
