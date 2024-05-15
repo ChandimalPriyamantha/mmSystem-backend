@@ -16,6 +16,6 @@ public class CourseCoordinatorEntity {
     private int id;
     private String user_id;
     private String course_id;
-    private String academicyear;
+    private String academic_year;
 
 }
