@@ -76,5 +76,15 @@ public class CourseCoordinatorController {
         }
     }
 
+    @GetMapping("getAllCidToCourseCriteria/{user_name}")
+    public ResponseEntity getAllCidToCourseCriteria(@PathVariable String user_name){
+        ResponseDTO responseDTO = courseCoordinatorService.getAllCIDForCC((user_name));
+        if (responseDTO.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(responseDTO,HttpStatus.OK);
+        }else {
+            return new ResponseEntity(responseDTO,HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 }
