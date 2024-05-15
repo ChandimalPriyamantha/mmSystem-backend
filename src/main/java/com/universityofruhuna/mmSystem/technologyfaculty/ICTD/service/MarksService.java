@@ -1,6 +1,8 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.MarksRepo;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.MarksEntity;
 import jakarta.transaction.Transactional;
@@ -18,10 +20,13 @@ import java.util.Optional;
 public class MarksService {
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @Autowired
-    MarksRepo marksRepo;
+    private MarksRepo marksRepo;
+
+    @Autowired
+    private ResponseDTO responseDTO;
     public List<MarksDTO> getAllScore(){
 
         List<MarksEntity> markList=marksRepo.findAll();
@@ -48,16 +53,24 @@ public class MarksService {
 
 
 
-    public List<MarksDTO> getScoreByStudent_ID(String student_id)
+    public ResponseDTO getScoreByStudent_ID(String student_id)
     {
         List<MarksEntity> list=marksRepo.getScoreByStudent_ID(student_id);
 
+
         if(list.isEmpty())
         {
-            return null;
+            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+            responseDTO.setContent(null);
+            responseDTO.setMessage("Not found");
         }
         else
-            return modelMapper.map(list,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
+        {
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(modelMapper.map(list,new TypeToken<ArrayList<MarksDTO>>(){}.getType()));
+            responseDTO.setMessage("Not found");
+        }
+        return responseDTO;
     }
 
 

@@ -1,6 +1,8 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.MarksEntity;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.MarksService;
 import jakarta.persistence.GeneratedValue;
@@ -26,16 +28,6 @@ import java.util.Optional;
 @Data
 public class MarksController {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String student_id;
-    private String course_id;
-    private String academic_year;
-    private String level;
-    private String semester;
-    private String Assignment_type;
-    private String Assignment_score;
     @Autowired
     private MarksService marksService;
 
@@ -64,10 +56,18 @@ public class MarksController {
     }
 
     @GetMapping("get/scorebyStudentID/{student_id}")
-    public List<MarksDTO> getScoreByStudent_ID(@PathVariable String student_id){
-        return marksService.getScoreByStudent_ID(student_id);
+    public ResponseEntity getScoreByStudent_ID(@PathVariable String student_id){
 
+        ResponseDTO responseDTO=marksService.getScoreByStudent_ID(student_id);
 
+        if(responseDTO.getCode().equals(VarList.RIP_SUCCESS))
+        {
+            return new ResponseEntity(responseDTO,HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity(responseDTO,HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("get/scorebyStuIDCourseID/{course_id},{student_id}")
