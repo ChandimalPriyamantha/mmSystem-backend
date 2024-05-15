@@ -16,6 +16,8 @@ public class EvaluationCriteria
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String evaluationcriteria_id;
+
     private String course_id;
 
     private String type;
