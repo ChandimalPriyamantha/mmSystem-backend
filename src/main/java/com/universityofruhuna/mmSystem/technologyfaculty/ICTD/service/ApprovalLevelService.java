@@ -74,20 +74,21 @@ public class ApprovalLevelService {
             if(!marksApprovedLog.equals(null))
             {
                 responseDTO.setCode(VarList.RIP_SUCCESS);
-                responseDTO.setMessage("Approved");
+                responseDTO.setMessage("successfuly get");
                 responseDTO.setContent(modelMapper.map(marksApprovedLog,Marks_approved_logDTO.class));
             }
             else
             {
                 responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
-                responseDTO.setMessage("Not Approved");
+                responseDTO.setMessage("no signature");
                 responseDTO.setContent(null);
             }
 
         } catch (RuntimeException e) {
             responseDTO.setCode(VarList.RIP_ERROR);
             responseDTO.setMessage(e.getMessage());
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            responseDTO.setContent(null);
+//            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
         return responseDTO;
     }
