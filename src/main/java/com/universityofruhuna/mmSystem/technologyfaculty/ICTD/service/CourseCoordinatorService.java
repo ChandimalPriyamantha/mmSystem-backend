@@ -118,5 +118,20 @@ public class CourseCoordinatorService {
         return responseDTO;
     }
 
+    public ResponseDTO getAllCIDForCC(String user_name){
+        List<CourseCoordinatorEntity> courseCoordinatorEntities = courseCoordinatorRepo.getAllCidToCourseCriteria(user_name);
+        if (courseCoordinatorEntities.isEmpty()){
+            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+            responseDTO.setContent(null);
+            responseDTO.setMessage("Course_ids Not Found!");
+        }else {
+            List<CourseCoordinatorDTO> courseCoordinatorDTOList = modelMapper.map(courseCoordinatorEntities, new TypeToken<ArrayList<CourseCoordinatorDTO>>(){}.getType());
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(courseCoordinatorDTOList);
+            responseDTO.setMessage("Course_ids Found!");
+        }
+        return responseDTO;
+    }
+
 
 }
