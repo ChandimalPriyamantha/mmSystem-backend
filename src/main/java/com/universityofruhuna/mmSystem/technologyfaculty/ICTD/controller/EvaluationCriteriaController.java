@@ -33,4 +33,11 @@ public class EvaluationCriteriaController
         }
         return new ResponseEntity(responseDTO.getContent(),HttpStatus.OK);
     }
+
+    @PostMapping("insertcriteria")
+    public ResponseEntity insertAEvCriteria(@RequestBody List<EvaluationCriteriaDTO> evaluationCriteriaDTOList){
+        ResponseDTO evCriteria = evaluationCriteriaService.insertEvCriteria(evaluationCriteriaDTOList);
+        if (evCriteria.getCode().equals(VarList.RIP_SUCCESS)) return new ResponseEntity(evCriteria,HttpStatus.CREATED);
+        else return new ResponseEntity(evCriteria,HttpStatus.BAD_REQUEST);
+    }
 }
