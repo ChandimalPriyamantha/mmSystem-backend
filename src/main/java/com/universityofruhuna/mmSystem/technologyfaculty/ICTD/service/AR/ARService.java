@@ -33,63 +33,6 @@ public class ARService {
     private ModelMapper mp;
 
 
-    //-----------------Services for course table---------------------------------------START
-
-    public List<CourseDTO> findCoursesByDepartmentLevelSemester(String department_id,int level, int semester, String approval_level){
-        List<Course> courseList= arCourseRepo.findCoursesByDepartmentLevelSemester(department_id,level,semester,approval_level);
-        return mp.map(courseList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
-
-    }
-
-    public List<CourseDTO> getAllCourses(){
-        List<Course> courseList= arCourseRepo.findAll();
-        return mp.map(courseList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
-    }
-
-    //-----------------Services for course table---------------------------------------END
-
-    //-----------------Services for marks table---------------------------------------START
-
-//    public List<MarksDTO> findAllStudentMarksRemainingToApprove(String approval_level, String course_id ){
-//
-//        List<MarksEntity> marksEntities=arMarksRepo.findAllStudentMarksRemainingToApprove(approval_level,course_id);
-//        return mp.map(marksEntities,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
-//
-//    }
-
-//    public List<MarksDTO> findAllStudentMarksRemainingToApproveByStuId(String approval_level, String course_id,String student_id ){
-//
-//        List<MarksEntity> marksEntities=arMarksRepo.findAllStudentMarksRemainingToApproveByStuId(approval_level,course_id,student_id);
-//        return mp.map(marksEntities,new TypeToken<ArrayList<MarksDTO>>(){}.getType());
-//    }
-
-    //-----------------Services for marks table---------------------------------------END
-
-
-
-
-
-    //This method is to find * details of mark approval level table with passing course id, student_id, approval level and approved year
-//    public List<MarksApprovalLevelDTO> getMarksApprovalLevelByAllParameters(String course_id,String student_id,String approval_level, String approved_year){
-//
-//        List<MarksApprovalLevel> marksApprovalLevelList=arMarksApprovalLevelRepo.getMarksApprovalLevelByAllParameters(course_id,student_id,approval_level,approved_year);
-//        return  mp.map(marksApprovalLevelList,new TypeToken<ArrayList<MarksApprovalLevelDTO>>(){}.getType());
-//
-//    }
-
-    //This method is to update mark approval level of mark approval_level_table with passing  new_approval_level, course_id,  student_id,  old_approval_level,  approved_year
-
-//    public Boolean updateMarksApprovalLevelByAllParameters(String new_approval_level,String course_id, String student_id, String old_approval_level, String approved_year){
-//        List <MarksApprovalLevel> marksApprovalLevelList =arMarksApprovalLevelRepo.getMarksApprovalLevelByAllParameters(course_id,student_id,old_approval_level,approved_year);
-//        if(marksApprovalLevelList.isEmpty()){
-//            return false;
-//        }else
-//            arMarksApprovalLevelRepo.updateMarksApprovalLevelByAllParameters( new_approval_level, course_id,  student_id,  old_approval_level,  approved_year);
-//        return true;
-//    }
-
-
-
     /* ----------------------------------------------------------------------New Update Start -------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 
@@ -117,6 +60,8 @@ public class ARService {
 
 
 
+
+
     /*---------------------------------------------------------------------------------------- Service for marks table ----------------------------START-------------*/
 
 
@@ -133,6 +78,9 @@ public class ARService {
 
 
     /*---------------------------------------------------------------------------------------- Service for marks table ----------------------------END-------------*/
+
+
+
 
 
 
@@ -167,6 +115,10 @@ public class ARService {
 
 
 
+
+
+
+
     /*---------------------------------------------------------------------------------------- Service for course table ----------------------------START-------------*/
     public List<CourseDTO> getViewMarksCourseList(String level, String semester,String department_id){      //Get all course details of selected department by level and semester
         List<Course> courseList= arCourseRepo.getViewMarksCourseList(level, semester, department_id);
@@ -178,16 +130,29 @@ public class ARService {
 
 
 
+
+
+
+
     /*---------------------------------------------------------------------------------------- Service for approve level table ----------------------------START-------------*/
 
-    public List<MarksApprovalLevelDTO> getNotApprovedCoursesByLevelSemester(String level,String semester, String approval_level, String academic_year){
+    public List<MarksApprovalLevelDTO> getNotApprovedCoursesByLevelSemester(String level,String semester, String approval_level, String academic_year){         //Get * from marks Approval level table by selected level, semester, academic year and where approval level is not equal to provided level
+
 
         List<MarksApprovalLevel> notApprovedList=arMarksApprovalLevelRepo.getNotApprovedCoursesByLevelSemester( level,semester, approval_level, academic_year);
         return  mp.map(notApprovedList,new TypeToken<ArrayList<MarksApprovalLevelDTO>>(){}.getType());
 
     }
 
+    public List<MarksApprovalLevelDTO> getMarksApprovalLevelBySelectedCourseAndAcademicYear(String course_id, String academic_year ){           //Get * from marks Approval level table by selected level, semester, academic year and where approval level is not equal to provided level
+        List<MarksApprovalLevel> list = arMarksApprovalLevelRepo.getMarksApprovalLevelBySelectedCourseAndAcademicYear(course_id,academic_year);
+        return mp.map(list,new TypeToken<ArrayList<MarksApprovalLevelDTO>>(){}.getType());
+    }
+
     /*---------------------------------------------------------------------------------------- Service for approve level table ----------------------------END-------------*/
+
+
+
 
 
 
