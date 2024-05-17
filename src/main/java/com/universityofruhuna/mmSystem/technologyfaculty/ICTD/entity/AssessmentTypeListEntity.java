@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table()
+@Table(name = "assessment_type_list")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
