@@ -42,10 +42,10 @@ public class StudentMarksController
         }
     }
 
-    @GetMapping("/GetApprovedMarksByLS/{level}/{semester}/{approved_level}")
-    public ResponseEntity GetApprovedMarksByLS(@PathVariable String level, @PathVariable String semester,@PathVariable String approved_level)
+    @GetMapping("/GetApprovedMarksByLS/{level}/{semester}/{approved_level}/{department_id}")
+    public ResponseEntity GetApprovedMarksByLS(@PathVariable String level, @PathVariable String semester,@PathVariable String approved_level,@PathVariable String department_id)
     {
-        ResponseDTO responseDTO=studentMarksService.findApprovedStudentMarksByLevelSem(level,semester,approved_level);
+        ResponseDTO responseDTO=studentMarksService.findApprovedStudentMarksByLevelSem(level,semester,approved_level,department_id);
         if (responseDTO.getCode().equals(VarList.RIP_SUCCESS)) {
             return new ResponseEntity(responseDTO,HttpStatus.OK);
         }
