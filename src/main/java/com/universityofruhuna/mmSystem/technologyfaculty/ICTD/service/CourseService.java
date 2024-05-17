@@ -45,11 +45,11 @@ public class CourseService {
 //               return courseDTOList;
 //        }
 
-        public ResponseDTO findCidCnameByDLS(int level,int sem,String department,String approved_level) {
+        public ResponseDTO findCidCnameByDLS(int level,int sem,String department,String approved_level,String academic_year) {
                 try
                 {
                         TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-                        List<CourseEntity> list = courseRepo.findApprovedCourses(level,sem,department,approved_level,Year.of(LocalDate.now().getYear()));
+                        List<CourseEntity> list = courseRepo.findApprovedCourses(level,sem,department,approved_level,academic_year);
                         List<CourseNameIdDTO> courseNameIdDTOs = new ArrayList<>();
                         if(!list.isEmpty())
                         {
