@@ -51,7 +51,8 @@ public class ApprovalLevelService {
     public ResponseDTO updateApprovalLevelByDeanOffice(Marks_approved_logDTO marksApprovedLogDTO) {
         //TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         try {
-            approvalLevelRepo.updateApprovedLevelByDean(marksApprovedLogDTO.getLevel(),marksApprovedLogDTO.getSemester(),marksApprovedLogDTO.getDepartment_id(),marksApprovedLogDTO.getAcademic_year(),marksApprovedLogDTO.getApproval_level());
+            System.out.print(marksApprovedLogDTO.getLevel()+""+marksApprovedLogDTO.getSemester()+""+marksApprovedLogDTO.getDepartment_id()+""+marksApprovedLogDTO.getApproval_level()+""+marksApprovedLogDTO.getAcademic_year());
+            approvalLevelRepo.updateApprovedLevelByDean(marksApprovedLogDTO.getLevel(),marksApprovedLogDTO.getSemester(),marksApprovedLogDTO.getAcademic_year(),marksApprovedLogDTO.getDepartment_id(),marksApprovedLogDTO.getApproval_level());
             approved_user_levelRepo.save(modelMapper.map(marksApprovedLogDTO,Marks_approved_log.class));
             responseDTO.setCode(VarList.RIP_SUCCESS);
             responseDTO.setMessage("Successfully updated approval level");
