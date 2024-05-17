@@ -50,4 +50,21 @@ public class EvaluationCriteriaService
         }
        return  responseDTO;
     }
+
+    public ResponseDTO insertEvCriteria(List<EvaluationCriteriaDTO> evaluationCriteriaDTOList){
+
+        List<EvaluationCriteria> EvCriteriaInsert = modelMapper.map(evaluationCriteriaDTOList, new TypeToken<ArrayList<EvaluationCriteria>>(){}.getType());
+        try{
+            evaluationCriteriaRepo.saveAll(EvCriteriaInsert);
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(evaluationCriteriaDTOList);
+            responseDTO.setMessage("Data have been inserted!");
+
+        }catch (Exception e){
+            responseDTO.setCode(VarList.RIP_ERROR);
+            responseDTO.setContent(evaluationCriteriaDTOList);
+            responseDTO.setMessage(e.getMessage());
+        }
+        return responseDTO;
+    }
 }
