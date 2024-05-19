@@ -33,6 +33,8 @@ public class MarksController {
 
 
 
+
+
     @GetMapping("get/score")
     public List<MarksDTO> getAllScore(){
        return marksService.getAllScore();

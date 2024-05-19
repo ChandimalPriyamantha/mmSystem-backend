@@ -3,6 +3,7 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.StudentMarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.MarkSheetService;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.StudentMarksService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +27,9 @@ public class StudentMarksController
 
     @Autowired
     private StudentMarksService studentMarksService;
+
+    @Autowired
+    MarkSheetService markSheetService;
 
 
     @GetMapping("/GetMarksByLS/{level},{semester}")
