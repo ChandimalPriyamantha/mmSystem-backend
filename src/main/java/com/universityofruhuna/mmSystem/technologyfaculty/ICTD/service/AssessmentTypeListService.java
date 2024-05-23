@@ -7,8 +7,12 @@ import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AssessmentType
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AssessmentTypeListEntity;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -40,6 +44,27 @@ public class AssessmentTypeListService {
                 responseDTO.setContent(assessmentTypeListEntity);
                 responseDTO.setMessage("Assessment Type can not be saved ");
             }
+        }
+        return responseDTO;
+    }
+
+
+    public ResponseDTO allAssessmentTypes(){
+        try{
+            List<AssessmentTypeListEntity> assessmentTypeListEntityList = assessmentTypeListRepo.findAll();
+            if (!assessmentTypeListEntityList.isEmpty()){
+                responseDTO.setCode(VarList.RIP_SUCCESS);
+                responseDTO.setContent(modelMapper.map(assessmentTypeListEntityList, new TypeToken<ArrayList<AssessmentTypeListDTO>>(){}.getType()));
+                responseDTO.setMessage("Data Found");
+            }else {
+                responseDTO.setCode(VarList.RIP_ERROR);
+                responseDTO.setContent(null);
+                responseDTO.setMessage("No Data found");
+            }
+        }catch (Exception e){
+            responseDTO.setCode(VarList.RIP_ERROR);
+            responseDTO.setContent(null);
+            responseDTO.setMessage(e.getMessage());
         }
         return responseDTO;
     }
