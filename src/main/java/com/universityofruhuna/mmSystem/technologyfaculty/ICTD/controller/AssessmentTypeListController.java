@@ -24,4 +24,11 @@ public class AssessmentTypeListController {
         else return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
 
     }
+
+    @GetMapping("get/allassessmenttypes")
+    public ResponseEntity getAllAssessmentTypes(){
+        ResponseDTO responseDTO = assessmentTypeListService.allAssessmentTypes();
+        if (responseDTO.getCode().equals(VarList.RIP_SUCCESS)) return new ResponseEntity(responseDTO,HttpStatus.OK);
+        else return new ResponseEntity(responseDTO,HttpStatus.NOT_FOUND);
+    }
 }
