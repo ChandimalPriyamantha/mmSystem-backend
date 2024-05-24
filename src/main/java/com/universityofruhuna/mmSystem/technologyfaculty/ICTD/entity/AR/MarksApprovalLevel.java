@@ -16,10 +16,9 @@ public class MarksApprovalLevel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int approval_id;
     private String course_id;
-    private int course_level;
-    private int course_semester;
     private String academic_year;
     private String approval_level;
+    private String department_id;
 
 
 }

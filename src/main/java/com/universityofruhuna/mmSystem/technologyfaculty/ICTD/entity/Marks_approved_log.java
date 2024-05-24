@@ -18,6 +18,8 @@ public class Marks_approved_log {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String course_id;
+    private int level;
+    private int semester;
     private String approved_user_id;
     @Column(name = "approved_user_level")
     private String approval_level;

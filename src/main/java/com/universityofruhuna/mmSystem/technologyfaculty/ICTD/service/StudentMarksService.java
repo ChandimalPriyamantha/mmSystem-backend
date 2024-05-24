@@ -48,10 +48,10 @@ public class StudentMarksService
         return responseDTO;
     }
 
-    public ResponseDTO  findApprovedStudentMarksByLevelSem(String level, String sem,String approved_level)
+    public ResponseDTO  findApprovedStudentMarksByLevelSem(String level, String sem,String approved_level,String department_id)
     {
 
-        List<StudentMarks> markList=studentMarksRepo.findStudentMarksByLS(level,sem,approved_level);
+        List<StudentMarks> markList=studentMarksRepo.findStudentMarksByLS(level,sem,approved_level,department_id);
         if(!markList.isEmpty())
         {
             responseDTO.setCode(VarList.RIP_SUCCESS);

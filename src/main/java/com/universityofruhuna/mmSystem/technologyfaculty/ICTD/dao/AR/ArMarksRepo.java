@@ -27,18 +27,28 @@ public interface ArMarksRepo extends JpaRepository<MarksEntity,Integer> {
 
 
 
-    //Get E* students records to list down from marks table
-    @Query(nativeQuery = true, value="select distinct course.level, course.semester, course.course_id, course.course_name, marks.student_id, marks.assignment_score, marks.assignment_name, mark_approved_level.approval_level, marks.academic_year from ((marks inner join mark_approved_level on marks.course_id=mark_approved_level.course_id AND marks.academic_year =mark_approved_level.academic_year ) inner join course on course.course_id=marks.course_id) WHERE ((marks.assignment_score='E*') AND (marks.assignment_name='End theory exam' OR marks.assignment_name='End practical exam' OR marks.assignment_name='Mid theory exam' OR marks.assignment_name='Mid practical exam')) order by course.level, course.semester, course.course_id, marks.student_id")
-    List<Object[]> getEStarDetails();
+    //Get all  students records to list down from marks table having AB s for valid exams
+    @Query(nativeQuery = true, value="select distinct course.level, course.semester, course.course_id, course.course_name, marks.student_id, marks.assignment_score," +
+            " evaluationcriteria.assessment_type, mark_approved_level.approval_level, marks.academic_year from (((marks inner join mark_approved_level" +
+            " on marks.course_id=mark_approved_level.course_id AND marks.academic_year =mark_approved_level.academic_year ) inner join course on course.course_id=marks.course_id)" +
+            "inner join evaluationcriteria on evaluationcriteria.evaluationcriteria_id=marks.evaluation_criteria_id) WHERE ((marks.assignment_score='AB') AND " +
+            "(evaluationcriteria.assessment_type='End theory exam' OR evaluationcriteria.assessment_type='End practical exam' OR evaluationcriteria.assessment_type='Mid theory exam'" +
+            " OR evaluationcriteria.assessment_type='Mid practical exam')) order by course.level, course.semester, course.course_id, marks.student_id")
+    List<Object[]> getABDetails();
 
 
     //get E* details by selected course id
-    @Query(nativeQuery = true, value="select distinct course.level, course.semester, course.course_id, course.course_name, marks.student_id, marks.assignment_score, marks.assignment_name, mark_approved_level.approval_level, marks.academic_year from ((marks inner join mark_approved_level on marks.course_id=mark_approved_level.course_id AND marks.academic_year =mark_approved_level.academic_year ) inner join course on course.course_id=marks.course_id) WHERE ((marks.assignment_score='E*' AND marks.course_id=:course_id) AND (marks.assignment_name='End theory exam' OR marks.assignment_name='End practical exam' OR marks.assignment_name='Mid theory exam' OR marks.assignment_name='Mid practical exam')) order by course.level, course.semester, course.course_id, marks.student_id")
-    List<Object[]> getEStarDetailsByCourseId(String course_id);
+    @Query(nativeQuery = true, value="select distinct course.level, course.semester, course.course_id, course.course_name, marks.student_id, marks.assignment_score, evaluationcriteria.assessment_type, mark_approved_level.approval_level, marks.academic_year from (((marks inner join mark_approved_level on marks.course_id=mark_approved_level.course_id AND marks.academic_year =mark_approved_level.academic_year ) inner join course on course.course_id=marks.course_id)inner join evaluationcriteria on evaluationcriteria.evaluationcriteria_id = marks.evaluation_criteria_id) WHERE ((marks.assignment_score='AB' AND marks.course_id=:course_id) AND (evaluationcriteria.assessment_type='End theory exam' OR evaluationcriteria.assessment_type='End practical exam' OR evaluationcriteria.assessment_type='Mid theory exam' OR evaluationcriteria.assessment_type='Mid practical exam')) order by course.level, course.semester, course.course_id, marks.student_id")
+    List<Object[]> getABDetailsByCourseId(String course_id);
 
     //Update E* details of selected student--------
     @Modifying
-    @Query(nativeQuery = true, value = "update marks set assignment_score=:assignment_score where student_id=:student_id AND course_id=:course_id AND academic_year=:academic_year AND assignment_name=:exam_type")
-    int updateStudentGrade(String assignment_score, String student_id, String course_id, Year academic_year, String exam_type);
+    @Query(nativeQuery = true, value = "update marks inner join evaluationcriteria on marks.evaluation_criteria_id=evaluationcriteria.evaluationcriteria_id set marks.assignment_score=:assignment_score where marks.student_id=:student_id AND marks.course_id=:course_id AND marks.academic_year=:academic_year AND evaluationcriteria.assessment_type=:exam_type")
+    int updateStudentScore(String assignment_score, String student_id, String course_id, String academic_year, String exam_type);
+
+
+    //Get all from marks table by providing student id , course id, academic year, and exam type
+    @Query(nativeQuery = true,value = "select marks.* from marks inner join evaluationcriteria on marks.evaluation_criteria_id= evaluationcriteria.evaluationcriteria_id where marks.student_id=:student_id AND marks.course_id=:course_id AND marks.academic_year=:academic_year AND evaluationcriteria.assessment_type=:exam_type")
+    List <MarksEntity> getSelectedStudentSelectedExamMarksBySelectedCourseAndSelectedAcademicYear(String student_id, String course_id, String academic_year, String exam_type);
 
 }

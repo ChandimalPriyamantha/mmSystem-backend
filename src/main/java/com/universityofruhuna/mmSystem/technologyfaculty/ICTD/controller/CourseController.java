@@ -68,10 +68,10 @@ public class CourseController {
     }
 
 
-    @GetMapping("/getcidcnamebyls/{level}/{semester}/{department}/{approved_level}")
-    public ResponseEntity getCidCnameByDLS(@PathVariable int level, @PathVariable int semester,@PathVariable String department,@PathVariable String approved_level){
+    @GetMapping("/getcidcnamebyls/{level}/{semester}/{department}/{approved_level}/{academic_year}")
+    public ResponseEntity getCidCnameByDLS(@PathVariable int level, @PathVariable int semester,@PathVariable String department,@PathVariable String approved_level,@PathVariable String academic_year){
 
-        ResponseDTO responseDTO = courseService.findCidCnameByDLS(level, semester,department,approved_level);
+        ResponseDTO responseDTO = courseService.findCidCnameByDLS(level, semester,department,approved_level,academic_year);
         if (responseDTO.getCode().equals(VarList.RIP_SUCCESS)){
             return new ResponseEntity(responseDTO, HttpStatus.OK);
         } else {

@@ -11,10 +11,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import java.sql.Blob;
-import java.time.LocalDateTime;
 
 @Service
 @Transactional
@@ -52,10 +48,12 @@ public class ApprovalLevelService {
         return responseDTO;
     }
 
-    public ResponseDTO updateApprovalLevelByDeanOffice(String level,String sem,String academic_year,String approval_level) {
-        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+    public ResponseDTO updateApprovalLevelByDeanOffice(Marks_approved_logDTO marksApprovedLogDTO) {
+        //TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         try {
-            approvalLevelRepo.updateApprovedLevelByDean(level,sem, academic_year, approval_level);
+            System.out.print(marksApprovedLogDTO.getLevel()+""+marksApprovedLogDTO.getSemester()+""+marksApprovedLogDTO.getDepartment_id()+""+marksApprovedLogDTO.getApproval_level()+""+marksApprovedLogDTO.getAcademic_year());
+            approvalLevelRepo.updateApprovedLevelByDean(marksApprovedLogDTO.getLevel(),marksApprovedLogDTO.getSemester(),marksApprovedLogDTO.getAcademic_year(),marksApprovedLogDTO.getDepartment_id(),marksApprovedLogDTO.getApproval_level());
+            approved_user_levelRepo.save(modelMapper.map(marksApprovedLogDTO,Marks_approved_log.class));
             responseDTO.setCode(VarList.RIP_SUCCESS);
             responseDTO.setMessage("Successfully updated approval level");
             responseDTO.setContent(null);
@@ -71,6 +69,32 @@ public class ApprovalLevelService {
     {
         try {
             Marks_approved_log marksApprovedLog=approved_user_levelRepo.getSignature(course_id,approval_level,academic_year);
+            if(!marksApprovedLog.equals(null))
+            {
+                responseDTO.setCode(VarList.RIP_SUCCESS);
+                responseDTO.setMessage("successfuly get");
+                responseDTO.setContent(modelMapper.map(marksApprovedLog,Marks_approved_logDTO.class));
+            }
+            else
+            {
+                responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+                responseDTO.setMessage("no signature");
+                responseDTO.setContent(null);
+            }
+
+        } catch (RuntimeException e) {
+            responseDTO.setCode(VarList.RIP_ERROR);
+            responseDTO.setMessage(e.getMessage());
+            responseDTO.setContent(null);
+//            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        return responseDTO;
+    }
+
+    public ResponseDTO getSignature(int level,int semester,String department_id, String approval_level,String academic_year)
+    {
+        try {
+            Marks_approved_log marksApprovedLog=approved_user_levelRepo.getSignature(level,semester,department_id,approval_level,academic_year);
             if(!marksApprovedLog.equals(null))
             {
                 responseDTO.setCode(VarList.RIP_SUCCESS);
