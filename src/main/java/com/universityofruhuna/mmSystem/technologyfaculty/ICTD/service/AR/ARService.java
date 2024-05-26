@@ -28,7 +28,10 @@ public class ARService {
     private ARGradeRepo arGradeRepo;
     @Autowired
     private ARMedicalRepo arMedicalRepo;
-    @Autowired ARAcademicYearDetailsRepo arAcademicYearDetailsRepo;
+    @Autowired
+    ARAcademicYearDetailsRepo arAcademicYearDetailsRepo;
+    @Autowired
+    ARUserRepo arUserRepo;
     @Autowired
     private ModelMapper mp;
 
@@ -124,6 +127,11 @@ public class ARService {
         List<Course> courseList= arCourseRepo.getViewMarksCourseList(level, semester, department_id);
         return mp.map(courseList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
     }
+
+    public List<CourseDTO> GetAllCoursesBySelectedDepartmentLevelSemester(String department_id, String level, String semester,String academic_year){         //Get all courses details of a selected department and level, semester.
+        List<Course> courseList= arCourseRepo.GetAllCoursesBySelectedDepartmentLevelSemester(department_id,level,semester,academic_year);
+    return mp.map(courseList, new TypeToken<ArrayList<CourseDTO>>(){}.getType());
+    }
     /*---------------------------------------------------------------------------------------- Service for course table ----------------------------END-------------*/
 
 
@@ -172,6 +180,33 @@ public class ARService {
 
     /*---------------------------------------------------------------------------------------- Service for academic_year_details table ----------------------------END-------------*/
 
+
+
+
+
+
+
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for User table ----------------------------START-------------*/
+
+    public List<UserDTO> findAllUserDetailsBySelectedRole(String role){            //Get all user details by selected role
+        List<User> HODList = arUserRepo.findAllUserDetailsBySelectedRole(role);
+        return mp.map(HODList,new TypeToken<ArrayList<UserDTO>>(){}.getType());
+    }
+
+
+    public List<UserDTO> getAllCourseCoordinatorsBySelectedAcademicYearDepartmentLevelSemester(String academic_year, String department_id, String level, String semester){          //Get all course coordinator details by selected academic year department level and semester
+        List<User> coordinatorList = arUserRepo.getAllCourseCoordinatorsBySelectedAcademicYearDepartmentLevelSemester(academic_year, department_id, level, semester);
+        return mp.map(coordinatorList,new TypeToken<ArrayList<UserDTO>>(){}.getType());
+
+    }
+
+
+    /*---------------------------------------------------------------------------------------- Service for User table ----------------------------END-------------*/
 
 
 

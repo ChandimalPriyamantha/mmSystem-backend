@@ -39,6 +39,11 @@ public class ARController {
          */
     }
 
+    @GetMapping("/GetAllCoursesBySelectedDepartmentLevelSemester/{department_id}/{level}/{semester}/{academic_year}")
+    public List<CourseDTO> GetAllCoursesBySelectedDepartmentLevelSemester(@PathVariable String department_id, @PathVariable String level, @PathVariable String semester, @PathVariable String academic_year){
+        return arService.GetAllCoursesBySelectedDepartmentLevelSemester(department_id,level,semester,academic_year);
+    }
+
     /*---------------------------------------------------------------------------------------- Controller for course table ----------------------------END-------------*/
 
 
@@ -221,9 +226,44 @@ public class ARController {
 
         /*Usage
             UpdateABPage
+            CreateResultBoard
          */
     }
 
     /*---------------------------------------------------------------------------------------- Controller for academic_year_details table ----------------------------END-------------*/
+
+
+
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Controller for User table ----------------------------START-------------*/
+
+    @GetMapping("/findAllUserDetailsBySelectedRole/{role}")        //Get all user details by selected role
+    public List<UserDTO> findAllUserDetailsBySelectedRole(@PathVariable String role){
+        return arService.findAllUserDetailsBySelectedRole(role);
+        /*Usage
+            CreateResultBoard
+        */
+
+    }
+
+
+
+    @GetMapping("/getAllCourseCoordinatorsBySelectedAcademicYearDepartmentLevelSemester/{academic_year}/{department_id}/{level}/{semester}")      //Get all course coordinator details by selected academic year department level and semester
+    public List<UserDTO> getAllCourseCoordinatorsBySelectedAcademicYearDepartmentLevelSemester(@PathVariable String academic_year, @PathVariable String department_id, @PathVariable String level, @PathVariable String semester){
+        return arService.getAllCourseCoordinatorsBySelectedAcademicYearDepartmentLevelSemester(academic_year, department_id, level, semester);
+        /*Usage
+            CreateResultBoard
+        */
+
+    }
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Controller for User table ----------------------------END-------------*/
 
 }
