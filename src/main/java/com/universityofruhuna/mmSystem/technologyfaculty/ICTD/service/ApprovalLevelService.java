@@ -48,6 +48,22 @@ public class ApprovalLevelService {
         return responseDTO;
     }
 
+    public ResponseDTO ReturnApprovalLevelByDepartment(Marks_approved_logDTO marksApprovedLogDTO) {
+
+        try {
+
+            approvalLevelRepo.updateApprovedLevel(marksApprovedLogDTO.getCourse_id(),marksApprovedLogDTO.getAcademic_year(),marksApprovedLogDTO.getApproval_level());
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setMessage("Successfully updated approval level");
+            responseDTO.setContent(marksApprovedLogDTO);
+        } catch (RuntimeException e) {
+            responseDTO.setCode(VarList.RIP_ERROR);
+            responseDTO.setMessage("Error updating approval level: " + e.getMessage());
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        return responseDTO;
+    }
+
     public ResponseDTO updateApprovalLevelByDeanOffice(Marks_approved_logDTO marksApprovedLogDTO) {
         //TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         try {
