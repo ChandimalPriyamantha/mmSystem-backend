@@ -91,7 +91,7 @@ public class CourseController {
     }
 
     @PostMapping("insertacourse")
-    public  ResponseEntity insertBulkCourses(@RequestBody CourseDTO courseDTO){
+    public  ResponseEntity insertACourse(@RequestBody CourseDTO courseDTO){
         ResponseDTO insertOneCourse = courseService.insertACourse(courseDTO);
         if (insertOneCourse.getCode().equals(VarList.RIP_SUCCESS)){
             return new ResponseEntity(insertOneCourse,HttpStatus.CREATED);
@@ -129,5 +129,34 @@ public class CourseController {
             return new ResponseEntity(deleteOneCourseById,HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("allcoursesids")
+    public ResponseEntity getAllCoursesIDs(){
+        ResponseDTO responses = courseService.getAllCIDs();
+        if(responses.getCode().equals(VarList.RIP_SUCCESS))
+        {
+            return new ResponseEntity(responses,HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity(responses,HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("getcourseforcc/{user_name}")
+    public ResponseEntity getCourseForCC(@PathVariable String user_name){
+        ResponseDTO getCForCC = courseService.getApprovedCourse(user_name);
+        if (getCForCC.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(getCForCC,HttpStatus.OK);
+        }else return new ResponseEntity(getCForCC,HttpStatus.NOT_FOUND);
+
+    }
+
+    @GetMapping("getccregcourses/{user_name}")
+    public ResponseEntity getCCRegCoursesBy(@PathVariable String user_name){
+        ResponseDTO getcsforcc = courseService.getAllRegCourseForCC(user_name);
+        if (getcsforcc.getCode().equals(VarList.RIP_SUCCESS)) return new ResponseEntity(getcsforcc,HttpStatus.OK);
+        else return new ResponseEntity(getcsforcc,HttpStatus.NOT_FOUND);
+    }
+
+
 
 }

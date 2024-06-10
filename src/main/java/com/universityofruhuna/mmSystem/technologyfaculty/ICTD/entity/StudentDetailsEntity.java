@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Year;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -22,7 +23,9 @@ public class StudentDetailsEntity {
     private String user_name;
     private String email;
     private String password;
-    private Date registered_year;
+    private Year registered_year;
+
+    private String department_id;
 
 
 

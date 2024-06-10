@@ -18,7 +18,7 @@ public class Marks_approved_logDTO
     private String approved_user_id;
     private String approval_level;
     private String academic_year;
-    private Date date_time;
+    private String date_time;
     private String department_id;
     private String signature;
 }

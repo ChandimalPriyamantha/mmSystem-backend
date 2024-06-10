@@ -3,6 +3,7 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.StudentRegCoursesDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.MarkSheetService;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.StudentRegCoursesServices;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,12 +25,11 @@ import java.util.List;
 @Data
 public class StudentRegistedCourseController
 {
-    private String student_id;
-
-    private String course_id;
-
     @Autowired
     private StudentRegCoursesServices studentRegCoursesServices;
+
+    @Autowired
+    MarkSheetService markSheetService;
 
 
     @GetMapping("/getStudentsByCourse/{course_id}")
@@ -60,5 +60,8 @@ public class StudentRegistedCourseController
 
 
     }
+
+
+
 
 }

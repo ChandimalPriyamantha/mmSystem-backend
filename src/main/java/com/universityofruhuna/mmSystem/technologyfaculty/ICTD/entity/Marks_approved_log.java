@@ -24,7 +24,7 @@ public class Marks_approved_log {
     @Column(name = "approved_user_level")
     private String approval_level;
     private String academic_year;
-    private Date date_time;
+    private String date_time;
     private String department_id;
     private String signature;
 }

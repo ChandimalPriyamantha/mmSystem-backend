@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Year;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -21,7 +23,7 @@ public class LecturersRegEntity {
     private String user_name;
     private String email;
     private String password;
-    private String registered_year;
+    private Year registered_year;
     private String role;
 
 }

@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +60,7 @@ public class CourseCoordinatorService {
 
             Optional<CourseCoordinatorEntity> CCById = courseCoordinatorRepo.findById(id);
             responseDTO.setCode(VarList.RIP_SUCCESS);
-            responseDTO.setContent(CCById);
+            responseDTO.setContent(modelMapper.map(CCById,CourseCoordinatorDTO.class));
             responseDTO.setMessage("Data found");
 
         }else {
@@ -100,6 +101,7 @@ public class CourseCoordinatorService {
         return responseDTO;
     }
 
+
     public ResponseDTO getCCbyCourse(String course_id)
     {
         CourseCoordinatorEntity courseCoordinatorEntity=courseCoordinatorRepo.getCCBycourse(course_id);
@@ -115,5 +117,21 @@ public class CourseCoordinatorService {
         }
         return responseDTO;
     }
+
+    public ResponseDTO getAllCIDForCC(String user_name){
+        List<CourseCoordinatorEntity> courseCoordinatorEntities = courseCoordinatorRepo.getAllCidToCourseCriteria(user_name);
+        if (courseCoordinatorEntities.isEmpty()){
+            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+            responseDTO.setContent(null);
+            responseDTO.setMessage("Course_ids Not Found!");
+        }else {
+            List<CourseCoordinatorDTO> courseCoordinatorDTOList = modelMapper.map(courseCoordinatorEntities, new TypeToken<ArrayList<CourseCoordinatorDTO>>(){}.getType());
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(courseCoordinatorDTOList);
+            responseDTO.setMessage("Course_ids Found!");
+        }
+        return responseDTO;
+    }
+
 
 }
