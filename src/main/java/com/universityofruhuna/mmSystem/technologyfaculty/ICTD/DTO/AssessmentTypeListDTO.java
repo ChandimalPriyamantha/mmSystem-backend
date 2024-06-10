@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CourseCoordinatorDTO {
+public class AssessmentTypeListDTO {
     private int id;
-    private String user_id;
-    private String course_id;
-    private String academic_year;
+    private String assessment_type_name;
 }

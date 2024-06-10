@@ -25,10 +25,6 @@ import java.util.List;
 @Data
 public class StudentRegistedCourseController
 {
-    private String student_id;
-
-    private String course_id;
-
     @Autowired
     private StudentRegCoursesServices studentRegCoursesServices;
 
@@ -64,5 +60,8 @@ public class StudentRegistedCourseController
 
 
     }
+
+
+
 
 }
