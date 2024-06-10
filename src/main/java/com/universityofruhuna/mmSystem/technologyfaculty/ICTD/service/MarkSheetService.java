@@ -128,7 +128,7 @@ public class MarkSheetService
             if (CA) {
                 for (StudentMarks studentmark : studentMarksList) {
                     if (studentmark.getStudent_id().equals(student.getStudent_id())) {
-                        caMarks.add(new ObjectDTO("Total CA Mark", studentmark.getTotal_ca_mark()));
+                        caMarks.add(new ObjectDTO("Total_CA Mark", studentmark.getTotal_ca_mark()));
                     }
                 }
             }

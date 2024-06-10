@@ -19,8 +19,6 @@ public class StudentData
 
     private List<ObjectDTO> ca;
 
-    private String total_ca_mark;
-
     private List<ObjectDTO> end;
 
     private String total_final_marks;
