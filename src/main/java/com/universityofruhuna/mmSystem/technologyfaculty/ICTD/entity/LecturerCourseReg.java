@@ -9,13 +9,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "coursecoordinator")
-public class CourseCoordinatorEntity {
+@Table(name = "lecturer_course_reg")
+public class LecturerCourseReg
+{
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
+
     private String user_id;
+
     private String course_id;
-    private String academic_year;
 
 }

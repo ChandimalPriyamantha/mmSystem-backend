@@ -5,17 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Entity
-@Table(name = "coursecoordinator")
-public class CourseCoordinatorEntity {
+@Table(name = "evaluationcriteria_name")
+public class EvaluationCriteriaNameEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String user_id;
+    private String evaluationcriteria_id;
+    private String assignment_name;
     private String course_id;
-    private String academic_year;
-
 }
