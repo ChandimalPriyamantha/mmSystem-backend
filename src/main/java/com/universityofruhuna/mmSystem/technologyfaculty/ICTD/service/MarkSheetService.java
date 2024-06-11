@@ -168,6 +168,8 @@ public class MarkSheetService
                         newstudent.setTotal_rounded_marks(studentmark.getTotal_rounded_mark());
                         newstudent.setGrade(studentmark.getGrade());
                         newstudent.setGpv(studentmark.getGpv());
+                        newstudent.setCa_eligibility(studentmark.getCa_eligibility());
+
                     }
                 }
             list.add(newstudent);
