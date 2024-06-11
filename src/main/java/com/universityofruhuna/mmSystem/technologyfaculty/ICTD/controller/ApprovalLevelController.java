@@ -29,6 +29,20 @@ public class ApprovalLevelController
         }
     }
 
+    @PostMapping("/return")
+    public ResponseEntity ReturnApprovalLevel(@RequestBody  Marks_approved_logDTO marksApprovedLogDTO)
+    {
+        ResponseDTO responseDTO=approvalLevelService.ReturnApprovalLevelByDepartment(marksApprovedLogDTO);
+        if(responseDTO.getCode().equals(VarList.RIP_SUCCESS))
+        {
+            return new ResponseEntity(responseDTO,HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity(responseDTO,HttpStatus.NOT_FOUND );
+        }
+    }
+
     @PostMapping("updateApprovalLevelByDean")
     public ResponseEntity updateApprovalLevelByDeanOffice(@RequestBody Marks_approved_logDTO marksApprovedLogDTO)
     {
