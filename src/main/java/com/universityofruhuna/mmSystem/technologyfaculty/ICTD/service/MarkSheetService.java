@@ -97,24 +97,24 @@ public class MarkSheetService
                         if (object.getNo_of_conducted() > 1) {
                             for (MarksEntity markEntity : marksEntityList) {
                                 if (markEntity.getStudent_id().equals(student.getStudent_id()) && markEntity.getEvaluation_criteria_id().equals(object.getEvaluationcriteria_id())) {
-                                    caMarks.add(new ObjectDTO(markEntity.getAssignment_name(), markEntity.getAssignment_score(),"score"));
+                                    caMarks.add(new ObjectDTO(markEntity.getAssignment_name(), markEntity.getAssignment_score()!=null?markEntity.getAssignment_score():"-","score"));
                                 }
                             }
                             for (Calculations calculation : calculations) {
                                 if (calculation.getStudent_id().equals(student.getStudent_id()) && calculation.getEvaluation_criteria_id().equals(object.getEvaluationcriteria_id())) {
-                                    caMarks.add(new ObjectDTO(object.getDescription(), calculation.getMark(),"average"));
+                                    caMarks.add(new ObjectDTO(object.getDescription(), calculation.getMark()!=null?calculation.getMark():"-","average"));
                                 }
                             }
                         } else {
                             for (MarksEntity markEntity : marksEntityList) {
                                 if (markEntity.getStudent_id().equals(student.getStudent_id()) && markEntity.getEvaluation_criteria_id().equals(object.getEvaluationcriteria_id())) {
-                                    caMarks.add(new ObjectDTO(markEntity.getAssignment_name(), markEntity.getAssignment_score(),"score"));
+                                    caMarks.add(new ObjectDTO(markEntity.getAssignment_name(), markEntity.getAssignment_score()!=null?markEntity.getAssignment_score():"-","score"));
                                 }
                             }
                         }
                         for (Calculations calculation : calculations) {
                             if (calculation.getStudent_id().equals(student.getStudent_id()) && calculation.getEvaluation_criteria_id().equals(object.getEvaluationcriteria_id())) {
-                                caMarks.add(new ObjectDTO(object.getPercentage() + "% from " + object.getAssessment_type(), calculation.getPercentage(),"percentage"));
+                                caMarks.add(new ObjectDTO(object.getPercentage() + "% from " + object.getAssessment_type(), calculation.getPercentage()!=null?calculation.getPercentage():"-","percentage"));
                             }
                         }
                     }
@@ -130,11 +130,11 @@ public class MarkSheetService
 
                         for (MarksEntity markEntity : marksEntityList) {
                             if (markEntity.getStudent_id().equals(student.getStudent_id()) && markEntity.getEvaluation_criteria_id().equals(object.getEvaluationcriteria_id())) {
-                                endMarks.add(new ObjectDTO(markEntity.getAssignment_name(), markEntity.getAssignment_score(),"score"));
+                                endMarks.add(new ObjectDTO(markEntity.getAssignment_name(), markEntity.getAssignment_score()!=null?markEntity.getAssignment_score():"-" ,"score"));
 
                                 for (Calculations calculation : calculations) {
                                     if (calculation.getStudent_id().equals(student.getStudent_id()) && calculation.getEvaluation_criteria_id().equals(markEntity.getEvaluation_criteria_id()) && !markEntity.getAssignment_name().equalsIgnoreCase("1st Marking") &&  !markEntity.getAssignment_name().equalsIgnoreCase("2nd Marking")  ) {
-                                        endMarks.add(new ObjectDTO(object.getPercentage() + "% from " + object.getAssessment_type(), calculation.getPercentage(),"percentage"));
+                                        endMarks.add(new ObjectDTO(object.getPercentage() + "% from " + object.getAssessment_type(), calculation.getPercentage()!=null?calculation.getPercentage():"-","percentage"));
                                     }
                                 }
                             }
@@ -157,13 +157,13 @@ public class MarkSheetService
 
                     for (StudentMarks studentmark : studentMarksList) {
                         if (studentmark.getStudent_id().equals(student.getStudent_id())) {
-                            newstudent.setTotal_final_marks(studentmark.getTotal_final_mark());
-                            newstudent.setTotal_rounded_marks(studentmark.getTotal_rounded_mark());
-                            newstudent.setGrade(studentmark.getGrade());
-                            newstudent.setGpv(studentmark.getGpv());
+                            newstudent.setTotal_final_marks(studentmark.getTotal_final_mark() != null ? studentmark.getTotal_final_mark() : "-");
+                            newstudent.setTotal_rounded_marks(studentmark.getTotal_rounded_mark() != null ? studentmark.getTotal_rounded_mark() : "-");
+                            newstudent.setGrade(studentmark.getGrade() != null ? studentmark.getGrade() : "-");
+                            newstudent.setGpv(studentmark.getGpv() != null ? studentmark.getGpv() : "-");
                             if (CA) {
-                                newstudent.setTotal_ca_mark(studentmark.getTotal_ca_mark());
-                                newstudent.setCa_eligibility(studentmark.getCa_eligibility());
+                                newstudent.setTotal_ca_mark(studentmark.getTotal_ca_mark()!= null ? studentmark.getTotal_ca_mark() : "-");
+                                newstudent.setCa_eligibility(studentmark.getCa_eligibility()!=null?  studentmark.getCa_eligibility():"-" );
                             }else
                             {
                                 newstudent.setTotal_ca_mark("-");
