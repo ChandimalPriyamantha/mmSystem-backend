@@ -15,9 +15,12 @@ import java.util.List;
 public class StudentData
 {
     private String student_id;
+
     private String student_name;
 
     private List<ObjectDTO> ca;
+
+    private String total_ca_mark;
 
     private List<ObjectDTO> end;
 
