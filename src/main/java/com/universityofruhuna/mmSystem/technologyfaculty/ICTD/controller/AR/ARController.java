@@ -266,4 +266,23 @@ public class ARController {
 
     /*---------------------------------------------------------------------------------------- Controller for User table ----------------------------END-------------*/
 
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Controller for result board table ----------------------------START-------------*/
+    @GetMapping("/isResultBoardAvailable/{department}/{level}/{semester}/{academic_year}")                  //Get result board availability
+    public boolean isResultBoardAvailable(@PathVariable String department,@PathVariable String level,@PathVariable String semester,@PathVariable String academic_year){
+        return arService.isResultBoardAvailable(department, level, semester, academic_year);
+    }
+
+    @GetMapping("/getCreatedResultBoardList")                  //Get created result board list
+    public List<ResultBoardDTO> getCreatedResultBoardList(){
+        return arService.getCreatedResultBoardList();
+    }
+
+
+    /*---------------------------------------------------------------------------------------- Controller for result board table ----------------------------END-------------*/
+
 }

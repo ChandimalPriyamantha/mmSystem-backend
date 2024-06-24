@@ -31,6 +31,8 @@ public class ARService {
     @Autowired
     ARAcademicYearDetailsRepo arAcademicYearDetailsRepo;
     @Autowired
+    ARResultBoardRepo arResultBoardRepo;
+    @Autowired
     ARUserRepo arUserRepo;
     @Autowired
     private ModelMapper mp;
@@ -208,6 +210,29 @@ public class ARService {
 
     /*---------------------------------------------------------------------------------------- Service for User table ----------------------------END-------------*/
 
+
+
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for result board table ----------------------------START-------------*/
+
+    public boolean isResultBoardAvailable(String department, String level, String semester, String academic_year) {            //Get result board availability
+        List<ResultBoard> resultBoard= arResultBoardRepo.isResultBoardAvailable(department,level,semester,academic_year);
+        return (!resultBoard.isEmpty());
+
+
+    }
+
+    public List<ResultBoardDTO> getCreatedResultBoardList(){          //Get created result board list
+        List<ResultBoard> resultBoardList = arResultBoardRepo.getCreatedResultBoardList();
+        return mp.map(resultBoardList,new TypeToken<ArrayList<ResultBoardDTO>>(){}.getType());
+    }
+
+
+    /*---------------------------------------------------------------------------------------- Service for result board table ----------------------------END-------------*/
 
 
     public List<Object[]> getABDetails(){        //Get all  students records to list down from marks table having AB s for valid exams
