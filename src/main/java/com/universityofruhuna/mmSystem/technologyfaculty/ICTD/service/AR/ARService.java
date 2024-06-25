@@ -81,6 +81,12 @@ public class ARService {
 
     }
 
+    public boolean isABStudentAvailable(String academic_year, String semester, String level, String department_id ){        //Check whether there are any absence students in the selected department, selected level, selected semester, selected academic year for end or mid
+        List<MarksEntity> abStudentList = arMarksRepo.isABStudentAvailable(academic_year, semester, level, department_id);
+
+        return (!abStudentList.isEmpty());
+    }
+
 
     /*---------------------------------------------------------------------------------------- Service for marks table ----------------------------END-------------*/
 
@@ -146,10 +152,10 @@ public class ARService {
 
     /*---------------------------------------------------------------------------------------- Service for approve level table ----------------------------START-------------*/
 
-    public List<MarksApprovalLevelDTO> getNotApprovedCoursesByLevelSemester(String level,String semester, String approval_level, String academic_year){         //Get * from marks Approval level table by selected level, semester, academic year and where approval level is not equal to provided level
+    public List<MarksApprovalLevelDTO> getNotApprovedCoursesByLevelSemester(String level,String semester, String approval_level, String academic_year, String department_id){         //Get * from marks Approval level table by selected level, semester, academic year and where approval level is not equal to provided level
 
 
-        List<MarksApprovalLevel> notApprovedList=arMarksApprovalLevelRepo.getNotApprovedCoursesByLevelSemester( level,semester, approval_level, academic_year);
+        List<MarksApprovalLevel> notApprovedList=arMarksApprovalLevelRepo.getNotApprovedCoursesByLevelSemester( level,semester, approval_level, academic_year, department_id);
         return  mp.map(notApprovedList,new TypeToken<ArrayList<MarksApprovalLevelDTO>>(){}.getType());
 
     }
@@ -229,6 +235,11 @@ public class ARService {
     public List<ResultBoardDTO> getCreatedResultBoardList(){          //Get created result board list
         List<ResultBoard> resultBoardList = arResultBoardRepo.getCreatedResultBoardList();
         return mp.map(resultBoardList,new TypeToken<ArrayList<ResultBoardDTO>>(){}.getType());
+    }
+
+    public void saveResultBoard(ResultBoardDTO resultBoardDTO){         //Save result board
+        ResultBoard resultBoard = mp.map(resultBoardDTO, ResultBoard.class);
+        arResultBoardRepo.save(resultBoard);
     }
 
 

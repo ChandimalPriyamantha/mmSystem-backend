@@ -134,6 +134,15 @@ public class ARController {
          */
     }
 
+    @GetMapping("/isABStudentAvailable/{academic_year}/{semester}/{level}/{department_id}")      //Check whether there are any absence students in the selected department, selected level, selected semester, selected academic year for end or mid
+    public boolean isABStudentAvailable(@PathVariable String academic_year, @PathVariable String semester, @PathVariable String level, @PathVariable String department_id){
+        boolean abStudentList= arService.isABStudentAvailable(academic_year, semester, level, department_id);
+        return abStudentList;
+
+        /*Usage
+            CreateResultsBoard
+         */
+    }
 
 
 //    @GetMapping("/findAllStudentMarksRemainingToApprove/{approval_level}/{course_id}")
@@ -190,12 +199,13 @@ public class ARController {
     /*---------------------------------------------------------------------------------------- Controller for approval table ----------------------------START-------------*/
 
 
-    @GetMapping("/getNotApprovedCoursesByLevelSemester/{level}/{semester}/{approval_level}/{academic_year}")            //Get * from marks Approval level table by selected level, semester, academic year and where approval level is not equal to provided level
-    public List<MarksApprovalLevelDTO> getNotApprovedCoursesByLevelSemester(@PathVariable String level,@PathVariable String semester, @PathVariable String approval_level, @PathVariable String academic_year){
-        return arService.getNotApprovedCoursesByLevelSemester(level,semester, approval_level, academic_year);
+    @GetMapping("/getNotApprovedCoursesByLevelSemester/{level}/{semester}/{approval_level}/{academic_year}/{department_id}")            //Get * from marks Approval level table by selected level, semester, academic year and where approval level is not equal to provided level
+    public List<MarksApprovalLevelDTO> getNotApprovedCoursesByLevelSemester(@PathVariable String level,@PathVariable String semester, @PathVariable String approval_level, @PathVariable String academic_year, @PathVariable String department_id){
+        return arService.getNotApprovedCoursesByLevelSemester(level,semester, approval_level, academic_year, department_id);
 
         /*Usage
             CertifyMarksPage
+            CreateResultsBoard
          */
     }
 
@@ -280,6 +290,19 @@ public class ARController {
     @GetMapping("/getCreatedResultBoardList")                  //Get created result board list
     public List<ResultBoardDTO> getCreatedResultBoardList(){
         return arService.getCreatedResultBoardList();
+
+        /*
+            CreateResultBoard
+         */
+    }
+
+    @PostMapping("/saveResultBoard")                //Save result board
+    public void saveResultBoard(@RequestBody ResultBoardDTO resultBoardDTO){
+        arService.saveResultBoard(resultBoardDTO);
+
+        /*
+            CreateResultBoard
+         */
     }
 
 

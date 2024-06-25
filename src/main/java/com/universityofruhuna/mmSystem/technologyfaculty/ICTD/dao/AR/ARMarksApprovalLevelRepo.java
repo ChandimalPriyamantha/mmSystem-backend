@@ -12,10 +12,10 @@ public interface ARMarksApprovalLevelRepo extends JpaRepository<MarksApprovalLev
 
 
 
-    //Get * from marks Approval level table by selected level, semester, academic year and where approval level is not equal to provided level
+    //Get * from marks Approval level table by selected level, semester, academic year, department and where approval level is not equal to provided level
     @Query(nativeQuery = true, value="select mark_approved_level.* from mark_approved_level inner join course on mark_approved_level.course_id=course.course_id where" +
-            " course.level=:level AND course.semester=:semester AND mark_approved_level.approval_level!=:approval_level AND mark_approved_level.academic_year=:academic_year")
-    List<MarksApprovalLevel> getNotApprovedCoursesByLevelSemester(String level,String semester, String approval_level, String academic_year);
+            " course.level=:level AND course.semester=:semester AND mark_approved_level.approval_level!=:approval_level AND mark_approved_level.academic_year=:academic_year AND mark_approved_level.department_id=:department_id")
+    List<MarksApprovalLevel> getNotApprovedCoursesByLevelSemester(String level,String semester, String approval_level, String academic_year, String department_id);
 
     //This method is to find * details of mark approval level table with passing course id and academic year
     @Query(value = "select * from mark_approved_level where course_id=:course_id and academic_year=:academic_year ",nativeQuery = true)
