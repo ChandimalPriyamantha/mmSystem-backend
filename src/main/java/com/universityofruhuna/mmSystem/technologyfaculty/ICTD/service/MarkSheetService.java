@@ -169,8 +169,6 @@ public class MarkSheetService
                                 newstudent.setTotal_ca_mark("-");
                                 newstudent.setCa_eligibility("-");
                             }
-
-
                         }
                     }
                 list.add(newstudent);
