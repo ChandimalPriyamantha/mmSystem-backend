@@ -13,6 +13,6 @@ public interface ARResultBoardRepo extends JpaRepository<ResultBoard,Integer>{
     List<ResultBoard> isResultBoardAvailable(String department, String level, String semester, String academic_year);
 
     //Get created result board list
-    @Query(nativeQuery = true, value="select * from result_board where status != 'End' order by academic_year desc , semester desc, result_board.level asc, department desc")
+    @Query(nativeQuery = true, value="select * from result_board order by academic_year desc , semester desc, result_board.level asc, department desc")
     List <ResultBoard> getCreatedResultBoardList();
 }

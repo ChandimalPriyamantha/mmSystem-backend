@@ -39,9 +39,18 @@ public class ARController {
          */
     }
 
-    @GetMapping("/GetAllCoursesBySelectedDepartmentLevelSemester/{department_id}/{level}/{semester}/{academic_year}")
-    public List<CourseDTO> GetAllCoursesBySelectedDepartmentLevelSemester(@PathVariable String department_id, @PathVariable String level, @PathVariable String semester, @PathVariable String academic_year){
-        return arService.GetAllCoursesBySelectedDepartmentLevelSemester(department_id,level,semester,academic_year);
+    @GetMapping("/getCourseListRemainingToAddToResultBoard/{level}/{semester}/{department_id}/{result_board_id}")           //Get all course details of selected department by level and semester
+    public List<CourseDTO> getCourseListRemainingToAddToResultBoard (@PathVariable int level, @PathVariable int semester, @PathVariable String department_id, @PathVariable int result_board_id) {
+
+        return arService.getCourseListRemainingToAddToResultBoard(level, semester, department_id, result_board_id);
+
+
+        /*Usage
+
+            ViewResultBoard
+
+         */
+
     }
 
     /*---------------------------------------------------------------------------------------- Controller for course table ----------------------------END-------------*/
@@ -145,11 +154,7 @@ public class ARController {
     }
 
 
-//    @GetMapping("/findAllStudentMarksRemainingToApprove/{approval_level}/{course_id}")
-//    public List<MarksDTO> findAllStudentMarksRemainingToApprove(@PathVariable String approval_level, @PathVariable String course_id){
-//        List<MarksDTO> joinedData=arService.findAllStudentMarksRemainingToApprove(approval_level,course_id);
-//        return joinedData;
-//    }
+
     /*---------------------------------------------------------------------------------------- Controller for marks table ----------------------------END-------------*/
 
 
@@ -285,13 +290,17 @@ public class ARController {
     @GetMapping("/isResultBoardAvailable/{department}/{level}/{semester}/{academic_year}")                  //Get result board availability
     public boolean isResultBoardAvailable(@PathVariable String department,@PathVariable String level,@PathVariable String semester,@PathVariable String academic_year){
         return arService.isResultBoardAvailable(department, level, semester, academic_year);
+
+        /*Usage
+            CreateResultBoard
+         */
     }
 
     @GetMapping("/getCreatedResultBoardList")                  //Get created result board list
     public List<ResultBoardDTO> getCreatedResultBoardList(){
         return arService.getCreatedResultBoardList();
 
-        /*
+        /*Usage
             CreateResultBoard
          */
     }
@@ -300,8 +309,17 @@ public class ARController {
     public void saveResultBoard(@RequestBody ResultBoardDTO resultBoardDTO){
         arService.saveResultBoard(resultBoardDTO);
 
-        /*
+        /*Usage
             CreateResultBoard
+         */
+    }
+
+    @GetMapping("/getResultBoardDetailsByID/{result_board_id}")                //Get result board details by result board id
+    public ResultBoardDTO getResultBoardDetailsByID(@PathVariable int result_board_id){
+        return arService.getResultBoardDetailsByID(result_board_id);
+
+        /*Usage
+            ViewResultBoard
          */
     }
 

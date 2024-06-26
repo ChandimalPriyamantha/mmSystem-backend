@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -136,10 +137,12 @@ public class ARService {
         return mp.map(courseList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
     }
 
-    public List<CourseDTO> GetAllCoursesBySelectedDepartmentLevelSemester(String department_id, String level, String semester,String academic_year){         //Get all courses details of a selected department and level, semester.
-        List<Course> courseList= arCourseRepo.GetAllCoursesBySelectedDepartmentLevelSemester(department_id,level,semester,academic_year);
-    return mp.map(courseList, new TypeToken<ArrayList<CourseDTO>>(){}.getType());
+    public List<CourseDTO> getCourseListRemainingToAddToResultBoard(int level, int semester, String department_id, int result_board_id){      //Get all the courses not added to the result board
+        List<Course> courseList= arCourseRepo.getCourseListRemainingToAddToResultBoard(level, semester, department_id, result_board_id);
+        return mp.map(courseList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
+
     }
+
     /*---------------------------------------------------------------------------------------- Service for course table ----------------------------END-------------*/
 
 
@@ -240,6 +243,18 @@ public class ARService {
     public void saveResultBoard(ResultBoardDTO resultBoardDTO){         //Save result board
         ResultBoard resultBoard = mp.map(resultBoardDTO, ResultBoard.class);
         arResultBoardRepo.save(resultBoard);
+    }
+
+    public ResultBoardDTO getResultBoardDetailsByID(int id){         //Get result board details by id
+
+        if(arResultBoardRepo.existsById(id)) {
+
+            Optional<ResultBoard> resultBoard= arResultBoardRepo.findById(id);
+            return mp.map(resultBoard, ResultBoardDTO.class);
+        }else{
+            return null;
+        }
+
     }
 
 
