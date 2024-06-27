@@ -20,5 +20,6 @@ public class ResultBoard {
     private int semester;
     private String academic_year;
     private String status;
+    private String created_date_time;
 
 }
