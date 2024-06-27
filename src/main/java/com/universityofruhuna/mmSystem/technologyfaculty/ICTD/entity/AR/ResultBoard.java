@@ -21,5 +21,6 @@ public class ResultBoard {
     private String academic_year;
     private String status;
     private String created_date_time;
+    private String conducted_date_time;
 
 }
