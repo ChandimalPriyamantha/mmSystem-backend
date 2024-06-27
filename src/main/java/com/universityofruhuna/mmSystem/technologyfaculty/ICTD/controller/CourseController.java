@@ -33,29 +33,29 @@ public class CourseController {
     @Autowired
     private ResponseDTO responseDTO;
 
-//    @GetMapping("/getcidcnamebyls/{department_id},{level},{semester}")
-//    public ResponseEntity getCidCnameByLS(@PathVariable String department_id,@PathVariable int level, @PathVariable int semester){
-//
-//        List<CourseDTO> courseDTOList = courseService.findCidCnameByLS(department_id,level, semester);
-//        List<CourseNameIdDTO> courseNameIdDTOs = new ArrayList<>();
-//
-//        for (CourseDTO courseDTO : courseDTOList) {
-//            CourseNameIdDTO courseNameIdDTO = new CourseNameIdDTO();
-//            courseNameIdDTO.setCourse_name(courseDTO.getCourse_name());
-//            courseNameIdDTO.setCourse_id(courseDTO.getCourse_id());
-//            courseNameIdDTOs.add(courseNameIdDTO);
-//        }
-//
-//        // Check if courseNameIdDTOs is empty after populating it
-//        if (courseNameIdDTOs.isEmpty()) {
-//            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
-//            responseDTO.setMessage("No Approved Courses");
-//            responseDTO.setContent(courseNameIdDTOs);
-//            return new ResponseEntity(responseDTO, HttpStatus.NOT_FOUND);
-//        } else {
-//            return new ResponseEntity(courseNameIdDTOs, HttpStatus.OK);
-//        }
-//    }
+    @GetMapping("getcidcnamebydls/{department_id}/{level}/{semester}")
+    public ResponseEntity getCidCnameByLS(@PathVariable String department_id,@PathVariable int level, @PathVariable int semester){
+
+        List<CourseDTO> courseDTOList = courseService.findCidCnameByLS(department_id,level, semester);
+        List<CourseNameIdDTO> courseNameIdDTOs = new ArrayList<>();
+
+        for (CourseDTO courseDTO : courseDTOList) {
+            CourseNameIdDTO courseNameIdDTO = new CourseNameIdDTO();
+            courseNameIdDTO.setCourse_name(courseDTO.getCourse_name());
+            courseNameIdDTO.setCourse_id(courseDTO.getCourse_id());
+            courseNameIdDTOs.add(courseNameIdDTO);
+        }
+
+        // Check if courseNameIdDTOs is empty after populating it
+        if (courseNameIdDTOs.isEmpty()) {
+            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+            responseDTO.setMessage("No Approved Courses");
+            responseDTO.setContent(courseNameIdDTOs);
+            return new ResponseEntity(responseDTO, HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity(courseNameIdDTOs, HttpStatus.OK);
+        }
+    }
 
     @GetMapping("getallcourses")
     public ResponseEntity<ResponseDTO> getAllCourses(){

@@ -1,5 +1,6 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao;
 
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.CourseNameIdDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.CourseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,5 +21,8 @@ public interface CourseRepo extends JpaRepository<CourseEntity,Integer> {
 
     @Query(nativeQuery = true,value = "select c.id, c.course_id,c.course_name,c.hours,c.type,c.credit,c.department_id,c.level,c.semester from course c inner join coursecoordinator cc on  c.course_id = cc.course_id where cc.user_id =(select user_id from user where user_name =:user_name)")
     List<CourseEntity> findCCRegCourses(@Param("user_name") String user_name);
+
+    @Query(nativeQuery = true,value = "select c.id, c.course_id,c.course_name,c.hours,c.type,c.credit,c.department_id,c.level,c.semester from course c inner join courses_related_departments crd on c.course_id=crd.course_id  where c.level=:level and c.semester=:sem and crd.department_id=:department")
+    List<CourseEntity> findAllcourseOfDeptLS(@Param("level")int level, @Param("sem") int semester,@Param("department") String department);
 
 }
