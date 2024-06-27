@@ -347,6 +347,16 @@ public class ARController {
     }
 
 
+    @GetMapping("/getAssignedMarksSheetsByResultBoardID/{result_board_id}")                //Get all assigned marks sheets by result board id
+    public List<Object> getAssignedMarksSheetsByResultBoardID(@PathVariable int result_board_id){
+        return arService.getAssignedMarksSheetsByResultBoardID(result_board_id);
+
+        /*Usage
+            ResultBoardMarksSheetAssign
+        */
+    }
+
+
 
     /*---------------------------------------------------------------------------------------- Service for result board member table ----------------------------END-------------*/
 

@@ -281,6 +281,12 @@ public class ARService {
     }
 
 
+    public List<Object> getAssignedMarksSheetsByResultBoardID(int result_board_id){        //Get all assigned marks sheets by result board id
+        List<Object> resultBoardMemberList = arResultBoardMemberRepo.getAssignedMarksSheetsByResultBoardID(result_board_id);
+        return resultBoardMemberList;
+    }
+
+
 
     /*---------------------------------------------------------------------------------------- Service for result board member table ----------------------------END-------------*/
 
