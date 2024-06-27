@@ -5,6 +5,7 @@ import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.AcademicYearDetails;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Grade;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.ResultBoardMember;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR.ARService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -320,10 +321,33 @@ public class ARController {
 
         /*Usage
             ViewResultBoard
-         */
+        */
     }
 
 
     /*---------------------------------------------------------------------------------------- Controller for result board table ----------------------------END-------------*/
+
+
+
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for result board member table ----------------------------START-------------*/
+
+    @PostMapping("/saveResultBoardMember")
+    public boolean saveResultBoardMember(@RequestBody ResultBoardMemberDTO resultBoardMemberDTO){         //Save result board member
+        return arService.saveResultBoardMember(resultBoardMemberDTO);
+
+
+        /*Usage
+            ResultBoardMarksSheetAssign
+        */
+    }
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for result board member table ----------------------------END-------------*/
 
 }

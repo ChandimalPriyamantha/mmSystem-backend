@@ -32,9 +32,11 @@ public class ARService {
     @Autowired
     ARAcademicYearDetailsRepo arAcademicYearDetailsRepo;
     @Autowired
+    ARUserRepo arUserRepo;
+    @Autowired
     ARResultBoardRepo arResultBoardRepo;
     @Autowired
-    ARUserRepo arUserRepo;
+    ARResultBoardMemberRepo arResultBoardMemberRepo;
     @Autowired
     private ModelMapper mp;
 
@@ -259,6 +261,34 @@ public class ARService {
 
 
     /*---------------------------------------------------------------------------------------- Service for result board table ----------------------------END-------------*/
+
+
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for result board member table ----------------------------START-------------*/
+
+    public boolean saveResultBoardMember(ResultBoardMemberDTO resultBoardMemberDTO){         //Save result board member
+        ResultBoardMember resultBoardMember = mp.map(resultBoardMemberDTO, ResultBoardMember.class);
+        if(arResultBoardMemberRepo.existsById(resultBoardMember.getId())){
+           return false;
+        }else{
+            arResultBoardMemberRepo.save(resultBoardMember);
+            return true;
+        }
+    }
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for result board member table ----------------------------END-------------*/
+
+
+
+
+
+
 
 
     public List<Object[]> getABDetails(){        //Get all  students records to list down from marks table having AB s for valid exams
