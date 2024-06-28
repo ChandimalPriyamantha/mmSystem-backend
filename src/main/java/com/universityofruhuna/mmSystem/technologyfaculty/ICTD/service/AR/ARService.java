@@ -287,6 +287,16 @@ public class ARService {
     }
 
 
+    public boolean deleteResultBoardMemberById(int id){         //Delete result board member
+         if(arResultBoardMemberRepo.existsById(id)) {
+             arResultBoardMemberRepo.deleteById(id);
+             return true;
+         }else{
+             return false;
+         }
+    }
+
+
 
     /*---------------------------------------------------------------------------------------- Service for result board member table ----------------------------END-------------*/
 

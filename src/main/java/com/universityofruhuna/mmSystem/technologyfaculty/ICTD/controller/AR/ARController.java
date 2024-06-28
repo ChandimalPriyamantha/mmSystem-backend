@@ -48,7 +48,7 @@ public class ARController {
 
         /*Usage
 
-            ViewResultBoard
+            ResultsBoardMarksSheetAssign
 
          */
 
@@ -320,7 +320,7 @@ public class ARController {
         return arService.getResultBoardDetailsByID(result_board_id);
 
         /*Usage
-            ViewResultBoard
+            ResultsBoardMarksSheetAssign
         */
     }
 
@@ -356,6 +356,15 @@ public class ARController {
         */
     }
 
+
+    @DeleteMapping("/deleteResultBoardMemberById/{result_board_member_id}")                //Delete result board member
+    public boolean deleteResultBoardMemberById(@PathVariable int result_board_member_id){
+        return arService.deleteResultBoardMemberById(result_board_member_id);
+
+        /*Usage
+            ResultBoardMarksSheetAssign
+        */
+    }
 
 
     /*---------------------------------------------------------------------------------------- Service for result board member table ----------------------------END-------------*/
