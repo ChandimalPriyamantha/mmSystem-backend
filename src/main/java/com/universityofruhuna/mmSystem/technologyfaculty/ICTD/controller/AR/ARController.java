@@ -324,6 +324,24 @@ public class ARController {
         */
     }
 
+    @DeleteMapping("/deleteResultBoardById/{result_board_id}")                //Delete result board
+    public boolean deleteResultBoardById(@PathVariable int result_board_id){
+        return arService.deleteResultBoardById(result_board_id);
+
+        /*Usage
+            CreateResultBoard
+        */
+    }
+
+    @DeleteMapping("/deleteResultBoardWithRelevantMemberRecords/{id}")                //Delete result board with relevant member records
+    public void deleteResultBoardWithRelevantMemberRecords(@PathVariable int id){
+        arService.deleteResultBoardWithRelevantMemberRecords(id);
+
+        /*Usage
+            CreateResultBoard
+        */
+    }
+
 
     /*---------------------------------------------------------------------------------------- Controller for result board table ----------------------------END-------------*/
 

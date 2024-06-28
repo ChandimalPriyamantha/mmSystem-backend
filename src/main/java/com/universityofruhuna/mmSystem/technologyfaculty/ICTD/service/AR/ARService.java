@@ -237,7 +237,7 @@ public class ARService {
 
     }
 
-    public List<ResultBoardDTO> getCreatedResultBoardList(){          //Get created result board list
+    public List<ResultBoardDTO> getCreatedResultBoardList(){          //Get Not started result board list
         List<ResultBoard> resultBoardList = arResultBoardRepo.getCreatedResultBoardList();
         return mp.map(resultBoardList,new TypeToken<ArrayList<ResultBoardDTO>>(){}.getType());
     }
@@ -257,6 +257,20 @@ public class ARService {
             return null;
         }
 
+    }
+
+
+    public boolean deleteResultBoardById(int id){         //Delete result board
+        if(arResultBoardRepo.existsById(id)) {
+            arResultBoardRepo.deleteById(id);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public void deleteResultBoardWithRelevantMemberRecords(int id){         //Delete result board with relevant member records
+        arResultBoardRepo.deleteResultBoardWithRelevantMemberRecords(id);
     }
 
 
