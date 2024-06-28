@@ -333,12 +333,12 @@ public class ARController {
         */
     }
 
-    @DeleteMapping("/deleteResultBoardWithRelevantMemberRecords/{id}")                //Delete result board with relevant member records
-    public void deleteResultBoardWithRelevantMemberRecords(@PathVariable int id){
-        arService.deleteResultBoardWithRelevantMemberRecords(id);
+    @DeleteMapping("/deleteNotStartedResultBoard/{id}")                //Delete result board with relevant member records
+    public int deleteNotStartedResultBoard(@PathVariable int id){
+        return arService.deleteNotStartedResultBoard(id);
 
         /*Usage
-            CreateResultBoard
+            ResultsBoardMarksSheetAssign
         */
     }
 
@@ -384,6 +384,10 @@ public class ARController {
         */
     }
 
+    @DeleteMapping("/deleteAssignedMarksSheetsByResultBoardID/{result_board_id}")
+    public int deleteAssignedMarksSheetsByResultBoardID(@PathVariable int result_board_id){
+        return arService.deleteAssignedMarksSheetsByResultBoardID(result_board_id);
+    }
 
     /*---------------------------------------------------------------------------------------- Service for result board member table ----------------------------END-------------*/
 

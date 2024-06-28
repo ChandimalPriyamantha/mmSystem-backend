@@ -269,8 +269,8 @@ public class ARService {
         }
     }
 
-    public void deleteResultBoardWithRelevantMemberRecords(int id){         //Delete result board with relevant member records
-        arResultBoardRepo.deleteResultBoardWithRelevantMemberRecords(id);
+    public int deleteNotStartedResultBoard(int id){         //Delete result board with relevant member records
+         return arResultBoardRepo.deleteNotStartedResultBoard(id);
     }
 
 
@@ -308,6 +308,10 @@ public class ARService {
          }else{
              return false;
          }
+    }
+
+    public int deleteAssignedMarksSheetsByResultBoardID(int result_board_id){         //Delete all assigned marks sheets by result board id
+        return arResultBoardMemberRepo.deleteAssignedMarksSheetsByResultBoardID(result_board_id);
     }
 
 
