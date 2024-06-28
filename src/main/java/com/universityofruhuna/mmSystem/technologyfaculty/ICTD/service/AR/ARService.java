@@ -300,6 +300,11 @@ public class ARService {
         return resultBoardMemberList;
     }
 
+    public List<Object> getAssignedMarksSheetsByExaminerIdAndResultBoardID(int result_board_id, String course_coordinator_id){        //Get all assigned marks sheets by result board id and course coordinator id
+        List<Object> resultBoardMemberList = arResultBoardMemberRepo.getAssignedMarksSheetsByExaminerIdAndResultBoardID(result_board_id, course_coordinator_id);
+        return resultBoardMemberList;
+    }
+
 
     public boolean deleteResultBoardMemberById(int id){         //Delete result board member
          if(arResultBoardMemberRepo.existsById(id)) {

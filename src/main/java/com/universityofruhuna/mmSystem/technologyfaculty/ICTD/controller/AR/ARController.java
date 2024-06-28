@@ -375,6 +375,16 @@ public class ARController {
     }
 
 
+    @GetMapping("/getAssignedMarksSheetsByExaminerIdAndResultBoardID/{result_board_id}/{course_coordinator_id}")                //Get all assigned marks sheets by result board id and course coordinator id
+    public List<Object> getAssignedMarksSheetsByExaminerIdAndResultBoardID(@PathVariable int result_board_id, @PathVariable String course_coordinator_id){
+        return arService.getAssignedMarksSheetsByExaminerIdAndResultBoardID(result_board_id, course_coordinator_id);
+
+        /*Usage
+            ResultBoardMarksSheetAssign
+        */
+    }
+
+
     @DeleteMapping("/deleteResultBoardMemberById/{result_board_member_id}")                //Delete result board member
     public boolean deleteResultBoardMemberById(@PathVariable int result_board_member_id){
         return arService.deleteResultBoardMemberById(result_board_member_id);
@@ -387,6 +397,11 @@ public class ARController {
     @DeleteMapping("/deleteAssignedMarksSheetsByResultBoardID/{result_board_id}")
     public int deleteAssignedMarksSheetsByResultBoardID(@PathVariable int result_board_id){
         return arService.deleteAssignedMarksSheetsByResultBoardID(result_board_id);
+
+        /*Usage
+            ResultBoardMarksSheetAssign
+        */
+
     }
 
     /*---------------------------------------------------------------------------------------- Service for result board member table ----------------------------END-------------*/
