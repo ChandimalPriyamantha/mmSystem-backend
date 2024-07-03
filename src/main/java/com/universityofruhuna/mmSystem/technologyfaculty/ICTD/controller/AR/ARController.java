@@ -306,6 +306,15 @@ public class ARController {
          */
     }
 
+    @GetMapping("/getFinishedResultBoardList")                  //Get finished result board list
+    public List<ResultBoardDTO> getFinishedResultBoardList(){
+        return arService.getFinishedResultBoardList();
+
+        /*Usage
+            CertifyMarksPage
+         */
+    }
+
     @PostMapping("/saveResultBoard")                //Save result board
     public void saveResultBoard(@RequestBody ResultBoardDTO resultBoardDTO){
         arService.saveResultBoard(resultBoardDTO);

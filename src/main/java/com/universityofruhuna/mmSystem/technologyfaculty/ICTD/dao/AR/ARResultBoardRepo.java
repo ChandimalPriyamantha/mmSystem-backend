@@ -17,6 +17,9 @@ public interface ARResultBoardRepo extends JpaRepository<ResultBoard,Integer>{
     @Query(nativeQuery = true, value="select * from result_board order by academic_year desc , semester desc, result_board.level asc, department desc")
     List <ResultBoard> getCreatedResultBoardList();
 
+    @Query(nativeQuery = true, value = "select result_board.* from result_board  where status='Ended'")           //Get finished result board list
+    List<ResultBoard> getFinishedResultBoardList();
+
     @Modifying
     @Query(nativeQuery = true, value="delete from result_board where result_board.id= :id and result_board.status='Not started'")
      int deleteNotStartedResultBoard(int id);

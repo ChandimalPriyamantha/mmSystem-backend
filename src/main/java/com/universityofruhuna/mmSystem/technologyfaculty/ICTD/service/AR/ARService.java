@@ -242,6 +242,11 @@ public class ARService {
         return mp.map(resultBoardList,new TypeToken<ArrayList<ResultBoardDTO>>(){}.getType());
     }
 
+    public List<ResultBoardDTO> getFinishedResultBoardList(){          //Get finished result board list
+        List<ResultBoard> resultBoardList = arResultBoardRepo.getFinishedResultBoardList();
+        return mp.map(resultBoardList,new TypeToken<ArrayList<ResultBoardDTO>>(){}.getType());
+    }
+
     public void saveResultBoard(ResultBoardDTO resultBoardDTO){         //Save result board
         ResultBoard resultBoard = mp.map(resultBoardDTO, ResultBoard.class);
         arResultBoardRepo.save(resultBoard);
@@ -301,8 +306,8 @@ public class ARService {
     }
 
     public List<Object> getAssignedMarksSheetsByExaminerIdAndResultBoardID(int result_board_id, String course_coordinator_id){        //Get all assigned marks sheets by result board id and course coordinator id
-        List<Object> resultBoardMemberList = arResultBoardMemberRepo.getAssignedMarksSheetsByExaminerIdAndResultBoardID(result_board_id, course_coordinator_id);
-        return resultBoardMemberList;
+        return arResultBoardMemberRepo.getAssignedMarksSheetsByExaminerIdAndResultBoardID(result_board_id, course_coordinator_id);
+
     }
 
 
