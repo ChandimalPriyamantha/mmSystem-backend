@@ -30,13 +30,13 @@ public class ARService {
     @Autowired
     private ARMedicalRepo arMedicalRepo;
     @Autowired
-    ARAcademicYearDetailsRepo arAcademicYearDetailsRepo;
+    private ARAcademicYearDetailsRepo arAcademicYearDetailsRepo;
     @Autowired
-    ARUserRepo arUserRepo;
+    private ARUserRepo arUserRepo;
     @Autowired
-    ARResultBoardRepo arResultBoardRepo;
+    private ARResultBoardRepo arResultBoardRepo;
     @Autowired
-    ARResultBoardMemberRepo arResultBoardMemberRepo;
+    private ARResultBoardMemberRepo arResultBoardMemberRepo;
     @Autowired
     private ModelMapper mp;
 
