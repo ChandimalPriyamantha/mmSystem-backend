@@ -3,7 +3,7 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.Student;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.MedicalDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.StudentDetailsDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.Student.StudentMedicalRepo;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.Student.StudentRepo;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.Student.StudentStudentRepo;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -17,7 +17,7 @@ import java.util.List;
 @Transactional
 public class StudentService {
     @Autowired
-    private StudentRepo studentRepo;
+    private StudentStudentRepo studentStudentRepo;
     @Autowired
     private StudentMedicalRepo studentMedicalRepo;
 
@@ -28,7 +28,7 @@ public class StudentService {
     /*---------------------------------------------------------------------------------------- Service for students table ----------------------------START-------------*/
 
     public StudentDetailsDTO getStudentDetailsByEmail(String email) {     // get student details by email
-        return mp.map(studentRepo.getStudentDetailsByEmail(email), StudentDetailsDTO.class);
+        return mp.map(studentStudentRepo.getStudentDetailsByEmail(email), StudentDetailsDTO.class);
     }
 
     /*---------------------------------------------------------------------------------------- Service for students table ----------------------------END-------------*/
