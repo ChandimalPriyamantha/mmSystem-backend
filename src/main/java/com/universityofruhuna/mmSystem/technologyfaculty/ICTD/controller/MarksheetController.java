@@ -23,4 +23,10 @@ public class MarksheetController
     {
          return markSheetService.getData(course_id);
     }
+
+    @GetMapping("getStudentMarks/{course_id}")
+    public List<StudentData> getStudentMarks(@PathVariable String course_id )
+    {
+        return markSheetService.getData(course_id);
+    }
 }
