@@ -279,6 +279,13 @@ public class ARService {
     }
 
 
+    public List<ResultBoardDTO> getCertifyPendingResultBoards(String approval_level, String status){          //Get result board details where AR can certify (Available for AR certification)
+        List<ResultBoard> resultBoardList = arResultBoardRepo.getCertifyPendingResultBoards(approval_level, status);
+        return mp.map(resultBoardList,new TypeToken<ArrayList<ResultBoardDTO>>(){}.getType());
+    }
+
+
+
     /*---------------------------------------------------------------------------------------- Service for result board table ----------------------------END-------------*/
 
 

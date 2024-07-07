@@ -352,6 +352,16 @@ public class ARController {
     }
 
 
+    @GetMapping("/getCertifyPendingResultBoards/{approval_level}/{status}")                //Get result board details where AR can certify (Available for AR certification)
+    public List<ResultBoardDTO> getCertifyPendingResultBoards(@PathVariable String approval_level, @PathVariable String status){
+        return arService.getCertifyPendingResultBoards(approval_level, status);
+
+        /*Usage
+            CertifyMarksPage
+        */
+    }
+
+
     /*---------------------------------------------------------------------------------------- Controller for result board table ----------------------------END-------------*/
 
 
