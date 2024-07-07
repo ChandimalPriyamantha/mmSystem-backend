@@ -226,6 +226,16 @@ public class ARController {
     }
 
 
+    @PutMapping("/updateApprovedLevelAfterResultBoard")
+    public void updateApprovedLevelAfterResultBoard(@RequestBody ResultBoardDTO resultBoardDTO){
+        arService.updateApprovedLevelAfterResultBoard(resultBoardDTO.getAcademic_year(), resultBoardDTO.getDepartment(), resultBoardDTO.getLevel(), resultBoardDTO.getSemester());
+
+        /*Usage
+            ResultBoardMarksSheetAssign
+         */
+    }
+
+
     /*---------------------------------------------------------------------------------------- Controller for approval table ----------------------------END-------------*/
 
 

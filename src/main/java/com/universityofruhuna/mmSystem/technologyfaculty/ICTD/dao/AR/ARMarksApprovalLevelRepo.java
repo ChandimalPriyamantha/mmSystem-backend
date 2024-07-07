@@ -20,4 +20,10 @@ public interface ARMarksApprovalLevelRepo extends JpaRepository<MarksApprovalLev
     //This method is to find * details of mark approval level table with passing course id and academic year
     @Query(value = "select * from mark_approved_level where course_id=:course_id and academic_year=:academic_year ",nativeQuery = true)
     List<MarksApprovalLevel> getMarksApprovalLevelBySelectedCourseAndAcademicYear(String course_id, String academic_year );
+
+
+    //Update approved level after result board finished
+    @Modifying
+    @Query (nativeQuery = true, value ="UPDATE  mark_approved_level INNER JOIN course ON course.course_id= mark_approved_level.course_id SET mark_approved_level.approval_level='RB' WHERE mark_approved_level.academic_year =:academic_year AND mark_approved_level.department_id =:department_id AND course.level =:level AND course.semester =:semester")
+    void updateApprovedLevelAfterResultBoard(String academic_year, String department_id, int level, int semester);
 }

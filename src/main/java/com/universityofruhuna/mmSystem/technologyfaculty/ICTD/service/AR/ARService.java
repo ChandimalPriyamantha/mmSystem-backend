@@ -170,6 +170,11 @@ public class ARService {
         return mp.map(list,new TypeToken<ArrayList<MarksApprovalLevelDTO>>(){}.getType());
     }
 
+
+    public void updateApprovedLevelAfterResultBoard(String academic_year, String department_id, int level, int semester){         //Update approved level after result board finished
+        arMarksApprovalLevelRepo.updateApprovedLevelAfterResultBoard(academic_year, department_id, level, semester);
+    }
+
     /*---------------------------------------------------------------------------------------- Service for approve level table ----------------------------END-------------*/
 
 
