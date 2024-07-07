@@ -42,6 +42,13 @@ public class StudentService {
         return mp.map(studentMedicalRepo.getStudentMedicalList(student_id), new TypeToken<ArrayList<MedicalDTO>>(){}.getType());
     }
 
+
+    public List<MedicalDTO> getStudentMedicalListBySelectedYear(String student_id, String academic_year) {        //Get list of all the medicals by selected student id and selected academic year
+        return mp.map(studentMedicalRepo.getStudentMedicalListBySelectedYear(student_id, academic_year), new TypeToken<ArrayList<MedicalDTO>>(){}.getType());
+    }
+
+
+
     /*---------------------------------------------------------------------------------------- Service for medical table ----------------------------END-------------*/
 
 

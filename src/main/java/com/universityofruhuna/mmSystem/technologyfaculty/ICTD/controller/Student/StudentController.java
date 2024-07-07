@@ -46,6 +46,12 @@ public class StudentController {
         return studentService.getStudentMedicalList(student_id);
     }
 
+
+    @GetMapping("/getStudentMedicalListBySelectedYear/{student_id}/{academic_year}")
+    public List<MedicalDTO> getStudentMedicalListBySelectedYear(@PathVariable String student_id, @PathVariable String academic_year){
+        return studentService.getStudentMedicalListBySelectedYear(student_id,academic_year);
+    }
+
     /*---------------------------------------------------------------------------------------- Controller for medical table ----------------------------END-------------*/
 
 
