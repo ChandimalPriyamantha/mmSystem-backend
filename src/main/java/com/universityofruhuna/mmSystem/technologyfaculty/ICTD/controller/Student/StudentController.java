@@ -55,5 +55,17 @@ public class StudentController {
     /*---------------------------------------------------------------------------------------- Controller for medical table ----------------------------END-------------*/
 
 
+    /*---------------------------------------------------------------------------------------- Controller for course table ----------------------------START-------------*/
+
+    @GetMapping("/getStudentCourseListBySelectedYear/{student_id}/{academic_year}/{semester}")
+    public  List<Object> getStudentCourseListBySelectedYear(@PathVariable String student_id, @PathVariable String academic_year, @PathVariable int semester) {     //Get list of all the courses by selected student id and selected academic year
+        return studentService.getStudentCourseListBySelectedYear(student_id, academic_year, semester);
+    }
+
+
+    /*---------------------------------------------------------------------------------------- Controller for course table ----------------------------END-------------*/
+
+
+
 
 }

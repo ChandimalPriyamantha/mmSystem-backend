@@ -2,6 +2,7 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.Student;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.MedicalDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.StudentDetailsDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.Student.StudentCourseRepo;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.Student.StudentMedicalRepo;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.Student.StudentStudentRepo;
 import jakarta.transaction.Transactional;
@@ -20,6 +21,8 @@ public class StudentService {
     private StudentStudentRepo studentStudentRepo;
     @Autowired
     private StudentMedicalRepo studentMedicalRepo;
+    @Autowired
+    private StudentCourseRepo studentCourseRepo;
 
     @Autowired
     private ModelMapper mp;
@@ -50,6 +53,23 @@ public class StudentService {
 
 
     /*---------------------------------------------------------------------------------------- Service for medical table ----------------------------END-------------*/
+
+
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for course table ----------------------------START-------------*/
+
+    public List<Object> getStudentCourseListBySelectedYear(String student_id, String academic_year, int semester) {     //Get list of all the courses by selected student id and selected academic year and semester
+        return studentCourseRepo.getStudentCourseListBySelectedYear(student_id, academic_year, semester);
+    }
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for course table ----------------------------END-------------*/
 
 
 
