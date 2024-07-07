@@ -1,8 +1,11 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.Student;
 
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.MedicalDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.EvaluationCriteriaDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.StudentDetailsDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.Student.StudentCourseRepo;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.Student.StudentEvaluationCriteriaRepo;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.Student.StudentMedicalRepo;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.Student.StudentStudentRepo;
 import jakarta.transaction.Transactional;
@@ -23,6 +26,8 @@ public class StudentService {
     private StudentMedicalRepo studentMedicalRepo;
     @Autowired
     private StudentCourseRepo studentCourseRepo;
+    @Autowired
+    StudentEvaluationCriteriaRepo studentEvaluationCriteriaRepo;
 
     @Autowired
     private ModelMapper mp;
@@ -35,6 +40,7 @@ public class StudentService {
     }
 
     /*---------------------------------------------------------------------------------------- Service for students table ----------------------------END-------------*/
+
 
 
 
@@ -62,6 +68,14 @@ public class StudentService {
 
     /*---------------------------------------------------------------------------------------- Service for course table ----------------------------START-------------*/
 
+    public List<CourseDTO> getAllCourses() {     //Get list of all the courses
+        return mp.map(studentCourseRepo.getAllCourses(), new TypeToken<ArrayList<CourseDTO>>(){}.getType());
+    }
+
+    public List<CourseDTO> getCourseListByDepartment(String department_id) {     //Get list of all the courses by selected department id
+        return mp.map(studentCourseRepo.getCourseListByDepartment(department_id), new TypeToken<ArrayList<CourseDTO>>(){}.getType());
+    }
+
     public List<Object> getStudentCourseListBySelectedYear(String student_id, String academic_year, int semester) {     //Get list of all the courses by selected student id and selected academic year and semester
         return studentCourseRepo.getStudentCourseListBySelectedYear(student_id, academic_year, semester);
     }
@@ -70,6 +84,22 @@ public class StudentService {
 
 
     /*---------------------------------------------------------------------------------------- Service for course table ----------------------------END-------------*/
+
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for Evaluation criteria table ----------------------------START-------------*/
+
+    public List<EvaluationCriteriaDTO> getEvaluationCriteriaByCourseId(String course_id) {     //Get list of all the evaluation criteria by selected course id
+        return mp.map(studentEvaluationCriteriaRepo.getEvaluationCriteriaByCourseId(course_id), new TypeToken<ArrayList<EvaluationCriteriaDTO>>(){}.getType());
+    }
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for Evaluation criteria table ----------------------------END-------------*/
 
 
 
