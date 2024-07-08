@@ -1,15 +1,20 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller.Student;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.GradeDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.MedicalDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.ResultBoardDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.EvaluationCriteriaDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.GPADTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.StudentDetailsDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.GPARepo;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.Student.StudentService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.cdi.Eager;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -114,6 +119,16 @@ public class StudentController {
     }
 
 
+    @GetMapping("/getStudentLevelAndSemester/{student_id}")
+    public CourseDTO getStudentLevelAndSemester(@PathVariable String student_id) {        //Get student current level and semester
+        return studentService.getStudentLevelAndSemester(student_id);
+
+        /* Usage
+            StudentHomePage / PublishedMarksListPage
+        */
+    }
+
+
     /*---------------------------------------------------------------------------------------- Controller for course table ----------------------------END-------------*/
 
 
@@ -139,5 +154,68 @@ public class StudentController {
     /*---------------------------------------------------------------------------------------- Controller for Evaluation criteria table ----------------------------END-------------*/
 
 
+
+
+
+    /*---------------------------------------------------------------------------------------- Controller for Grade table ----------------------------START-------------*/
+
+
+    @GetMapping("/getGradeBySelectedStudentSelectedGrade/{student_id}/{grade}")
+    public List<GradeDTO> getGradeBySelectedStudentSelectedGrade(@PathVariable String student_id, @PathVariable String grade) {     //Get list of all the grades by selected student id and selected grade
+        return studentService.getGradeBySelectedStudentSelectedGrade(student_id, grade);
+
+        /* Usage
+            StudentWithHeldSubjects
+        */
+    }
+
+    @GetMapping("/getSelectedStudentGrade/{student_id}")
+    public List<GradeDTO> getSelectedStudentGrade(@PathVariable String student_id) {     //Get list of all the grades by selected student id
+        return studentService.getSelectedStudentGrade(student_id);
+
+        /* Usage
+            StudentViewGrade
+        */
+    }
+
+    /*---------------------------------------------------------------------------------------- Controller for Grade table ----------------------------END-------------*/
+
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Controller for result_board table ----------------------------START-------------*/
+
+    @GetMapping("/getPublishedMarkSheets/{approval_level}/{status}/{department_id}/{level}/{semester}")
+    public ResultBoardDTO getPublishedMarkSheets(@PathVariable String approval_level, @PathVariable String status, @PathVariable String department_id, @PathVariable String level, @PathVariable String semester) {      //Get  published marks sheet for student current level, semester and department
+        return studentService.getPublishedMarkSheets(approval_level, status,department_id,level,semester);
+
+        /* Usage
+            StudentHomePage
+        */
+    }
+
+
+    /*---------------------------------------------------------------------------------------- Controller for result_board table ----------------------------END-------------*/
+
+
+
+    /*---------------------------------------------------------------------------------------- Controller for GPA table ----------------------------START-------------*/
+
+    @GetMapping("/getLatestGPA/{student_id}")
+    public GPADTO getLatestGPA(@PathVariable String student_id) {     //Get latest GPA by selected student id
+        GPADTO gpa= studentService.getLatestGPA(student_id);
+        System.out.println(gpa.getCgpa());
+        return gpa;
+
+        /* Usage
+            StudentHomePage
+        */
+    }
+
+
+
+    /*---------------------------------------------------------------------------------------- Controller for GPA table ----------------------------END-------------*/
 
 }

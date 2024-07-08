@@ -1,13 +1,14 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.Student;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.CourseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.GradeDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.MedicalDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.ResultBoardDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.EvaluationCriteriaDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.GPADTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.StudentDetailsDTO;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.Student.StudentCourseRepo;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.Student.StudentEvaluationCriteriaRepo;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.Student.StudentMedicalRepo;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.Student.StudentStudentRepo;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.GPARepo;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.Student.*;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -28,6 +29,12 @@ public class StudentService {
     private StudentCourseRepo studentCourseRepo;
     @Autowired
     StudentEvaluationCriteriaRepo studentEvaluationCriteriaRepo;
+    @Autowired
+    StudentGradeRepo studentGradeRepo;
+    @Autowired
+    StudentResultBoardRepo studentResultBoardRepo;
+    @Autowired
+    StudentGPARepo studentGPARepo;
 
     @Autowired
     private ModelMapper mp;
@@ -81,6 +88,11 @@ public class StudentService {
     }
 
 
+    public CourseDTO getStudentLevelAndSemester(String student_id) {        //Get student current level and semester
+        return mp.map(studentCourseRepo.getStudentLevelAndSemester(student_id), CourseDTO.class);
+    }
+
+
 
 
     /*---------------------------------------------------------------------------------------- Service for course table ----------------------------END-------------*/
@@ -102,6 +114,48 @@ public class StudentService {
     /*---------------------------------------------------------------------------------------- Service for Evaluation criteria table ----------------------------END-------------*/
 
 
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for Grade table ----------------------------START-------------*/
+
+    public List<GradeDTO> getGradeBySelectedStudentSelectedGrade(String student_id, String grade) {     //Get list of all the grades by selected student id and selected grade
+        return mp.map(studentGradeRepo.getGradeBySelectedStudentSelectedGrade(student_id, grade), new TypeToken<ArrayList<GradeDTO>>(){}.getType());
+    }
+
+
+    public List<GradeDTO> getSelectedStudentGrade(String student_id) {     //Get list of all the grades by selected student id
+        return mp.map(studentGradeRepo.getSelectedStudentGrade(student_id), new TypeToken<ArrayList<GradeDTO>>(){}.getType());
+    }
+
+
+    /*---------------------------------------------------------------------------------------- Service for Grade table ----------------------------END-------------*/
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for result_board table ----------------------------START-------------*/
+
+    public ResultBoardDTO getPublishedMarkSheets(String approval_level, String status, String department_id, String level, String semester) {      //Get  published marks sheet for student current level, semester and department
+        return mp.map(studentResultBoardRepo.getPublishedMarkSheets(approval_level, status,department_id,level,semester), ResultBoardDTO.class);
+    }
+
+
+    /*---------------------------------------------------------------------------------------- Service for result_board table ----------------------------END-------------*/
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for GPA table ----------------------------START-------------*/
+    public GPADTO getLatestGPA(String student_id) {     //Get latest GPA by selected student id
+        return mp.map(studentGPARepo.getLatestGPA(student_id), GPADTO.class);
+    }
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for GPA table ----------------------------END-------------*/
 
 
 }
