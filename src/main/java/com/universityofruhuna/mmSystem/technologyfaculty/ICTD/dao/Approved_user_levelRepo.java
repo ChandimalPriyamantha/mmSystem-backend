@@ -15,6 +15,6 @@ public interface Approved_user_levelRepo extends JpaRepository<Marks_approved_lo
     Marks_approved_log getSignature(@Param("level") int level, @Param("semester") int semester, @Param("department_id")String department_id, @Param("approved_level") String approved_level, @Param("academic_year") String academic_year);
 
     @Modifying
-    @Query(nativeQuery = true,value = "delete from marks_approved_log where course_id=:course_id and department_id=:department_id and approved_user_level=:approved_level and academic_year=:academic_year")
-    void removeSignature(@Param("course_id") String course_id, @Param("department_id")String department_id, @Param("approved_level") String approved_level, @Param("academic_year") String academic_year);
+    @Query(nativeQuery = true,value = "delete from marks_approved_log where course_id=:course_id and department_id=:department_id and academic_year=:academic_year")
+    void removeSignature(@Param("course_id") String course_id, @Param("department_id")String department_id,  @Param("academic_year") String academic_year);
 }
