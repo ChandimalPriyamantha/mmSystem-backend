@@ -1,9 +1,11 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.*;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.GPADTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AR.*;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.*;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.GPA;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.MarksEntity;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -37,6 +39,7 @@ public class ARService {
     private ARResultBoardRepo arResultBoardRepo;
     @Autowired
     private ARResultBoardMemberRepo arResultBoardMemberRepo;
+    @Autowired ARGPARepo arGPARepo;
     @Autowired
     private ModelMapper mp;
 
@@ -121,7 +124,27 @@ public class ARService {
         return mp.map(gradeList,new TypeToken<ArrayList<GradeDTO>>(){}.getType());
 
     }
+
+
+    public List<GradeDTO> getGradesForResultBoard(int level, int semester, String department_id, String academic_year){          //Get list of all the grades by selected student id
+        List<Grade> gradeList = arGradeRepo.getGradesForResultBoard(level, semester, department_id, academic_year);
+        return mp.map(gradeList,new TypeToken<ArrayList<GradeDTO>>(){}.getType());
+
+    }
     /*---------------------------------------------------------------------------------------- Service for grade table ----------------------------END-------------*/
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for Gpa table ----------------------------START-------------*/
+
+    public List<GPADTO> getGpaListForResultBoard(String department_id, String academic_year, int level, int semester){        //Get list of all the GPAs for result board ar view
+        List<GPA> gpaList= arGPARepo.getGpaListForResultBoard(department_id, academic_year, level, semester);
+        return mp.map(gpaList,new TypeToken<ArrayList<GPADTO>>(){}.getType());
+    }
+
+    /*---------------------------------------------------------------------------------------- Service for Gpa table ----------------------------END-------------*/
+
+
 
 
 
