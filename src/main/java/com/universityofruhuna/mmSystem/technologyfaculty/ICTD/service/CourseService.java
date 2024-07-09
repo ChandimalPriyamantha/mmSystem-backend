@@ -80,6 +80,36 @@ public class CourseService {
                 return responseDTO;
         }
 
+        public ResponseDTO getCoursesforLectCertify(String lecturer_id) {
+                try
+                {
+                        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                        List<CourseEntity> list = courseRepo.findLecturerCertifiedAssignCourse(lecturer_id);
+                        List<CourseNameIdDTO> courseNameIdDTOs = new ArrayList<>();
+                        if(!list.isEmpty())
+                        {
+                                List<CourseDTO> courseDTOList=modelMapper.map(list,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
+
+                                responseDTO.setCode(VarList.RIP_SUCCESS);
+                                responseDTO.setContent(courseDTOList);
+                                responseDTO.setMessage("Successful");
+                        }
+                        else
+                        {
+                                responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+                                responseDTO.setContent(null);
+                                responseDTO.setMessage("No data found");
+                        }
+                }
+                catch (Exception e)
+                {
+                        responseDTO.setCode(VarList.RIP_ERROR);
+                        responseDTO.setContent(null);
+                        responseDTO.setMessage("No data found");
+                }
+                return responseDTO;
+        }
+
 
 
         public ResponseDTO getAllCourses(){
