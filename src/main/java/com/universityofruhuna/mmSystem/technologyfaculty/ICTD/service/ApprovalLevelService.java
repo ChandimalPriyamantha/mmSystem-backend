@@ -1,16 +1,20 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service;
 
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AssigncertifylecturerDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.Marks_approved_logDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.ApprovalLevelRepo;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.Approved_user_levelRepo;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.AssignCertifyLecturer;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.Assigncertifylecturer;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.Marks_approved_log;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 @Transactional
@@ -27,6 +31,9 @@ public class ApprovalLevelService {
 
     @Autowired
     private Approved_user_levelRepo approved_user_levelRepo;
+
+    @Autowired
+    private AssignCertifyLecturer assignCertifyLecturer;
 
 
 
@@ -48,11 +55,24 @@ public class ApprovalLevelService {
         return responseDTO;
     }
 
+    public void assignCertifyLecturer(AssigncertifylecturerDTO assigncertifylecturer)
+    {
+        try
+        {
+            assignCertifyLecturer.save(modelMapper.map(assigncertifylecturer, Assigncertifylecturer.class));
+        }catch (Exception e)
+        {
+            System.out.println("Error assigning ertify lecturer");
+        }
+
+    }
+
     public ResponseDTO ReturnApprovalLevelByDepartment(Marks_approved_logDTO marksApprovedLogDTO) {
 
         try {
 
             approvalLevelRepo.updateApprovedLevel(marksApprovedLogDTO.getCourse_id(),marksApprovedLogDTO.getAcademic_year(),marksApprovedLogDTO.getApproval_level());
+            approved_user_levelRepo.removeSignature(marksApprovedLogDTO.getCourse_id(),marksApprovedLogDTO.getDepartment_id(), marksApprovedLogDTO.getApproval_level(), marksApprovedLogDTO.getAcademic_year());
             responseDTO.setCode(VarList.RIP_SUCCESS);
             responseDTO.setMessage("Successfully updated approval level");
             responseDTO.setContent(marksApprovedLogDTO);

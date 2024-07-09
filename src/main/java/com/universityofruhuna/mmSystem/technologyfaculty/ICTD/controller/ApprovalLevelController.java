@@ -1,4 +1,5 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AssigncertifylecturerDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.Marks_approved_logDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
@@ -27,6 +28,12 @@ public class ApprovalLevelController
         {
             return new ResponseEntity(responseDTO,HttpStatus.NOT_FOUND );
         }
+    }
+
+    @PostMapping("/assignCertifyLecturer")
+    public void assignCertifyLecturer(@RequestBody  AssigncertifylecturerDTO assigncertifylecturerDTO)
+    {
+        approvalLevelService.assignCertifyLecturer(assigncertifylecturerDTO);
     }
 
     @PostMapping("/return")
