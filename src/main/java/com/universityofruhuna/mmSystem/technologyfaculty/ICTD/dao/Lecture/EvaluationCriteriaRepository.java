@@ -14,6 +14,6 @@ public interface EvaluationCriteriaRepository extends JpaRepository<EvaluationCr
     Page<EvaluationCriteriaLecture> findEvaluationCriteriaByCourseId(@RequestParam("courseId") String courseId, Pageable pageable);
 
     @Query("SELECT s FROM EvaluationCriteriaLecture s WHERE s.courseId = :courseId AND " +
-            "s.assignmentType = :assignmentType")
+            "s.assessmentType = :assignmentType")
     Page<EvaluationCriteriaLecture> findEvaluationCriteriaByByCourseIdAndAndAssignmentType(String courseId, String assignmentType,Pageable pageable);
 }

@@ -18,9 +18,9 @@ public class LevelForVC {
 
     @Column(name = "student_id")
     private String studentId;
-
-    @Column(name = "approval_level")
-    private String approvalLevel;
+//
+//    @Column(name = "approval_level")
+//    private String approvalLevel;
 
     @Column(name = "approved_year")
     private String approvalYear;
