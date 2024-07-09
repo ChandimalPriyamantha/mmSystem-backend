@@ -28,6 +28,7 @@ public class CourseCoordinatorController {
     @PostMapping("insertacc")
     public ResponseEntity insertCC(@RequestBody CourseCoordinatorDTO courseCoordinatorDTO){
         ResponseDTO insertOneCC = courseCoordinatorService.insertCC(courseCoordinatorDTO);
+        System.out.println(courseCoordinatorDTO.getSelectedLecturerIds());
         if (insertOneCC.getCode().equals(VarList.RIP_SUCCESS)){
             return new ResponseEntity(insertOneCC,HttpStatus.CREATED);
         }else {
