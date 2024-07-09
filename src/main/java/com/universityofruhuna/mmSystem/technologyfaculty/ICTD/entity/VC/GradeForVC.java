@@ -25,9 +25,12 @@ public class GradeForVC {
     @Column(name = "semester")
     private String semester;
 
-    @Column(name = "overal_score")
+    @Column(name = "overall_score")
     private String overallScore;
 
     @Column(name = "grade")
     private String grade;
+
+
+
 }
