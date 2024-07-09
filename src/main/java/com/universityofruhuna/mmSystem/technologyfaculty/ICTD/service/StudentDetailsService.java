@@ -102,17 +102,20 @@ public class StudentDetailsService {
     }
 
     public ResponseDTO updateAStudentDById(StudentDetailsDTO studentDetailsDTO){
-        StudentDetailsEntity updateOneStudentDById = mmp.map(studentDetailsDTO,StudentDetailsEntity.class);
-        try {
-            studentDetailsRepo.save(updateOneStudentDById);
-            responseDTO.setCode(VarList.RIP_SUCCESS);
-            responseDTO.setContent(studentDetailsDTO);
-            responseDTO.setMessage("The Student Details has been updated");
-        }catch (Exception e){
-            responseDTO.setCode(VarList.RIP_ERROR);
-            responseDTO.setContent(studentDetailsDTO);
-            responseDTO.setMessage(e.getMessage());
+        if (studentDetailsRepo.existsById(studentDetailsDTO.getId())){
+            try {
+                studentDetailsRepo.save(mmp.map(studentDetailsDTO,StudentDetailsEntity.class));
+                responseDTO.setCode(VarList.RIP_SUCCESS);
+                responseDTO.setContent(studentDetailsDTO);
+                responseDTO.setMessage("The Student Details has been updated");
+            }catch (Exception e){
+                responseDTO.setCode(VarList.RIP_ERROR);
+                responseDTO.setContent(studentDetailsDTO);
+                responseDTO.setMessage("can not update");
+            }
         }
+
+
         return responseDTO;
 
     }

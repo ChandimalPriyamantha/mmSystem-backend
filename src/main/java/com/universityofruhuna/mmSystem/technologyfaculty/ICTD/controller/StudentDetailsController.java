@@ -61,7 +61,7 @@ public class StudentDetailsController {
         }
     }
 
-    @PutMapping("updateastudent/{id}")
+    @PutMapping("updateastudent")
     public ResponseEntity updateAStudentDetailsById(@RequestBody StudentDetailsDTO studentDetailsDTO){
         ResponseDTO updateOneStudentDById = studentDetailsService.updateAStudentDById(studentDetailsDTO);
         if (updateOneStudentDById.getCode().equals(VarList.RIP_SUCCESS)){
