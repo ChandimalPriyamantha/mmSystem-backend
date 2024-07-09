@@ -20,4 +20,8 @@ public interface ARGradeRepo extends JpaRepository<Grade,Integer> {
             " where grade.course_id=:course_id AND grade.student_id=:student_id")
     List<Grade> findSelectedStudentGrade (String course_id, String student_id);
 
+
+    @Query(nativeQuery = true, value="SELECT grade.* FROM grade WHERE grade.course_id IN (SELECT course.course_id FROM course INNER JOIN courses_related_departments ON courses_related_departments.course_id= course.course_id WHERE course.`level`=:level AND course.semester=:semester AND courses_related_departments.department_id=:department_id) AND grade.student_id=:student_id")
+    List<Grade> getGradesForResultBoard(int level, int semester, String department_id, String student_id);     //Get list of all the grades by selected student id
+
 }
