@@ -1,6 +1,7 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.CourseCoordinatorDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.LecturerCoursRegDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.CourseCoordinatorRepo;
@@ -25,6 +26,8 @@ public class CourseCoordinatorService {
     ResponseDTO responseDTO;
     @Autowired
     CourseCoordinatorRepo courseCoordinatorRepo;
+    @Autowired
+    LecturerCourseRegService lecturerCourseRegService;
 
     public ResponseDTO getAllCCs(){
         List<CourseCoordinatorEntity> courseCoordinatorEntities = courseCoordinatorRepo.findAll();
@@ -44,6 +47,18 @@ public class CourseCoordinatorService {
         CourseCoordinatorEntity insertOneCC = modelMapper.map(courseCoordinatorDTO,CourseCoordinatorEntity.class);
         try {
             courseCoordinatorRepo.save(insertOneCC);
+            System.out.println(courseCoordinatorDTO.getSelectedLecturerIds());
+            for (String lecturer_id : courseCoordinatorDTO.getSelectedLecturerIds()){
+                    List<LecturerCoursRegDTO> list = new ArrayList<>();
+                    LecturerCoursRegDTO lecturerCoursRegDTO = new LecturerCoursRegDTO();
+                    lecturerCoursRegDTO.setCourse_id(courseCoordinatorDTO.getCourse_id());
+                    lecturerCoursRegDTO.setUser_id(lecturer_id);
+                    list.add(lecturerCoursRegDTO);
+                    lecturerCourseRegService.addLecturersToCourse(list);
+                System.out.println(lecturer_id);
+
+            }
+
             responseDTO.setCode(VarList.RIP_SUCCESS);
             responseDTO.setContent(courseCoordinatorDTO);
             responseDTO.setMessage("Course Coordinator has been inserted");
