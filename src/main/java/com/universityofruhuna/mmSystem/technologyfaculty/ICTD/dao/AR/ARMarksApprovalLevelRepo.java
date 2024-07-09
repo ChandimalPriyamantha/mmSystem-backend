@@ -9,14 +9,21 @@ import java.util.List;
 
 public interface ARMarksApprovalLevelRepo extends JpaRepository<MarksApprovalLevel,Integer> {
 
-    //This method is to find * details of mark approval level table with passing course id, student_id, approval level and approved year
-    //hello
-    @Query(value = "select * from mark_approved_level where course_id=?1 and student_id=?2 and approval_level=?3 and approved_year=?4",nativeQuery = true)
-    List<MarksApprovalLevel> getMarksApprovalLevelByAllParameters(String course_id, String student_id, String approval_level, String approved_year);
 
 
-    //This method is to update mark approval level of mark approval_level_table with passing  new_approval_level, course_id,  student_id,  old_approval_level,  approved_year
+
+    //Get * from marks Approval level table by selected level, semester, academic year, department and where approval level is not equal to provided level
+    @Query(nativeQuery = true, value="select mark_approved_level.* from mark_approved_level inner join course on mark_approved_level.course_id=course.course_id where" +
+            " course.level=:level AND course.semester=:semester AND mark_approved_level.approval_level!=:approval_level AND mark_approved_level.academic_year=:academic_year AND mark_approved_level.department_id=:department_id")
+    List<MarksApprovalLevel> getNotApprovedCoursesByLevelSemester(String level,String semester, String approval_level, String academic_year, String department_id);
+
+    //This method is to find * details of mark approval level table with passing course id and academic year
+    @Query(value = "select * from mark_approved_level where course_id=:course_id and academic_year=:academic_year ",nativeQuery = true)
+    List<MarksApprovalLevel> getMarksApprovalLevelBySelectedCourseAndAcademicYear(String course_id, String academic_year );
+
+
+    //Update approved level after result board finished
     @Modifying
-    @Query(value = "UPDATE mark_approved_level set approval_level=?1 where course_id=?2 and student_id=?3 and approval_level=?4 and approved_year=?5 ",nativeQuery = true)
-    void updateMarksApprovalLevelByAllParameters(String new_approval_level,String course_id, String student_id, String old_approval_level, String approved_year);
+    @Query (nativeQuery = true, value ="UPDATE  mark_approved_level INNER JOIN course ON course.course_id= mark_approved_level.course_id SET mark_approved_level.approval_level='RB' WHERE mark_approved_level.academic_year =:academic_year AND mark_approved_level.department_id =:department_id AND course.level =:level AND course.semester =:semester")
+    void updateApprovedLevelAfterResultBoard(String academic_year, String department_id, int level, int semester);
 }

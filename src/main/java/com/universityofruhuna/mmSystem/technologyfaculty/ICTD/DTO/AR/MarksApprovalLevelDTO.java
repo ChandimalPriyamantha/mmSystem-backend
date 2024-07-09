@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class MarksApprovalLevelDTO {
     private int approval_id;
     private String course_id;
-    private String student_id;
+    private String academic_year;
     private String approval_level;
-    private String approved_year;
+    private String department_id;
 }

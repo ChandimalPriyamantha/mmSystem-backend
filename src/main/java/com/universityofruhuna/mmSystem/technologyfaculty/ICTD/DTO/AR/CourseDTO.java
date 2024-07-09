@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class CourseDTO {
+    private int id;
     private String course_id;
     private String course_name;
     private int hours;

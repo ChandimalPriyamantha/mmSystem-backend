@@ -11,8 +11,11 @@ import lombok.NoArgsConstructor;
 public class EvaluationCriteriaDTO
 {
     private int id;
+    private String evaluationcriteria_id;
 
     private String course_id;
+
+    private String type;
 
     private String assessment_type;
 
@@ -20,7 +23,7 @@ public class EvaluationCriteriaDTO
 
     private int no_of_taken;
 
-    private int precentage;
+    private int percentage;
 
     private String description;
 }

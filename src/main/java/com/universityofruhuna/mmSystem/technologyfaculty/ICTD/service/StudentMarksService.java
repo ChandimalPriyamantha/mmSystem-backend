@@ -1,5 +1,7 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service;
 
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.CourseNameIdDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.StudentMarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.StudentMarksRepo;
@@ -24,50 +26,104 @@ public class StudentMarksService
     @Autowired
     private ModelMapper mp;
 
+    @Autowired
+    private ResponseDTO responseDTO;
 
-
-
-    public List<StudentMarksDTO>  findStudentMarksByLevelSem(String level, String sem)
+ public ResponseDTO  findStudentMarksByLevelSem(String level, String sem)
     {
 
         List<StudentMarks> markList=studentMarksRepo.findStudentMarksByLevelSemester(level,sem);
+        if(!markList.isEmpty())
+        {
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(mp.map(markList,new TypeToken<ArrayList<StudentMarksDTO>>(){}.getType()));
+            responseDTO.setMessage("Student marks found");
+        }
+        else {
+            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+            responseDTO.setContent(null);
+            responseDTO.setMessage("Student marks  not found");
+        }
 
-
-        return mp.map(markList,new TypeToken<ArrayList<StudentMarksDTO>>(){}.getType());
+        return responseDTO;
     }
 
-
-    public String editMarks(List<StudentMarksDTO> studentMarksDTO){
-      //  if (studentMarksRepo.existsById(studentMarksDTO.getId())){
-            studentMarksRepo.saveAll(mp.map(studentMarksDTO,new TypeToken<ArrayList<StudentMarks>>(){}.getType()));
-        //    return VarList.RIP_SUCCESS;
-      //  }else {
-            return VarList.RIP_NO_DATA_FOUND;
-     //   }
-
-    }
-
-
-    public List<StudentMarksDTO> getMarksforCourseById(String id) {
-
-            List<StudentMarksDTO> studentMarks =mp.map( studentMarksRepo.findCoursecodeOverallScoreByStId(id),new TypeToken<ArrayList<StudentMarksDTO>>(){}.getType());
-
-            return studentMarks;
-
-    }
-
-    public List<StudentMarksDTO> getMarksbyC(String course_id)
+    public ResponseDTO  findApprovedStudentMarksByLevelSem(String level, String sem,String approved_level,String department_id)
     {
-        return mp.map(studentMarksRepo.findMarksByCourse(course_id),new TypeToken<ArrayList<StudentMarksDTO>>(){}.getType());
 
+        List<StudentMarks> markList=studentMarksRepo.findStudentMarksByLS(level,sem,approved_level,department_id);
+        if(!markList.isEmpty())
+        {
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(mp.map(markList,new TypeToken<ArrayList<StudentMarksDTO>>(){}.getType()));
+            responseDTO.setMessage("Student marks found");
+        }
+        else {
+            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+            responseDTO.setContent(null);
+            responseDTO.setMessage("Student marks  not found");
+        }
 
+        return responseDTO;
     }
 
-    public StudentMarksDTO getMarksbySC(String course_id,String student_id)
+    public ResponseDTO getMarksforCourseById(String id) {
+
+
+            List<StudentMarks> list=studentMarksRepo.findCoursecodeOverallScoreByStId(id);
+            if(!list.isEmpty())
+            {
+                responseDTO.setCode(VarList.RIP_SUCCESS);
+                responseDTO.setContent(mp.map( list,new TypeToken<ArrayList<StudentMarksDTO>>(){}.getType()));
+                responseDTO.setMessage("Data found");
+            }
+            else
+            {
+                responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+                responseDTO.setContent(null);
+                responseDTO.setMessage("No data found");
+            }
+            return responseDTO;
+    }
+
+    public ResponseDTO getMarksbyC(String course_id)
     {
-        return mp.map(studentMarksRepo.findMarksByCS(course_id,student_id),StudentMarksDTO.class);
+        List<StudentMarks> list=studentMarksRepo.findMarksByCourse(course_id);
 
-
+        if(!list.isEmpty())
+        {
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(mp.map(list,new TypeToken<ArrayList<StudentMarksDTO>>(){}.getType()));
+            responseDTO.setMessage("Data found");
+        }
+        else
+        {
+            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+            responseDTO.setContent(null);
+            responseDTO.setMessage("No Data found");
+        }
+        return responseDTO;
     }
+
+    public ResponseDTO getMarksbySC(String course_id,String student_id)
+    {
+        StudentMarks studentMarks=studentMarksRepo.findMarksByCS(course_id,student_id);
+
+        if(studentMarks==null)
+        {
+            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+            responseDTO.setContent(null);
+            responseDTO.setMessage("No data found");
+        }
+        else
+        {
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(mp.map(studentMarks,StudentMarksDTO.class));
+            responseDTO.setMessage("Data found");
+        }
+            return responseDTO;
+    }
+
+
 
 }

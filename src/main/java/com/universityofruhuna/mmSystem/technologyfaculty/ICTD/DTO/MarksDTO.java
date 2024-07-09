@@ -14,8 +14,11 @@ public class MarksDTO {
     private String academic_year;
     private String level;
     private String semester;
-    private String Assignment_type;
-    private String Assignment_score;
+    private String assignment_name;
+    private String assignment_score;
+    private String evaluation_criteria_id;
+    private byte[] signature;
+
 
 
 }

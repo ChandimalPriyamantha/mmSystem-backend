@@ -3,11 +3,8 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.StudentMarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.StudentMarks;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.MarkSheetService;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.StudentMarksService;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,69 +29,69 @@ public class StudentMarksController
     private StudentMarksService studentMarksService;
 
     @Autowired
-    private ResponseDTO responseDTO;
+    MarkSheetService markSheetService;
+
 
     @GetMapping("/GetMarksByLS/{level},{semester}")
-    public List<StudentMarksDTO> getStudentMarksByLevelSemester(@PathVariable String level, @PathVariable String semester)
+    public ResponseEntity getStudentMarksByLevelSemester(@PathVariable String level, @PathVariable String semester)
     {
-        return studentMarksService.findStudentMarksByLevelSem(level,semester);
+        ResponseDTO response=studentMarksService.findStudentMarksByLevelSem(level,semester);
+        if(response.getCode().equals(VarList.RIP_SUCCESS))
+        {
+            return new ResponseEntity(response,HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
 
-
-
-
-    @PutMapping("/EditMarksForm")
-    public void editMarksById(@RequestBody List<StudentMarksDTO> studentMarksDTO){
-
-        studentMarksService.editMarks(studentMarksDTO);
-
-//        String Response=studentMarksService.editMarks(studentMarksDTO);
-//        if (Response.equals(VarList.RIP_SUCCESS)){
-//            responseDTO.setCode(VarList.RIP_SUCCESS);
-//            responseDTO.setMessage("Successfully Updated!");
-//            responseDTO.setContent(studentMarksDTO);
-//
-//            return new ResponseEntity(studentMarksDTO, HttpStatus.ACCEPTED);
-//
-//        }else {
-//            responseDTO.setCode(VarList.RIP_ERROR);
-//            responseDTO.setMessage("No Data Found for Update!");
-//            responseDTO.setContent(studentMarksDTO);
-//
-//            return new ResponseEntity(studentMarksDTO, HttpStatus.NOT_FOUND);
-//        }
-
-
-
+    @GetMapping("/GetApprovedMarksByLS/{level}/{semester}/{approved_level}/{department_id}")
+    public ResponseEntity GetApprovedMarksByLS(@PathVariable String level, @PathVariable String semester,@PathVariable String approved_level,@PathVariable String department_id)
+    {
+        ResponseDTO responseDTO=studentMarksService.findApprovedStudentMarksByLevelSem(level,semester,approved_level,department_id);
+        if (responseDTO.getCode().equals(VarList.RIP_SUCCESS)) {
+            return new ResponseEntity(responseDTO,HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity(responseDTO,HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/getCourseCodeOverallScoreById/{id}")
-    public List<StudentMarksDTO> getCourseCodeOverallScoreById(@PathVariable String id)
+    public ResponseEntity getCourseCodeOverallScoreById(@PathVariable String id)
     {
-        List<StudentMarksDTO> studentsMarksList=studentMarksService.getMarksforCourseById(id);
+        ResponseDTO response=studentMarksService.getMarksforCourseById(id);
 
-        return studentsMarksList;
+        if(response.getCode().equals(VarList.RIP_SUCCESS))
+        {
+            return new ResponseEntity(response,HttpStatus.OK);
+        }
+        else
+             return new ResponseEntity(response,HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/getStudentMarksbyCourse/{course_id}")
-    public List<StudentMarksDTO> getMarksByC(@PathVariable String course_id)
+    public ResponseEntity getMarksByC(@PathVariable String course_id)
     {
-        List<StudentMarksDTO> list=studentMarksService.getMarksbyC(course_id);
-        return list;
+        ResponseDTO response=studentMarksService.getMarksbyC(course_id);
+
+        if(response.getCode().equals(VarList.RIP_SUCCESS))
+        {
+            return new ResponseEntity(response,HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity(response,HttpStatus.OK);
     }
 
     @GetMapping("/getStudentMarksbySC/{course_id},{student_id}")
-    public StudentMarksDTO getMarksBySC(@PathVariable String course_id,@PathVariable String student_id)
+    public ResponseEntity getMarksBySC(@PathVariable String course_id,@PathVariable String student_id)
     {
-        StudentMarksDTO list=studentMarksService.getMarksbySC(course_id,student_id);
-        return list;
+        ResponseDTO response=studentMarksService.getMarksbySC(course_id,student_id);
+        if(response.getCode().equals(VarList.RIP_NO_DATA_FOUND))
+        {
+            return new ResponseEntity(response,HttpStatus.NOT_FOUND);
+        }
+        else
+            return new ResponseEntity(response,HttpStatus.OK);
     }
-
-
-
-
-
-
-
-
 }

@@ -1,6 +1,5 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity;
 
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Course;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +19,8 @@ public class MarksEntity {
     private String academic_year;
     private String level;
     private String semester;
-    private String Assignment_type;
-    private String Assignment_score;
+    private String assignment_name;
+    private String assignment_score;
+    private String evaluation_criteria_id;
 
 }

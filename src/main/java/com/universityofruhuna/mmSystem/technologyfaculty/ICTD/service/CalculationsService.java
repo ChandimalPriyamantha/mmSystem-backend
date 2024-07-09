@@ -1,7 +1,10 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.CalculationsDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.CalculationsRepo;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.Calculations;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -21,8 +24,48 @@ public class CalculationsService
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<CalculationsDTO> getMarksCalculations(String course_id)
+
+    @Autowired
+    private ResponseDTO responseDTO;
+
+
+
+    public ResponseDTO getMarksCalculations(String course_id)
     {
-        return modelMapper.map(calculationsRepo.getCalculationresults(course_id),new TypeToken<ArrayList<CalculationsDTO>>(){}.getType());
+        List<Calculations> calculations=calculationsRepo.getCalculationresults(course_id);
+
+        if(calculations.isEmpty())
+        {
+            responseDTO.setMessage("Not Calculated");
+            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+            responseDTO.setContent(calculations);
+        }
+        else
+        {
+            responseDTO.setMessage("Successfull");
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(modelMapper.map(calculations,new TypeToken<ArrayList<CalculationsDTO>>(){}.getType()));
+        }
+        return responseDTO;
+    }
+
+    public ResponseDTO getMarksCalculations(String course_id,String student_id)
+    {
+        List<Calculations> calculations=calculationsRepo.getCalculationresults(course_id,student_id);
+
+        if(calculations.isEmpty())
+        {
+            responseDTO.setMessage("Not Calculated");
+            responseDTO.setCode(VarList.RIP_NO_DATA_FOUND);
+            responseDTO.setContent(calculations);
+        }
+        else
+        {
+            responseDTO.setMessage("Successfull");
+            responseDTO.setCode(VarList.RIP_SUCCESS);
+            responseDTO.setContent(modelMapper.map(calculations,new TypeToken<ArrayList<CalculationsDTO>>(){}.getType()));
+        }
+        return responseDTO;
+
     }
 }

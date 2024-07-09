@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface EvaluationCriteriaRepo extends JpaRepository<EvaluationCriteria,Integer>
 {
-    @Query(nativeQuery = true , value = "select * from evaluationcrieteria where course_id=:course_id")
+
+    @Query(nativeQuery = true , value = "select * from evaluationcriteria where course_id=:course_id")
     public List<EvaluationCriteria> getEvaluationCriteria(@Param( "course_id")String course_id);
 }
