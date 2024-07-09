@@ -150,6 +150,17 @@ public class CourseController {
 
     }
 
+    @GetMapping("/getCoursesforLectCertify/{lecturer_id}")
+    public ResponseEntity getCoursesforLectCertify(@PathVariable  String lecturer_id){
+
+        ResponseDTO responseDTO = courseService.getCoursesforLectCertify(lecturer_id);
+        if (responseDTO.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(responseDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(responseDTO, HttpStatus.OK);
+        }
+    }
+
     @GetMapping("getccregcourses/{user_name}")
     public ResponseEntity getCCRegCoursesBy(@PathVariable String user_name){
         ResponseDTO getcsforcc = courseService.getAllRegCourseForCC(user_name);
