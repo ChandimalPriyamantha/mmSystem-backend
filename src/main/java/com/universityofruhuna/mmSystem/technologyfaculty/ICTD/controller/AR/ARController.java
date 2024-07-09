@@ -5,6 +5,7 @@ import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.AcademicYearDetails;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Grade;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.ResultBoardMember;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR.ARService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,9 +40,18 @@ public class ARController {
          */
     }
 
-    @GetMapping("/GetAllCoursesBySelectedDepartmentLevelSemester/{department_id}/{level}/{semester}/{academic_year}")
-    public List<CourseDTO> GetAllCoursesBySelectedDepartmentLevelSemester(@PathVariable String department_id, @PathVariable String level, @PathVariable String semester, @PathVariable String academic_year){
-        return arService.GetAllCoursesBySelectedDepartmentLevelSemester(department_id,level,semester,academic_year);
+    @GetMapping("/getCourseListRemainingToAddToResultBoard/{level}/{semester}/{department_id}/{result_board_id}")           //Get all course details of selected department by level and semester
+    public List<CourseDTO> getCourseListRemainingToAddToResultBoard (@PathVariable int level, @PathVariable int semester, @PathVariable String department_id, @PathVariable int result_board_id) {
+
+        return arService.getCourseListRemainingToAddToResultBoard(level, semester, department_id, result_board_id);
+
+
+        /*Usage
+
+            ResultsBoardMarksSheetAssign
+
+         */
+
     }
 
     /*---------------------------------------------------------------------------------------- Controller for course table ----------------------------END-------------*/
@@ -134,13 +144,18 @@ public class ARController {
          */
     }
 
+    @GetMapping("/isABStudentAvailable/{academic_year}/{semester}/{level}/{department_id}")      //Check whether there are any absence students in the selected department, selected level, selected semester, selected academic year for end or mid
+    public boolean isABStudentAvailable(@PathVariable String academic_year, @PathVariable String semester, @PathVariable String level, @PathVariable String department_id){
+        boolean abStudentList= arService.isABStudentAvailable(academic_year, semester, level, department_id);
+        return abStudentList;
+
+        /*Usage
+            CreateResultsBoard
+         */
+    }
 
 
-//    @GetMapping("/findAllStudentMarksRemainingToApprove/{approval_level}/{course_id}")
-//    public List<MarksDTO> findAllStudentMarksRemainingToApprove(@PathVariable String approval_level, @PathVariable String course_id){
-//        List<MarksDTO> joinedData=arService.findAllStudentMarksRemainingToApprove(approval_level,course_id);
-//        return joinedData;
-//    }
+
     /*---------------------------------------------------------------------------------------- Controller for marks table ----------------------------END-------------*/
 
 
@@ -190,12 +205,13 @@ public class ARController {
     /*---------------------------------------------------------------------------------------- Controller for approval table ----------------------------START-------------*/
 
 
-    @GetMapping("/getNotApprovedCoursesByLevelSemester/{level}/{semester}/{approval_level}/{academic_year}")            //Get * from marks Approval level table by selected level, semester, academic year and where approval level is not equal to provided level
-    public List<MarksApprovalLevelDTO> getNotApprovedCoursesByLevelSemester(@PathVariable String level,@PathVariable String semester, @PathVariable String approval_level, @PathVariable String academic_year){
-        return arService.getNotApprovedCoursesByLevelSemester(level,semester, approval_level, academic_year);
+    @GetMapping("/getNotApprovedCoursesByLevelSemester/{level}/{semester}/{approval_level}/{academic_year}/{department_id}")            //Get * from marks Approval level table by selected level, semester, academic year and where approval level is not equal to provided level
+    public List<MarksApprovalLevelDTO> getNotApprovedCoursesByLevelSemester(@PathVariable String level,@PathVariable String semester, @PathVariable String approval_level, @PathVariable String academic_year, @PathVariable String department_id){
+        return arService.getNotApprovedCoursesByLevelSemester(level,semester, approval_level, academic_year, department_id);
 
         /*Usage
             CertifyMarksPage
+            CreateResultsBoard
          */
     }
 
@@ -206,6 +222,16 @@ public class ARController {
 
         /*Usage
             ViewMarksTableValidation
+         */
+    }
+
+
+    @PutMapping("/updateApprovedLevelAfterResultBoard")
+    public void updateApprovedLevelAfterResultBoard(@RequestBody ResultBoardDTO resultBoardDTO){
+        arService.updateApprovedLevelAfterResultBoard(resultBoardDTO.getAcademic_year(), resultBoardDTO.getDepartment(), resultBoardDTO.getLevel(), resultBoardDTO.getSemester());
+
+        /*Usage
+            ResultBoardMarksSheetAssign
          */
     }
 
@@ -265,5 +291,148 @@ public class ARController {
 
 
     /*---------------------------------------------------------------------------------------- Controller for User table ----------------------------END-------------*/
+
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Controller for result board table ----------------------------START-------------*/
+    @GetMapping("/isResultBoardAvailable/{department}/{level}/{semester}/{academic_year}")                  //Get result board availability
+    public boolean isResultBoardAvailable(@PathVariable String department,@PathVariable String level,@PathVariable String semester,@PathVariable String academic_year){
+        return arService.isResultBoardAvailable(department, level, semester, academic_year);
+
+        /*Usage
+            CreateResultBoard
+         */
+    }
+
+    @GetMapping("/getCreatedResultBoardList")                  //Get created result board list
+    public List<ResultBoardDTO> getCreatedResultBoardList(){
+        return arService.getCreatedResultBoardList();
+
+        /*Usage
+            CreateResultBoard
+         */
+    }
+
+    @GetMapping("/getFinishedResultBoardList")                  //Get finished result board list
+    public List<ResultBoardDTO> getFinishedResultBoardList(){
+        return arService.getFinishedResultBoardList();
+
+        /*Usage
+            CertifyMarksPage
+         */
+    }
+
+    @PostMapping("/saveResultBoard")                //Save result board
+    public void saveResultBoard(@RequestBody ResultBoardDTO resultBoardDTO){
+        arService.saveResultBoard(resultBoardDTO);
+
+        /*Usage
+            CreateResultBoard
+         */
+    }
+
+    @GetMapping("/getResultBoardDetailsByID/{result_board_id}")                //Get result board details by result board id
+    public ResultBoardDTO getResultBoardDetailsByID(@PathVariable int result_board_id){
+        return arService.getResultBoardDetailsByID(result_board_id);
+
+        /*Usage
+            ResultsBoardMarksSheetAssign
+        */
+    }
+
+    @DeleteMapping("/deleteResultBoardById/{result_board_id}")                //Delete result board
+    public boolean deleteResultBoardById(@PathVariable int result_board_id){
+        return arService.deleteResultBoardById(result_board_id);
+
+        /*Usage
+            CreateResultBoard
+        */
+    }
+
+    @DeleteMapping("/deleteNotStartedResultBoard/{id}")                //Delete result board with relevant member records
+    public int deleteNotStartedResultBoard(@PathVariable int id){
+        return arService.deleteNotStartedResultBoard(id);
+
+        /*Usage
+            ResultsBoardMarksSheetAssign
+        */
+    }
+
+
+    @GetMapping("/getCertifyPendingResultBoards/{approval_level}/{status}")                //Get result board details where AR can certify (Available for AR certification)
+    public List<ResultBoardDTO> getCertifyPendingResultBoards(@PathVariable String approval_level, @PathVariable String status){
+        return arService.getCertifyPendingResultBoards(approval_level, status);
+
+        /*Usage
+            CertifyMarksPage
+        */
+    }
+
+
+    /*---------------------------------------------------------------------------------------- Controller for result board table ----------------------------END-------------*/
+
+
+
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for result board member table ----------------------------START-------------*/
+
+    @PostMapping("/saveResultBoardMember")
+    public boolean saveResultBoardMember(@RequestBody ResultBoardMemberDTO resultBoardMemberDTO){         //Save result board member
+        return arService.saveResultBoardMember(resultBoardMemberDTO);
+
+
+        /*Usage
+            ResultBoardMarksSheetAssign
+        */
+    }
+
+
+    @GetMapping("/getAssignedMarksSheetsByResultBoardID/{result_board_id}")                //Get all assigned marks sheets by result board id
+    public List<Object> getAssignedMarksSheetsByResultBoardID(@PathVariable int result_board_id){
+        return arService.getAssignedMarksSheetsByResultBoardID(result_board_id);
+
+        /*Usage
+            ResultBoardMarksSheetAssign
+        */
+    }
+
+
+    @GetMapping("/getAssignedMarksSheetsByExaminerIdAndResultBoardID/{result_board_id}/{course_coordinator_id}")                //Get all assigned marks sheets by result board id and course coordinator id
+    public List<Object> getAssignedMarksSheetsByExaminerIdAndResultBoardID(@PathVariable int result_board_id, @PathVariable String course_coordinator_id){
+        return arService.getAssignedMarksSheetsByExaminerIdAndResultBoardID(result_board_id, course_coordinator_id);
+
+        /*Usage
+            ResultBoardMarksSheetAssign
+        */
+    }
+
+
+    @DeleteMapping("/deleteResultBoardMemberById/{result_board_member_id}")                //Delete result board member
+    public boolean deleteResultBoardMemberById(@PathVariable int result_board_member_id){
+        return arService.deleteResultBoardMemberById(result_board_member_id);
+
+        /*Usage
+            ResultBoardMarksSheetAssign
+        */
+    }
+
+    @DeleteMapping("/deleteAssignedMarksSheetsByResultBoardID/{result_board_id}")
+    public int deleteAssignedMarksSheetsByResultBoardID(@PathVariable int result_board_id){
+        return arService.deleteAssignedMarksSheetsByResultBoardID(result_board_id);
+
+        /*Usage
+            ResultBoardMarksSheetAssign
+        */
+
+    }
+
+    /*---------------------------------------------------------------------------------------- Service for result board member table ----------------------------END-------------*/
 
 }
