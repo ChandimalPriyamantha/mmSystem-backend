@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -29,9 +30,13 @@ public class ARService {
     @Autowired
     private ARMedicalRepo arMedicalRepo;
     @Autowired
-    ARAcademicYearDetailsRepo arAcademicYearDetailsRepo;
+    private ARAcademicYearDetailsRepo arAcademicYearDetailsRepo;
     @Autowired
-    ARUserRepo arUserRepo;
+    private ARUserRepo arUserRepo;
+    @Autowired
+    private ARResultBoardRepo arResultBoardRepo;
+    @Autowired
+    private ARResultBoardMemberRepo arResultBoardMemberRepo;
     @Autowired
     private ModelMapper mp;
 
@@ -77,6 +82,12 @@ public class ARService {
 
         return arMarksRepo.updateStudentScore(updateABDTO.getNew_score(), updateABDTO.getStudent_id(), updateABDTO.getCourse_id(), updateABDTO.getAcademic_year(), updateABDTO.getExam_type());
 
+    }
+
+    public boolean isABStudentAvailable(String academic_year, String semester, String level, String department_id ){        //Check whether there are any absence students in the selected department, selected level, selected semester, selected academic year for end or mid
+        List<MarksEntity> abStudentList = arMarksRepo.isABStudentAvailable(academic_year, semester, level, department_id);
+
+        return (!abStudentList.isEmpty());
     }
 
 
@@ -128,10 +139,12 @@ public class ARService {
         return mp.map(courseList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
     }
 
-    public List<CourseDTO> GetAllCoursesBySelectedDepartmentLevelSemester(String department_id, String level, String semester,String academic_year){         //Get all courses details of a selected department and level, semester.
-        List<Course> courseList= arCourseRepo.GetAllCoursesBySelectedDepartmentLevelSemester(department_id,level,semester,academic_year);
-    return mp.map(courseList, new TypeToken<ArrayList<CourseDTO>>(){}.getType());
+    public List<CourseDTO> getCourseListRemainingToAddToResultBoard(int level, int semester, String department_id, int result_board_id){      //Get all the courses not added to the result board
+        List<Course> courseList= arCourseRepo.getCourseListRemainingToAddToResultBoard(level, semester, department_id, result_board_id);
+        return mp.map(courseList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
+
     }
+
     /*---------------------------------------------------------------------------------------- Service for course table ----------------------------END-------------*/
 
 
@@ -144,10 +157,10 @@ public class ARService {
 
     /*---------------------------------------------------------------------------------------- Service for approve level table ----------------------------START-------------*/
 
-    public List<MarksApprovalLevelDTO> getNotApprovedCoursesByLevelSemester(String level,String semester, String approval_level, String academic_year){         //Get * from marks Approval level table by selected level, semester, academic year and where approval level is not equal to provided level
+    public List<MarksApprovalLevelDTO> getNotApprovedCoursesByLevelSemester(String level,String semester, String approval_level, String academic_year, String department_id){         //Get * from marks Approval level table by selected level, semester, academic year and where approval level is not equal to provided level
 
 
-        List<MarksApprovalLevel> notApprovedList=arMarksApprovalLevelRepo.getNotApprovedCoursesByLevelSemester( level,semester, approval_level, academic_year);
+        List<MarksApprovalLevel> notApprovedList=arMarksApprovalLevelRepo.getNotApprovedCoursesByLevelSemester( level,semester, approval_level, academic_year, department_id);
         return  mp.map(notApprovedList,new TypeToken<ArrayList<MarksApprovalLevelDTO>>(){}.getType());
 
     }
@@ -155,6 +168,11 @@ public class ARService {
     public List<MarksApprovalLevelDTO> getMarksApprovalLevelBySelectedCourseAndAcademicYear(String course_id, String academic_year ){           //Get * from marks Approval level table by selected level, semester, academic year and where approval level is not equal to provided level
         List<MarksApprovalLevel> list = arMarksApprovalLevelRepo.getMarksApprovalLevelBySelectedCourseAndAcademicYear(course_id,academic_year);
         return mp.map(list,new TypeToken<ArrayList<MarksApprovalLevelDTO>>(){}.getType());
+    }
+
+
+    public void updateApprovedLevelAfterResultBoard(String academic_year, String department_id, int level, int semester){         //Update approved level after result board finished
+        arMarksApprovalLevelRepo.updateApprovedLevelAfterResultBoard(academic_year, department_id, level, semester);
     }
 
     /*---------------------------------------------------------------------------------------- Service for approve level table ----------------------------END-------------*/
@@ -207,6 +225,125 @@ public class ARService {
 
 
     /*---------------------------------------------------------------------------------------- Service for User table ----------------------------END-------------*/
+
+
+
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for result board table ----------------------------START-------------*/
+
+    public boolean isResultBoardAvailable(String department, String level, String semester, String academic_year) {            //Get result board availability
+        List<ResultBoard> resultBoard= arResultBoardRepo.isResultBoardAvailable(department,level,semester,academic_year);
+        return (!resultBoard.isEmpty());
+
+
+    }
+
+    public List<ResultBoardDTO> getCreatedResultBoardList(){          //Get Not started result board list
+        List<ResultBoard> resultBoardList = arResultBoardRepo.getCreatedResultBoardList();
+        return mp.map(resultBoardList,new TypeToken<ArrayList<ResultBoardDTO>>(){}.getType());
+    }
+
+    public List<ResultBoardDTO> getFinishedResultBoardList(){          //Get finished result board list
+        List<ResultBoard> resultBoardList = arResultBoardRepo.getFinishedResultBoardList();
+        return mp.map(resultBoardList,new TypeToken<ArrayList<ResultBoardDTO>>(){}.getType());
+    }
+
+    public void saveResultBoard(ResultBoardDTO resultBoardDTO){         //Save result board
+        ResultBoard resultBoard = mp.map(resultBoardDTO, ResultBoard.class);
+        arResultBoardRepo.save(resultBoard);
+    }
+
+    public ResultBoardDTO getResultBoardDetailsByID(int id){         //Get result board details by id
+
+        if(arResultBoardRepo.existsById(id)) {
+
+            Optional<ResultBoard> resultBoard= arResultBoardRepo.findById(id);
+            return mp.map(resultBoard, ResultBoardDTO.class);
+        }else{
+            return null;
+        }
+
+    }
+
+
+    public boolean deleteResultBoardById(int id){         //Delete result board
+        if(arResultBoardRepo.existsById(id)) {
+            arResultBoardRepo.deleteById(id);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public int deleteNotStartedResultBoard(int id){         //Delete result board with relevant member records
+         return arResultBoardRepo.deleteNotStartedResultBoard(id);
+    }
+
+
+    public List<ResultBoardDTO> getCertifyPendingResultBoards(String approval_level, String status){          //Get result board details where AR can certify (Available for AR certification)
+        List<ResultBoard> resultBoardList = arResultBoardRepo.getCertifyPendingResultBoards(approval_level, status);
+        return mp.map(resultBoardList,new TypeToken<ArrayList<ResultBoardDTO>>(){}.getType());
+    }
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for result board table ----------------------------END-------------*/
+
+
+
+
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for result board member table ----------------------------START-------------*/
+
+    public boolean saveResultBoardMember(ResultBoardMemberDTO resultBoardMemberDTO){         //Save result board member
+        ResultBoardMember resultBoardMember = mp.map(resultBoardMemberDTO, ResultBoardMember.class);
+        if(arResultBoardMemberRepo.existsById(resultBoardMember.getId())){
+           return false;
+        }else{
+            arResultBoardMemberRepo.save(resultBoardMember);
+            return true;
+        }
+    }
+
+
+    public List<Object> getAssignedMarksSheetsByResultBoardID(int result_board_id){        //Get all assigned marks sheets by result board id
+        List<Object> resultBoardMemberList = arResultBoardMemberRepo.getAssignedMarksSheetsByResultBoardID(result_board_id);
+        return resultBoardMemberList;
+    }
+
+    public List<Object> getAssignedMarksSheetsByExaminerIdAndResultBoardID(int result_board_id, String course_coordinator_id){        //Get all assigned marks sheets by result board id and course coordinator id
+        return arResultBoardMemberRepo.getAssignedMarksSheetsByExaminerIdAndResultBoardID(result_board_id, course_coordinator_id);
+
+    }
+
+
+    public boolean deleteResultBoardMemberById(int id){         //Delete result board member
+         if(arResultBoardMemberRepo.existsById(id)) {
+             arResultBoardMemberRepo.deleteById(id);
+             return true;
+         }else{
+             return false;
+         }
+    }
+
+    public int deleteAssignedMarksSheetsByResultBoardID(int result_board_id){         //Delete all assigned marks sheets by result board id
+        return arResultBoardMemberRepo.deleteAssignedMarksSheetsByResultBoardID(result_board_id);
+    }
+
+
+
+    /*---------------------------------------------------------------------------------------- Service for result board member table ----------------------------END-------------*/
+
+
+
+
+
 
 
 

@@ -51,4 +51,8 @@ public interface ArMarksRepo extends JpaRepository<MarksEntity,Integer> {
     @Query(nativeQuery = true,value = "select marks.* from marks inner join evaluationcriteria on marks.evaluation_criteria_id= evaluationcriteria.evaluationcriteria_id where marks.student_id=:student_id AND marks.course_id=:course_id AND marks.academic_year=:academic_year AND evaluationcriteria.assessment_type=:exam_type")
     List <MarksEntity> getSelectedStudentSelectedExamMarksBySelectedCourseAndSelectedAcademicYear(String student_id, String course_id, String academic_year, String exam_type);
 
+
+    //Check whether there are any absence students in the selected department, selected level, selected semester, selected academic year for end or mid
+    @Query(nativeQuery = true, value="select marks.* from ((marks inner join courses_related_departments on marks.course_id=courses_related_departments.course_id) inner join evaluationcriteria on marks.evaluation_criteria_id = evaluationcriteria.evaluationcriteria_id) where marks.academic_year=:academic_year AND marks.semester=:semester AND marks.level=:level AND courses_related_departments.department_id=:department_id AND marks.assignment_score='AB' AND (evaluationcriteria.assessment_type='End theory exam' OR evaluationcriteria.assessment_type='End practical exam' OR evaluationcriteria.assessment_type='Mid theory exam' OR evaluationcriteria.assessment_type='Mid practical exam')")
+    List<MarksEntity> isABStudentAvailable(String academic_year, String semester, String level, String department_id );
 }
