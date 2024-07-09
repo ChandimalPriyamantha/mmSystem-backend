@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 public class StudentRegCourses
 {
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Id
     private String student_id;
