@@ -27,6 +27,7 @@ public class CalculationsController
     private CalculationsService calculationsService;
 
     @GetMapping("/getMarksCalculation/{course_id}")
+
     public ResponseEntity getMarkCalculations(@PathVariable String course_id)
     {
         ResponseDTO list=calculationsService.getMarksCalculations(course_id);
@@ -49,6 +50,7 @@ public class CalculationsController
         else
             return new ResponseEntity(list.getContent(),HttpStatus.OK);
     }
+
 
 
 }

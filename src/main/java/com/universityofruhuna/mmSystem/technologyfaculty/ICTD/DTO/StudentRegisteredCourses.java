@@ -7,11 +7,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class LecturerCoursRegDTO
+public class StudentRegisteredCourses
 {
     private int id;
-
-    private String user_id;
-
+    private String student_id;
     private String course_id;
+    private String academic_year;
 }

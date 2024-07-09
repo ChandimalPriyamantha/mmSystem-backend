@@ -1,18 +1,22 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller.AR;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.AR.*;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.GPADTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MarksDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.AcademicYearDetails;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Grade;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.ResultBoardMember;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.GPA;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.AR.ARService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin("http://localhost:3000")
@@ -195,7 +199,32 @@ public class ARController {
          */
     }
 
+
+    @GetMapping("/getGradesForResultBoard/{level}/{semester}/{department_id}/{academic_year}")     //Get list of all the grades by selected student id
+    public List<GradeDTO> getGradesForResultBoard(@PathVariable int level, @PathVariable int semester, @PathVariable String department_id, @PathVariable String academic_year){
+        return arService.getGradesForResultBoard(level, semester, department_id, academic_year);
+
+        /*Usage
+            CreateResultBoard
+         */
+    }
+
     /*---------------------------------------------------------------------------------------- Controller for grade table ----------------------------END-------------*/
+
+
+    /*---------------------------------------------------------------------------------------- Controller for Gpa table ----------------------------START-------------*/
+
+    @GetMapping("/getGpaListForResultBoard/{department_id}/{academic_year}/{level}/{semester}")     //Get list of all the GPAs for result board ar view
+    public List<GPADTO> getGpaListForResultBoard(@PathVariable String department_id, @PathVariable String academic_year, @PathVariable int level, @PathVariable int semester){
+        return arService.getGpaListForResultBoard(department_id, academic_year, level, semester);
+
+        /*Usage
+            CreateResultBoard
+         */
+    }
+
+
+    /*---------------------------------------------------------------------------------------- Controller for Gpa table ----------------------------END-------------*/
 
 
 

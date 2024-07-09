@@ -1,7 +1,9 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.controller;
 
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.MedicalDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.ResponseDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.StudentRegCoursesDTO;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.StudentRegisteredCourses;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.MarkSheetService;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service.StudentRegCoursesServices;
@@ -59,6 +61,28 @@ public class StudentRegistedCourseController
 
 
 
+    }
+
+
+
+    @GetMapping("getallRegisteredStudents")
+    public ResponseEntity<ResponseDTO> getallRegisteredStudents(){
+        ResponseDTO allStudents = studentRegCoursesServices.getStudents();
+        if (allStudents.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity<>(allStudents, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(allStudents,HttpStatus.NOT_FOUND);
+        }
+    }
+    @PostMapping("insert_allRegisteredStudents")
+    public ResponseEntity insert_allRegisteredStudents(@RequestBody List<StudentRegisteredCourses> list){
+        ResponseDTO AllStudents = studentRegCoursesServices.insertAllStudents(list);
+        if (AllStudents.getCode().equals(VarList.RIP_SUCCESS)){
+            return new ResponseEntity(AllStudents,HttpStatus.CREATED);
+
+        }else{
+            return new ResponseEntity(AllStudents,HttpStatus.BAD_REQUEST);
+        }
     }
 
 

@@ -33,4 +33,7 @@ public class EvaluationCriteriaLecture {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "evaluationcriteria_id")
+    private String evaluationCriteriaId;
 }
