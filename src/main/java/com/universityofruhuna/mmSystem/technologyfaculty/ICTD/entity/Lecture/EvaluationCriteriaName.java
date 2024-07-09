@@ -20,6 +20,7 @@ public class EvaluationCriteriaName {
     @Column(name = "assignment_name")
     private String assignmentName;
 
-
+    @Column(name = "evaluationcriteria_id")
+    private String evaluationCriteriaId;
 
 }

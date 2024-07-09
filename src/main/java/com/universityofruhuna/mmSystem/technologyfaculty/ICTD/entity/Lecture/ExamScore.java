@@ -36,6 +36,6 @@ public class ExamScore {
     @Column(name = "semester")
     private String semester;
 
-    @Column(name = "assignment_name")
-    private String assignmentName;
+    @Column(name = "evaluationcriteria_id")
+    private String evaluationCriteriaId;
 }
