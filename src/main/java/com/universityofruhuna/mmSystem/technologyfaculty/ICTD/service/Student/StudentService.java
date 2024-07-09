@@ -125,8 +125,8 @@ public class StudentService {
     }
 
 
-    public List<GradeDTO> getSelectedStudentGrade(String student_id) {     //Get list of all the grades by selected student id
-        return mp.map(studentGradeRepo.getSelectedStudentGrade(student_id), new TypeToken<ArrayList<GradeDTO>>(){}.getType());
+    public List<GradeDTO> getSelectedStudentGrade(int level, int semester, String department_id, String student_id) {     //Get list of all the grades by selected student id
+        return mp.map(studentGradeRepo.getSelectedStudentGrade(level, semester, department_id, student_id), new TypeToken<ArrayList<GradeDTO>>(){}.getType());
     }
 
 

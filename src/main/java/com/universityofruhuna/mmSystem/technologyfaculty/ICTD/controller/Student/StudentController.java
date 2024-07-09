@@ -169,9 +169,9 @@ public class StudentController {
         */
     }
 
-    @GetMapping("/getSelectedStudentGrade/{student_id}")
-    public List<GradeDTO> getSelectedStudentGrade(@PathVariable String student_id) {     //Get list of all the grades by selected student id
-        return studentService.getSelectedStudentGrade(student_id);
+    @GetMapping("/getSelectedStudentGrade/{level}/{semester}/{department_id}/{student_id}")
+    public List<GradeDTO> getSelectedStudentGrade(@PathVariable int level, @PathVariable int semester, @PathVariable String department_id, @PathVariable String student_id) {     //Get list of all the grades by selected student id
+        return studentService.getSelectedStudentGrade(level,semester,department_id,student_id);
 
         /* Usage
             StudentViewGrade
