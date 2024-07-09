@@ -24,6 +24,7 @@ public class CalculationsService
     @Autowired
     private ModelMapper modelMapper;
 
+
     @Autowired
     private ResponseDTO responseDTO;
 
@@ -65,5 +66,6 @@ public class CalculationsService
             responseDTO.setContent(modelMapper.map(calculations,new TypeToken<ArrayList<CalculationsDTO>>(){}.getType()));
         }
         return responseDTO;
+
     }
 }

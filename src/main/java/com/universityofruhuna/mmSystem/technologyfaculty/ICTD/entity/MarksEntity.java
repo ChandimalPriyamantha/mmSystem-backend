@@ -23,6 +23,4 @@ public class MarksEntity {
     private String assignment_score;
     private String evaluation_criteria_id;
 
-
-
 }

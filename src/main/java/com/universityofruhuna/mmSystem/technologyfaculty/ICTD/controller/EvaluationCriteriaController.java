@@ -39,5 +39,6 @@ public class EvaluationCriteriaController
         ResponseDTO evCriteria = evaluationCriteriaService.insertEvCriteria(evaluationCriteriaDTOList);
         if (evCriteria.getCode().equals(VarList.RIP_SUCCESS)) return new ResponseEntity(evCriteria,HttpStatus.CREATED);
         else return new ResponseEntity(evCriteria,HttpStatus.BAD_REQUEST);
+
     }
 }

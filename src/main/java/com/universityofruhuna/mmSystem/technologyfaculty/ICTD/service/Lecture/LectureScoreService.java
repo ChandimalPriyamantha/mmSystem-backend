@@ -40,7 +40,7 @@ public class LectureScoreService {
         examScore.setAssignmentScore(addScoreRequest.getAssignmentScore());
         examScore.setLevel(addScoreRequest.getLevel());
         examScore.setSemester(addScoreRequest.getSemester());
-        examScore.setAssignmentName(addScoreRequest.getAssignmentName());
+        examScore.setEvaluationCriteriaId(addScoreRequest.getEvaluationCriteriaId());
         // save record in mark table
         examScoreRepository.save(examScore);
 
@@ -67,7 +67,7 @@ public class LectureScoreService {
                 examScore.setSemester(fields[4]);
                 examScore.setAssignmentType(fields[5]);
                 examScore.setAssignmentScore(fields[6]);
-                examScore.setAssignmentName(fields[7]);
+                examScore.setEvaluationCriteriaId(fields[7]);
 
                 // Add the ExamScore object to the list
                 csvRecords.add(examScore);

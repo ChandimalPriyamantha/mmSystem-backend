@@ -13,6 +13,6 @@ public class AddScoreRequest {
     private String assignmentScore;
     private String level;
     private String semester;
-    private String assignmentName;
+    private String evaluationCriteriaId;
 
 }
