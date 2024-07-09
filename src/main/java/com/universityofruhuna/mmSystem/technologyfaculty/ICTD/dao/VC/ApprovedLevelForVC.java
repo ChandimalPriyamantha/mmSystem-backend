@@ -9,8 +9,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface ApprovedLevelForVC extends JpaRepository<LevelForVC,Integer> {
 
-
-        @Query("SELECT l FROM LevelForVC l WHERE l.approvalLevel = 'HOD'")
-        Page<LevelForVC> findByApprovalLevelHOD(Pageable pageable);
+//
+//        @Query("SELECT l FROM LevelForVC l WHERE l.approvalLevel = 'HOD'")
+//        Page<LevelForVC> findByApprovalLevelHOD(Pageable pageable);
 
 }

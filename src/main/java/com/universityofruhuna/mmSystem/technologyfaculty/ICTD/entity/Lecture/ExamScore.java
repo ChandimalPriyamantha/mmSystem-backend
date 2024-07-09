@@ -24,7 +24,7 @@ public class ExamScore {
     @Column(name="academic_year")
     private String year;
 
-    @Column(name="assignment_type")
+    @Column(name="assignment_name")
     private String assignmentType;
 
     @Column(name="assignment_score")
@@ -36,6 +36,6 @@ public class ExamScore {
     @Column(name = "semester")
     private String semester;
 
-    @Column(name = "evaluationcriteria_id")
+    @Column(name = "evaluation_criteria_id")
     private String evaluationCriteriaId;
 }
