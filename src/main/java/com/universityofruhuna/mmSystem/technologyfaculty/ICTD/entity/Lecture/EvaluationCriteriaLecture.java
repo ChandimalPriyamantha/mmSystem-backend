@@ -19,8 +19,8 @@ public class EvaluationCriteriaLecture {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "assignment_type")
-    private String assignmentType;
+    @Column(name = "assessment_type")
+    private String assessmentType;
 
     @Column(name = "no_of_conducted")
     private String noOfConducted;
