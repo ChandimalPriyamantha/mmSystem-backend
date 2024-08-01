@@ -18,6 +18,8 @@ public class StudentData
 
     private String student_name;
 
+    private String course_id;
+
     private List<ObjectDTO> ca;
 
     private String total_ca_mark;

@@ -29,4 +29,11 @@ public class MarksheetController
     {
         return markSheetService.getData(course_id);
     }
+
+    @PutMapping("updateMarks")
+    public void updateStudentMarks(@RequestBody StudentData studentData)
+    {
+        System.out.println("Came here 1");
+        markSheetService.updateEndMarks(studentData);
+    }
 }

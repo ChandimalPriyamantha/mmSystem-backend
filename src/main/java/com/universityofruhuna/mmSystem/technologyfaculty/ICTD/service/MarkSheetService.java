@@ -1,12 +1,10 @@
 package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.service;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.*;
-import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.Util.VarList;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.*;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.*;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -149,6 +147,7 @@ public class MarkSheetService
                 StudentData newstudent = new StudentData();
                 newstudent.setStudent_id(student.getStudent_id());
                 newstudent.setStudent_name(studentDetails.getName_with_initials());
+                newstudent.setCourse_id(course_id);
                 newstudent.setCa(caMarks);
                 newstudent.setEnd(endMarks);
 
@@ -175,6 +174,26 @@ public class MarkSheetService
             }
 
             return list;
+        }
+
+        public void updateEndMarks(StudentData studentData)
+        {
+            System.out.println("Came here 2");
+            try
+            {
+                for (ObjectDTO object:studentData.getEnd()) {
+                    if(object.getDescription().equals("score"))
+                    {
+                        System.out.println("Came here 3");
+                        marksRepo.updateEndMarks(object.getValue(),studentData.getStudent_id(),studentData.getCourse_id(),object.getKey());
+                        System.out.println("Came here 3");
+                    }
+                }
+            }catch (Exception e)
+            {
+                System.out.println(e.getMessage());
+            }
+
         }
 
     }

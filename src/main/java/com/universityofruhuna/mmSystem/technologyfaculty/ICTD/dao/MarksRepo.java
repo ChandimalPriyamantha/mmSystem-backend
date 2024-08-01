@@ -2,6 +2,7 @@ package com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao;
 
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.MarksEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -19,5 +20,9 @@ public interface MarksRepo extends JpaRepository<MarksEntity,Integer> {
 
     @Query(nativeQuery = true, value = "select * from marks where course_id=:course_id and student_id=:student_id")
     List<MarksEntity> getScoreByStuIDCourseID(@Param("course_id") String course_id,@Param("student_id") String student_id);
+
+    @Modifying
+    @Query(nativeQuery = true, value = "update marks set assignment_score=:value where student_id=:student_id and course_id=:course_id and assignment_name=:key")
+    void updateEndMarks(@Param("value")String value,@Param("student_id")String student_id,@Param("course_id")String course_id,@Param("key")String key);
 
 }
