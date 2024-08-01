@@ -58,6 +58,16 @@ public class ARController {
 
     }
 
+    @GetMapping("/getCourseDetailsForMarkSheet/{level}/{semester}/{department_id}/{academic_year}")           //Get all course details of selected department by level and semester
+    public List<CourseDTO> getCourseDetailsForMarkSheet (@PathVariable int level, @PathVariable int semester, @PathVariable String department_id, @PathVariable String academic_year) {
+
+        return arService.getCourseDetailsForMarkSheet(level, semester, department_id, academic_year);
+
+
+        /*Usage
+            ARJoinResultBoard
+         */
+    }
     /*---------------------------------------------------------------------------------------- Controller for course table ----------------------------END-------------*/
 
 
