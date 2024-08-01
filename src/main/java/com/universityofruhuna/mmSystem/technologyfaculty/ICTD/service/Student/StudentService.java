@@ -9,6 +9,7 @@ import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.GPADTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.StudentDetailsDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.GPARepo;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.Student.*;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.ResultBoard;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -141,6 +142,12 @@ public class StudentService {
         return mp.map(studentResultBoardRepo.getPublishedMarkSheets(approval_level, status,department_id,level,semester), ResultBoardDTO.class);
     }
 
+
+
+    public List<ResultBoardDTO> getPublishedMarksSheetList(String approval_level, String status){          //Get published marks sheet list
+        List<ResultBoard> resultBoardList = studentResultBoardRepo.getPublishedMarksSheetList(approval_level, status);
+        return mp.map(resultBoardList,new TypeToken<ArrayList<ResultBoardDTO>>(){}.getType());
+    }
 
     /*---------------------------------------------------------------------------------------- Service for result_board table ----------------------------END-------------*/
 
