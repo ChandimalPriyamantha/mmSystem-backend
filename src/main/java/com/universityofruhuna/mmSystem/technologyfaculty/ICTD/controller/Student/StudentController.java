@@ -124,9 +124,24 @@ public class StudentController {
         return studentService.getStudentLevelAndSemester(student_id);
 
         /* Usage
-            StudentHomePage / PublishedMarksListPage
+            StudentHomePage
         */
     }
+
+
+    @GetMapping("/getCourseDetailsForPublishedMarkSheet/{level}/{semester}/{department_id}/{academic_year}")           //Get all course details for mark sheet view by selected department, level, semester and academic year
+    public List<CourseDTO> getCourseDetailsForPublishedMarkSheet (@PathVariable int level, @PathVariable int semester, @PathVariable String department_id, @PathVariable String academic_year) {
+
+        return studentService.getCourseDetailsForPublishedMarkSheet(level, semester, department_id, academic_year);
+
+
+        /*Usage
+            StudentMarkSheetView
+         */
+    }
+
+
+
 
 
     /*---------------------------------------------------------------------------------------- Controller for course table ----------------------------END-------------*/
@@ -169,13 +184,23 @@ public class StudentController {
         */
     }
 
-    @GetMapping("/getSelectedStudentGrade/{level}/{semester}/{department_id}/{student_id}")
-    public List<GradeDTO> getSelectedStudentGrade(@PathVariable int level, @PathVariable int semester, @PathVariable String department_id, @PathVariable String student_id) {     //Get list of all the grades by selected student id
-        return studentService.getSelectedStudentGrade(level,semester,department_id,student_id);
+//    @GetMapping("/getSelectedStudentGrade/{level}/{semester}/{department_id}/{student_id}")
+//    public List<GradeDTO> getSelectedStudentGrade(@PathVariable int level, @PathVariable int semester, @PathVariable String department_id, @PathVariable String student_id) {     //Get list of all the grades by selected student id
+//        return studentService.getSelectedStudentGrade(level,semester,department_id,student_id);
+//
+//        /* Usage
+//            HomePageStudent
+//        */
+//    }
 
-        /* Usage
-            StudentViewGrade
-        */
+
+    @GetMapping("/getGradesForPublishedMarksSheet/{level}/{semester}/{department_id}/{academic_year}")     //Get list of all the grades by selected student id
+    public List<GradeDTO> getGradesForPublishedMarksSheet(@PathVariable int level, @PathVariable int semester, @PathVariable String department_id, @PathVariable String academic_year){
+        return studentService.getGradesForPublishedMarksSheet(level, semester, department_id, academic_year);
+
+        /*Usage
+            StudentMarkSheetView
+         */
     }
 
     /*---------------------------------------------------------------------------------------- Controller for Grade table ----------------------------END-------------*/
@@ -187,14 +212,25 @@ public class StudentController {
 
     /*---------------------------------------------------------------------------------------- Controller for result_board table ----------------------------START-------------*/
 
-    @GetMapping("/getPublishedMarkSheets/{approval_level}/{status}/{department_id}/{level}/{semester}")
-    public ResultBoardDTO getPublishedMarkSheets(@PathVariable String approval_level, @PathVariable String status, @PathVariable String department_id, @PathVariable String level, @PathVariable String semester) {      //Get  published marks sheet for student current level, semester and department
-        return studentService.getPublishedMarkSheets(approval_level, status,department_id,level,semester);
+//    @GetMapping("/getPublishedMarkSheets/{approval_level}/{status}/{department_id}/{level}/{semester}")
+//    public ResultBoardDTO getPublishedMarkSheets(@PathVariable String approval_level, @PathVariable String status, @PathVariable String department_id, @PathVariable String level, @PathVariable String semester) {      //Get  published marks sheet for student current level, semester and department
+//        return studentService.getPublishedMarkSheets(approval_level, status,department_id,level,semester);
+//
+//        /* Usage
+//            StudentHomePage
+//        */
+//    }
 
-        /* Usage
-            StudentHomePage
+
+    @GetMapping("/getPublishedMarksSheetList/{approval_level}/{status}")            //Get published mark sheet list
+    public List<ResultBoardDTO> getPublishedMarksSheetList(@PathVariable String approval_level, @PathVariable String status){
+        return studentService.getPublishedMarksSheetList(approval_level, status);
+
+        /*Usage
+            HomePageStudent
         */
     }
+
 
 
     /*---------------------------------------------------------------------------------------- Controller for result_board table ----------------------------END-------------*/
@@ -212,6 +248,15 @@ public class StudentController {
         /* Usage
             StudentHomePage
         */
+    }
+
+    @GetMapping("/getGpaListForPublishedMarksSheet/{department_id}/{academic_year}/{level}/{semester}")     //Get list of all the GPAs for result board ar view
+    public List<GPADTO> getGpaListForPublishedMarksSheet(@PathVariable String department_id, @PathVariable String academic_year, @PathVariable int level, @PathVariable int semester){
+        return studentService.getGpaListForPublishedMarksSheet(department_id, academic_year, level, semester);
+
+        /*Usage
+            StudentMarkSheetView
+         */
     }
 
 

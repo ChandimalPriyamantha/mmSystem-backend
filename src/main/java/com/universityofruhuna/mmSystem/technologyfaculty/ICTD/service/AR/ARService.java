@@ -168,6 +168,12 @@ public class ARService {
 
     }
 
+    public List<CourseDTO> getCourseDetailsForMarkSheet(int level, int semester, String department_id, String academic_year){      //Get all the courses not added to the result board
+        List<Course> courseList= arCourseRepo.getCourseDetailsForMarkSheet(level, semester, department_id, academic_year);
+        return mp.map(courseList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
+
+    }
+
     /*---------------------------------------------------------------------------------------- Service for course table ----------------------------END-------------*/
 
 

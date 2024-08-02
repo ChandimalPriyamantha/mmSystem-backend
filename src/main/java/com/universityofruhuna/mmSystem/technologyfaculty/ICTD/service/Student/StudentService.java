@@ -9,6 +9,10 @@ import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.GPADTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.DTO.StudentDetailsDTO;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.GPARepo;
 import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.dao.Student.*;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Course;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.Grade;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.AR.ResultBoard;
+import com.universityofruhuna.mmSystem.technologyfaculty.ICTD.entity.GPA;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -93,6 +97,12 @@ public class StudentService {
     }
 
 
+    public List<CourseDTO> getCourseDetailsForPublishedMarkSheet(int level, int semester, String department_id, String academic_year){      //Get all course details for mark sheet view by selected department, level, semester and academic year
+        List<Course> courseList= studentCourseRepo.getCourseDetailsForPublishedMarkSheet(level, semester, department_id, academic_year);
+        return mp.map(courseList,new TypeToken<ArrayList<CourseDTO>>(){}.getType());
+
+    }
+
 
 
     /*---------------------------------------------------------------------------------------- Service for course table ----------------------------END-------------*/
@@ -130,6 +140,13 @@ public class StudentService {
     }
 
 
+    public List<GradeDTO> getGradesForPublishedMarksSheet(int level, int semester, String department_id, String academic_year){          //Get list of all the grades by selected student id
+        List<Grade> gradeList = studentGradeRepo.getGradesForPublishedMarksSheet(level, semester, department_id, academic_year);
+        return mp.map(gradeList,new TypeToken<ArrayList<GradeDTO>>(){}.getType());
+
+    }
+
+
     /*---------------------------------------------------------------------------------------- Service for Grade table ----------------------------END-------------*/
 
 
@@ -142,6 +159,12 @@ public class StudentService {
     }
 
 
+
+    public List<ResultBoardDTO> getPublishedMarksSheetList(String approval_level, String status){          //Get published marks sheet list
+        List<ResultBoard> resultBoardList = studentResultBoardRepo.getPublishedMarksSheetList(approval_level, status);
+        return mp.map(resultBoardList,new TypeToken<ArrayList<ResultBoardDTO>>(){}.getType());
+    }
+
     /*---------------------------------------------------------------------------------------- Service for result_board table ----------------------------END-------------*/
 
 
@@ -151,6 +174,12 @@ public class StudentService {
     /*---------------------------------------------------------------------------------------- Service for GPA table ----------------------------START-------------*/
     public GPADTO getLatestGPA(String student_id) {     //Get latest GPA by selected student id
         return mp.map(studentGPARepo.getLatestGPA(student_id), GPADTO.class);
+    }
+
+
+    public List<GPADTO> getGpaListForPublishedMarksSheet(String department_id, String academic_year, int level, int semester){        //Get list of all the GPAs for result board ar view
+        List<GPA> gpaList= studentGPARepo.getGpaListForPublishedMarksSheet(department_id, academic_year, level, semester);
+        return mp.map(gpaList,new TypeToken<ArrayList<GPADTO>>(){}.getType());
     }
 
 
