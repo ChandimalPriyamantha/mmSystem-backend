@@ -124,9 +124,24 @@ public class StudentController {
         return studentService.getStudentLevelAndSemester(student_id);
 
         /* Usage
-            StudentHomePage / PublishedMarksListPage
+            StudentHomePage
         */
     }
+
+
+    @GetMapping("/getCourseDetailsForPublishedMarkSheet/{level}/{semester}/{department_id}/{academic_year}")           //Get all course details for mark sheet view by selected department, level, semester and academic year
+    public List<CourseDTO> getCourseDetailsForPublishedMarkSheet (@PathVariable int level, @PathVariable int semester, @PathVariable String department_id, @PathVariable String academic_year) {
+
+        return studentService.getCourseDetailsForPublishedMarkSheet(level, semester, department_id, academic_year);
+
+
+        /*Usage
+            StudentMarkSheetView
+         */
+    }
+
+
+
 
 
     /*---------------------------------------------------------------------------------------- Controller for course table ----------------------------END-------------*/
@@ -178,6 +193,16 @@ public class StudentController {
 //        */
 //    }
 
+
+    @GetMapping("/getGradesForPublishedMarksSheet/{level}/{semester}/{department_id}/{academic_year}")     //Get list of all the grades by selected student id
+    public List<GradeDTO> getGradesForPublishedMarksSheet(@PathVariable int level, @PathVariable int semester, @PathVariable String department_id, @PathVariable String academic_year){
+        return studentService.getGradesForPublishedMarksSheet(level, semester, department_id, academic_year);
+
+        /*Usage
+            StudentMarkSheetView
+         */
+    }
+
     /*---------------------------------------------------------------------------------------- Controller for Grade table ----------------------------END-------------*/
 
 
@@ -223,6 +248,15 @@ public class StudentController {
         /* Usage
             StudentHomePage
         */
+    }
+
+    @GetMapping("/getGpaListForPublishedMarksSheet/{department_id}/{academic_year}/{level}/{semester}")     //Get list of all the GPAs for result board ar view
+    public List<GPADTO> getGpaListForPublishedMarksSheet(@PathVariable String department_id, @PathVariable String academic_year, @PathVariable int level, @PathVariable int semester){
+        return studentService.getGpaListForPublishedMarksSheet(department_id, academic_year, level, semester);
+
+        /*Usage
+            StudentMarkSheetView
+         */
     }
 
 
